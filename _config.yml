@@ -3,10 +3,10 @@ permalink: /blog/:year/:month/:day/:title.html
 title: Infer
 tagline: 在发布前，检测 Android 和 iOS 应用的问题
 fbappid: "1615782811974223"
-gacode: "UA-44373548-7"
+gacode: "UA-43024238-10"
 description: 
 baseurl: "" # the subpath of your site, e.g. /blog/
-url: "http://infer.test.srain.in" # the base hostname & protocol for your site
+url: "" # the base hostname & protocol for your site
 ghrepo: "facebook/infer"
 
 # Build settings
