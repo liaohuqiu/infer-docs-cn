@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+	<meta property="og:url" content="http://infer.test.srain.in/docs/adding-models.html" />
+	<meta property="og:site_name" content="Infer"/>
+	<meta property="og:title" content="Adding models" />
+	<meta property="og:image" content="http://infer.test.srain.in/static/og_image.png" />
+	<meta property="og:description" content="" />
+
+  <link rel="stylesheet" type="text/css" media="screen" href="/css/main.css">
+	<link rel="stylesheet" type="text/css" href="//cloud.typography.com/7491092/701726/css/fonts.css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/styles/default.min.css">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+  <link rel="icon" href="static/favicon.png" type="image/x-icon">
+  
+  <base href="http://infer.test.srain.in/" />
+  
+  <script src="/static/react-with-addons-0.13.1.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/highlight.min.js"></script>
+
+  <title>Adding models</title>
+  <meta name="description" content="">
+
+  <link rel="canonical" href="http://infer.test.srain.in/docs/adding-models.html">
+  <link rel="alternate" type="application/rss+xml" title="Infer" href="http://infer.test.srain.in/feed.xml" />
+</head>
+
+  <body>    
+    <div id="fixed_header" class="fixedHeaderContainer visible">
+  <header>
+    <a href="http://infer.test.srain.in"><img src="/static/logo.png" /><h2>Infer</h2></a>
+    <div class="navigationWrapper navigationFull" id="flat_nav">
+      <nav class="navigation">
+        <ul>
+          
+          <li class="navItem navItemActive">
+            <a href=docs/getting-started.html>文档</a>
+          </li>
+          
+          <li class="navItem ">
+            <a href=support.html>帮助和支持</a>
+          </li>
+          
+          <li class="navItem ">
+            <a href=blog/>博客</a>
+          </li>
+          
+          <li class="navItem ">
+            <a href=http://github.com/facebook/infer>Github</a>
+          </li>
+          
+        </ul>
+      </nav>
+    </div>
+    <div class="navigationWrapper navigationSlider" id="navigation_wrap"></div>
+  </header>
+  <script>
+    var event = document.createEvent('Event');
+    event.initEvent('slide', true, true);
+    document.addEventListener('slide', function (e) {
+      document.body.classList.toggle('sliderActive');
+    }, false);
+    var navData = [
+      
+      {
+        href       : "docs/getting-started.html",
+        text       : "文档",
+      },
+      
+      {
+        href       : "support.html",
+        text       : "帮助和支持",
+      },
+      
+      {
+        href       : "blog/",
+        text       : "博客",
+      },
+      
+      {
+        href       : "http://github.com/facebook/infer",
+        text       : "Github",
+      },
+      
+    ];
+  </script>
+  <script type="text/javascript">  
+    var Nav = React.createClass({displayName: "Nav",
+      getInitialState: function() {
+        return {
+          currentPath: window.location.pathname,
+          slideoutActive: false,
+        };
+      },
+      getDefaultProps: function() {
+        return {
+          data: navData,
+        }
+      },
+      handleClick: function(id) {
+        this.setState({
+          slideoutActive: false,
+        });
+        document.dispatchEvent(event);
+      },
+      handleSlide: function(id) {
+        this.setState({
+          slideoutActive: !this.state.slideoutActive,
+        });
+        document.dispatchEvent(event);
+      },
+      render: function() {
+        var classes = React.addons.classSet({
+          'navSlideout': true,
+          'navSlideoutActive': this.state.slideoutActive,
+        });
+        var navClasses = React.addons.classSet({
+          'slidingNav': true,
+          'slidingNavActive': this.state.slideoutActive,
+        });
+        return (
+          React.createElement("div", null, 
+            React.createElement("div", {className: classes, onClick: this.handleSlide}, 
+              React.createElement("i", {className: "fa fa-bars"})
+            ), 
+            React.createElement("nav", {className: navClasses}, 
+              React.createElement("ul", null, 
+                this.props.data.map(this.renderNavItems)
+              )
+            )
+          )
+        );
+      },
+      renderNavItems: function(child, index) {
+        var classes = React.addons.classSet({
+          'navItem': true,
+          'navItemActive': this.state.currentPath === child.href,
+        });
+        return (
+          React.createElement("li", {key: index, className: classes}, 
+            React.createElement("a", {onClick: this.handleClick, href: child.href}, child.text)
+          )
+        );
+      },
+    });
+
+    function render(navData) {
+      React.render(
+        React.createElement(Nav, {data: navData}),
+        document.getElementById('navigation_wrap')
+      );
+    }
+    render(navData);
+  </script>
+</div>
+
+    <div class="navPusher">
+      <div class="mainContainer blogContainer postContainer">
+  <div id="main_wrap" class="wrapper mainWrapper">
+    <div>
+</div>
+<nav class='toc' id="doc_nav"></nav>
+<script>
+  var docnavData = [
+    
+    {
+      group     : "开始使用",
+      items     : [
+        
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/getting-started.html",
+          title : "开始使用",
+          url : "/docs/getting-started.html",
+        },
+        
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/hello-world.html",
+          title : "Hello, World!",
+          url : "/docs/hello-world.html",
+        }
+        
+      ],
+    },
+    
+    {
+      group     : "用户使用参考",
+      items     : [
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/infer-workflow.html",
+          title : "Infer 的工作机制",
+          url : "/docs/infer-workflow.html",
+        },
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/analyzing-apps-or-projects.html",
+          title : "Analyzing apps or projects",
+          url : "/docs/analyzing-apps-or-projects.html",
+        },
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/checkers.html",
+          title : "Infer : Checkers",
+          url : "/docs/checkers.html",
+        },
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/eradicate.html",
+          title : "Infer : Eradicate",
+          url : "/docs/eradicate.html",
+        },
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/install-from-source.html",
+          title : "Install from source",
+          url : "/docs/install-from-source.html",
+        },
+        
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/advanced-features.html",
+          title : "Advanced usage",
+          url : "/docs/advanced-features.html",
+        },
+        
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/adding-models.html",
+          title : "Adding models",
+          url : "/docs/adding-models.html",
+        }
+        
+      ],
+    },
+    
+    {
+      group     : "Foundations",
+      items     : [
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/about-Infer.html",
+          title : "About Infer",
+          url : "/docs/about-Infer.html",
+        },
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/separation-logic-and-bi-abduction.html",
+          title : "Separation logic and bi-abduction",
+          url : "/docs/separation-logic-and-bi-abduction.html",
+        },
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/limitations.html",
+          title : "Limitations, etc",
+          url : "/docs/limitations.html",
+        }
+        
+      ],
+    },
+    
+    {
+      group     : "Bug 类型参考",
+      items     : [
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+        {
+          key : "/docs/infer-bug-types.html",
+          title : "Infer bug types",
+          url : "/docs/infer-bug-types.html",
+        },
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/checkers-bug-types.html",
+          title : "Checkers bug types",
+          url : "/docs/checkers-bug-types.html",
+        },
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+        {
+          key : "/docs/eradicate-warnings.html",
+          title : "Eradicate warnings",
+          url : "/docs/eradicate-warnings.html",
+        }
+        
+      ],
+    },
+    
+  ];
+</script>
+<script type="text/javascript">  
+  var DocNav = React.createClass({displayName: "DocNav",
+    getInitialState: function() {
+      return {
+        toggleActive: false,
+      };
+    },
+    getDefaultProps: function() {
+      return {
+        currentDoc: "Adding models",
+        currentGroup: "User Guide",
+        data: docnavData,
+      }
+    },
+    handleSlide: function(id) {
+      this.setState({
+        toggleActive: !this.state.toggleActive,
+      });
+    },
+    render: function() {
+      var classes = React.addons.classSet({
+        'navToggle': true,
+        'navToggleActive': this.state.toggleActive,
+      });
+      var navClasses = React.addons.classSet({
+        'toggleNav': true,
+        'toggleNavActive': this.state.toggleActive,
+      });
+      return (
+        React.createElement("div", {className: navClasses}, 
+          React.createElement("section", null, 
+            this.props.data.map(this.renderNavGroups)
+          ), 
+          React.createElement("div", {className: classes, onClick: this.handleSlide}, React.createElement("i", {className: "fa fa-chevron-circle-down"}))
+        )
+      );
+    },
+    renderNavGroups: function(child, index) {
+      var classes = React.addons.classSet({
+        'navGroup': true,
+        'navGroupActive': this.props.currentGroup === child.group,
+      });
+      return (
+        React.createElement("div", {className: classes, key: index}, 
+          React.createElement("h3", null, child.group), 
+          React.createElement("ul", null, 
+            child.items.map(this.renderNavItems)
+          )
+        )
+      );
+    },
+    renderNavItems: function(child, index) {
+      var itemClasses = React.addons.classSet({
+        'navListItem': true,
+        'navListItemActive': this.props.currentDoc === child.title,
+      });
+      var classes = React.addons.classSet({
+        'navItem': true,
+        'navItemActive': this.props.currentDoc === child.title,
+      });
+      return (
+        React.createElement("li", {className: itemClasses, key: index}, React.createElement("a", {className: classes, href: child.url},  child.title))
+      );
+    },
+  });
+
+  function docNavRender(docnavData) {
+    React.render(
+      React.createElement(DocNav, {data: docnavData}),
+      document.getElementById('doc_nav')
+    );
+  }
+  docNavRender(docnavData);
+</script>
+    <div class="post">
+  <header class="post-header">
+    <h1 class="post-title">Adding models</h1>
+  </header>
+
+  <article class="post-content">
+   
+      <h2 id="why-do-we-need-models">Why do we need models</h2>
+
+<p>When analyzing projects with call dependencies between functions, Infer follows the call graph to decide in which order analyze these functions. The main goal is to use the analysis summary of a function wherever this function is called. On the following example:</p>
+<div class="highlight"><pre><code class="language-C" data-lang="C"><span class="kt">int</span> <span class="nf">foo</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;</span> <span class="mi">42</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">x</span><span class="p">;</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">bar</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="n">foo</span><span class="p">(</span><span class="mi">24</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">baz</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="n">foo</span><span class="p">(</span><span class="mi">54</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Infer starts with the analysis on <code>foo</code> and detect that this function either returns <code>0</code> if the argument is greater than or equal to <code>42</code>, or returns the value of the argument otherwise. With this information, Infer detects that <code>bar</code> always returns <code>24</code> and <code>baz</code> always returns <code>0</code>.</p>
+
+<p>Now, it may happen that the code of some function is not available during the analysis. For example, this happens when a project uses pre-compiled libraries. The most typical case is the use of the standard library like in the following example:</p>
+<div class="highlight"><pre><code class="language-C" data-lang="C"><span class="cp">#include &lt;stdlib.h&gt;</span>
+
+<span class="kt">int</span><span class="o">*</span> <span class="nf">create</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">p</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="k">return</span> <span class="n">p</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">assign</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="o">*</span><span class="n">p</span><span class="p">)</span> <span class="p">{</span>
+  <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span><span class="o">*</span> <span class="nf">my_function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="n">create</span><span class="p">();</span>
+  <span class="n">assign</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="n">p</span><span class="p">);</span>
+  <span class="k">return</span> <span class="n">p</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Here, Infer will start with the analysis of <code>create</code> but will not find the source code for <code>malloc</code>. To deal with this situation, Infer relies on models of the missing functions to proceed with the analysis. The function <code>malloc</code> is internally modeled as either returning <code>NULL</code>, or returning a valid and allocated pointer. Similarly, the function <code>exit</code> is modeled as terminating the execution. Using these two models, Infer detects that <code>create</code> always returns an allocated pointer and that <code>my_function</code> is safe.</p>
+
+<p>At this point, it is important to note that missing source code and missing models do not make the analysis fail. Missing functions are treated as having no effect. However, even though skipping these missing functions is fine in most cases, there can be cases where it affects the quality of the analysis. For example, missing models can lead to incorrect bug reports.</p>
+
+<p>Consider the case of a function <code>lib_exit</code> having the same semantic as <code>exit</code> but defined in an pre-compiled library not part of the project being analyzed:</p>
+<div class="highlight"><pre><code class="language-C" data-lang="C"><span class="kt">void</span> <span class="nf">lib_exit</span><span class="p">(</span><span class="kt">int</span><span class="p">);</span>
+
+<span class="kt">int</span><span class="o">*</span> <span class="nf">create</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">p</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="n">lib_exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="k">return</span> <span class="n">p</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>In this case, Infer will not be able to know that the return statement is only possible in the case where <code>p</code> is not null. When analyzing <code>my_function</code>, Infer will consider the null case and report a null dereference error in the call to <code>assign(42, p)</code>.</p>
+
+<p>Similarly, considering a function <code>lib_alloc</code> equivalent to <code>malloc</code>, and the function <code>create</code> now defined as:</p>
+<div class="highlight"><pre><code class="language-C" data-lang="C"><span class="kt">int</span><span class="o">*</span> <span class="nf">lib_alloc</span><span class="p">(</span><span class="kt">int</span><span class="p">);</span>
+
+<span class="kt">int</span><span class="o">*</span> <span class="nf">create</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="n">lib_alloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
+  <span class="k">return</span> <span class="n">p</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Then Infer will not report any null dereference in <code>my_function</code>.</p>
+
+<h2 id="examples-of-models">Examples of models</h2>
+
+<h3 id="some-models-for-c">Some models for C</h3>
+
+<p>Adding new models is easy. The models for C can be found in <a href="https://github.com/facebook/infer/tree/master/infer/models/c/src"><code>infer/models/c/src/</code></a>. The file <a href="https://github.com/facebook/infer/blob/master/infer/models/c/src/libc_basic.c"><code>libc_basic.c</code></a> contains models for some of the most commonly encountered functions from the C standard library. For example, the function <code>xmalloc</code>, which is essentially the same function as <code>create</code> defined above, is modeled by:</p>
+<div class="highlight"><pre><code class="language-C" data-lang="C"><span class="kt">void</span> <span class="o">*</span><span class="nf">xmalloc</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">size</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kt">void</span> <span class="o">*</span><span class="n">ret</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="n">size</span><span class="p">);</span>
+  <span class="n">INFER_EXCLUDE_CONDITION</span><span class="p">(</span><span class="n">ret</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">);</span>
+  <span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The function <code>xmalloc</code> is modeled using <code>malloc</code> to create an allocated object and the macro <code>INFER_EXCLUDE_CONDITION</code> used to eliminate the case where <code>malloc</code> can return null. The list of helper functions and macros for writing models can be found in <a href="https://github.com/facebook/infer/blob/master/infer/models/c/src/infer_builtins.c"><code>infer_builtins.c</code></a>.</p>
+
+<p>For a slightly more complex example, <code>realloc</code> is modeled as:</p>
+<div class="highlight"><pre><code class="language-C" data-lang="C"><span class="kt">void</span> <span class="o">*</span><span class="nf">realloc</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="n">ptr</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">size</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">ptr</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// if ptr in NULL, behave as malloc</span>
+    <span class="k">return</span> <span class="n">malloc</span><span class="p">(</span><span class="n">size</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="kt">int</span> <span class="n">old_size</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">can_enlarge</span><span class="p">;</span>
+  <span class="n">old_size</span> <span class="o">=</span> <span class="n">__get_array_size</span><span class="p">(</span><span class="n">ptr</span><span class="p">);</span> <span class="c1">// force ptr to be an array</span>
+  <span class="n">can_enlarge</span> <span class="o">=</span> <span class="n">__infer_nondet_int</span><span class="p">();</span> <span class="c1">// nondeterministically choose whether the current block can be enlarged</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">can_enlarge</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">__set_array_size</span><span class="p">(</span><span class="n">ptr</span><span class="p">,</span> <span class="n">size</span><span class="p">);</span> <span class="c1">// enlarge the block</span>
+    <span class="k">return</span> <span class="n">ptr</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="kt">int</span> <span class="o">*</span><span class="n">newblock</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="n">size</span><span class="p">);</span>
+  <span class="k">if</span><span class="p">(</span><span class="n">newblock</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">free</span><span class="p">(</span><span class="n">ptr</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">newblock</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">else</span> <span class="p">{</span> <span class="c1">// if new allocation fails, do not free the old block</span>
+    <span class="k">return</span> <span class="n">newblock</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>This model is based on existing models for <code>malloc</code> and <code>free</code> and three helper functions:</p>
+
+<ul>
+<li><code>__get_array_size(ptr)</code> which allows to manipulate with a model what Infer knows about the size of the allocated memory</li>
+<li><code>__set_array_size(ptr, size)</code> to modify the information about the size of the allocated memory</li>
+<li><code>__infer_nondet_int()</code> to create a variable which can have any possible integer value</li>
+</ul>
+
+<h3 id="for-java">For Java</h3>
+
+<p>The models for Java are following the same approach and the list of helper functions is in:</p>
+
+<p><a href="https://github.com/facebook/infer/blob/master/infer/models/java/src/com/facebook/infer/models/InferBuiltins.java"><code>infer/models/java/src/com/facebook/infer/models/InferBuiltins.java</code></a>
+  <a href="https://github.com/facebook/infer/blob/master/infer/models/java/src/com/facebook/infer/models/InferUndefined.java"><code>infer/models/java/src/com/facebook/infer/models/InferUndefined.java</code></a></p>
+
+<p>For example, Infer treats Java hash maps using a recency abstraction model: Infer remembers the last two keys being added by <code>put</code> and checked by <code>containsKey</code>, which can be used to make sure that no null pointer exceptions are coming from the fact that <code>get(key)</code> returns null when <code>key</code> is not not in the map. This behavior can just be implemented via a model written in Java with the help of few helper functions understood by Infer. These models can be found in:</p>
+
+<p><a href="https://github.com/facebook/infer/blob/master/infer/models/java/src/java/util/HashMap.java"><code>infer/models/java/src/java/util/HashMap.java</code></a></p>
+
+<p>and just rely on these two methods:</p>
+
+<ul>
+<li><code>InferUndefined.boolean_undefined()</code> to create a non-deterministic choice</li>
+<li><code>(V)InferUndefined.object_undefined()</code> to create a non null undefined object of type <code>V</code></li>
+</ul>
+
+<h2 id="how-to-add-new-models">How to add new models</h2>
+
+<p>Let&#39;s look at a toy example in Java. As explained above, models for C, Objective-C and Java are all following the same approach.</p>
+<div class="highlight"><pre><code class="language-Java" data-lang="Java"><span class="kn">import</span> <span class="nn">lib.Server</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Test</span> <span class="o">{</span>
+
+  <span class="kd">enum</span> <span class="n">Status</span> <span class="o">{</span>
+    <span class="n">SUCCESS</span><span class="o">,</span> <span class="n">FAILURE</span><span class="o">,</span> <span class="n">PING_FAILURE</span><span class="o">,</span> <span class="n">CONNECTION_FAILURE</span>
+  <span class="o">}</span>
+
+  <span class="n">Status</span> <span class="nf">convertStatus</span><span class="o">(</span><span class="n">Server</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">switch</span> <span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">getStatus</span><span class="o">())</span> <span class="o">{</span>
+    <span class="k">case</span> <span class="mi">0</span><span class="o">:</span>
+      <span class="k">return</span> <span class="n">Status</span><span class="o">.</span><span class="na">SUCCESS</span><span class="o">;</span>
+    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+      <span class="k">return</span> <span class="n">Status</span><span class="o">.</span><span class="na">FAILURE</span><span class="o">;</span>
+    <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+      <span class="k">return</span> <span class="n">Status</span><span class="o">.</span><span class="na">FAILURE</span><span class="o">;</span>
+    <span class="k">default</span><span class="o">:</span> <span class="c1">// should not happen</span>
+      <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+
+  <span class="n">String</span> <span class="nf">statusName</span><span class="o">(</span><span class="n">Server</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">Status</span> <span class="n">status</span> <span class="o">=</span> <span class="n">convertStatus</span><span class="o">(</span><span class="n">s</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">status</span><span class="o">.</span><span class="na">name</span><span class="o">();</span>
+  <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div>
+<p>Assuming that the class <code>lib.Server</code> is part of a pre-compiled library, Infer will report a null pointer exception in <code>statusName</code>. This happens whenever <code>s.getStatus()</code> returns a value greater that <code>3</code>, in which case the default branch of the switch statement is taken and <code>convertStatus</code> returns <code>null</code>. However, we know from the documentation that the method <code>lib.Server.getStatus</code> can only return <code>0</code>, <code>1</code>, or <code>2</code>. A possible approach would be to use an assertion like the Guava <code>Preconditions.checkState</code> to inform Infer about the invariant:</p>
+<div class="highlight"><pre><code class="language-Java" data-lang="Java"><span class="n">Status</span> <span class="nf">convertStatus</span><span class="o">(</span><span class="n">Server</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
+  <span class="kt">int</span> <span class="n">serverStatus</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="na">getStatus</span><span class="o">();</span>
+  <span class="n">Preconditions</span><span class="o">.</span><span class="na">checkState</span><span class="o">(</span><span class="n">serverStatus</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">serverStatus</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="o">);</span>
+  <span class="k">switch</span> <span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">getStatus</span><span class="o">())</span> <span class="o">{</span>
+    <span class="o">...</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+<p>However, in the case where adding preconditions is not possible, we can then write a model for <code>getStatus()</code> in order to make the analysis more precise.</p>
+
+<p>To create a model for <code>getStatus()</code>, we need to add a class with the name and the same package as for the original method. In this example:</p>
+
+<ul>
+<li><p>create a file <code>infer/models/java/src/infer/models/Server.java</code> with the following content:</p>
+<div class="highlight"><pre><code class="language-Java" data-lang="Java"><span class="kn">package</span> <span class="n">infer</span><span class="o">.</span><span class="na">models</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.facebook.infer.models.InferBuiltins</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.facebook.infer.models.InferUndefined</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Server</span> <span class="o">{</span>
+
+  <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getStatus</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">status</span> <span class="o">=</span> <span class="n">InferUndefined</span><span class="o">.</span><span class="na">int_undefined</span><span class="o">();</span>
+    <span class="n">InferBuiltins</span><span class="o">.</span><span class="na">assume</span><span class="o">(</span><span class="n">status</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">status</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">status</span><span class="o">;</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></li>
+<li><p>recompile infer:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">make -C infer
+</code></pre></div></li>
+<li><p>run the analysis again:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">infer -- javac Test.java
+</code></pre></div></li>
+</ul>
+
+<p>Now it should no longer report a null pointer exception.</p>
+
+    
+  </article>
+  
+
+
+  
+  
+  
+    
+  
+    
+  
+
+  
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      
+      
+    
+  
+
+  
+  
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+  
+    
+  
+    
+  
+    
+  
+
+
+  <div class="docPagination">
+    
+    
+    
+    
+      
+    
+    
+      
+    
+    
+    
+    <div class="pager pagingPrevious"><a href="/docs/advanced-features.html">&lsaquo; <span class="pagerLabel">Previous</span><span class="pagerTitle">Advanced usage</span></a></div>
+    
+    
+      
+    <div class="pager pagingNext"><a href="/docs/about-Infer.html"><span class="pagerTitle">About Infer</span><span class="pagerLabel">Next</span> &rsaquo;</a></div>
+    
+  </div>
+
+</div>
+  </div>
+</div>
+
+
+      <div class="footerContainer">
+  <div id="footer_wrap" class="wrapper footerWrapper">
+    <section id="fb_oss" class="fbOpenSourceFooter">
+      <a href="https://code.facebook.com/projects/" target="_blank"><img src="/static/oss_logo.png" alt="Facebook Open Source" title="Facebook Open Source" /></a>
+    </section>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </div>
+</div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44373548-7', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+    </div>
+  </body>
+
+</html>

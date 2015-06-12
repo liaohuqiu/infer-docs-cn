@@ -1,12 +1,331 @@
----
-id: blog 
-title: Blog
-layout: blog 
-category: blog
----
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+	<meta property="og:url" content="http://infer.test.srain.in/blog/" />
+	<meta property="og:site_name" content="Infer"/>
+	<meta property="og:title" content="Blog" />
+	<meta property="og:image" content="http://infer.test.srain.in/static/og_image.png" />
+	<meta property="og:description" content="" />
 
-<div class="posts">
-  {% for page in site.posts %}
-    {% include post.html truncate=true %}
-  {% endfor %}
+  <link rel="stylesheet" type="text/css" media="screen" href="/css/main.css">
+	<link rel="stylesheet" type="text/css" href="//cloud.typography.com/7491092/701726/css/fonts.css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/styles/default.min.css">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+  <link rel="icon" href="static/favicon.png" type="image/x-icon">
+  
+  <base href="http://infer.test.srain.in/" />
+  
+  <script src="/static/react-with-addons-0.13.1.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/highlight.min.js"></script>
+
+  <title>Blog</title>
+  <meta name="description" content="">
+
+  <link rel="canonical" href="http://infer.test.srain.in/blog/">
+  <link rel="alternate" type="application/rss+xml" title="Infer" href="http://infer.test.srain.in/feed.xml" />
+</head>
+
+  <body>    
+    <div id="fixed_header" class="fixedHeaderContainer visible">
+  <header>
+    <a href="http://infer.test.srain.in"><img src="/static/logo.png" /><h2>Infer</h2></a>
+    <div class="navigationWrapper navigationFull" id="flat_nav">
+      <nav class="navigation">
+        <ul>
+          
+          <li class="navItem ">
+            <a href=docs/getting-started.html>文档</a>
+          </li>
+          
+          <li class="navItem ">
+            <a href=support.html>帮助和支持</a>
+          </li>
+          
+          <li class="navItem navItemActive">
+            <a href=blog/>博客</a>
+          </li>
+          
+          <li class="navItem ">
+            <a href=http://github.com/facebook/infer>Github</a>
+          </li>
+          
+        </ul>
+      </nav>
+    </div>
+    <div class="navigationWrapper navigationSlider" id="navigation_wrap"></div>
+  </header>
+  <script>
+    var event = document.createEvent('Event');
+    event.initEvent('slide', true, true);
+    document.addEventListener('slide', function (e) {
+      document.body.classList.toggle('sliderActive');
+    }, false);
+    var navData = [
+      
+      {
+        href       : "docs/getting-started.html",
+        text       : "文档",
+      },
+      
+      {
+        href       : "support.html",
+        text       : "帮助和支持",
+      },
+      
+      {
+        href       : "blog/",
+        text       : "博客",
+      },
+      
+      {
+        href       : "http://github.com/facebook/infer",
+        text       : "Github",
+      },
+      
+    ];
+  </script>
+  <script type="text/javascript">  
+    var Nav = React.createClass({displayName: "Nav",
+      getInitialState: function() {
+        return {
+          currentPath: window.location.pathname,
+          slideoutActive: false,
+        };
+      },
+      getDefaultProps: function() {
+        return {
+          data: navData,
+        }
+      },
+      handleClick: function(id) {
+        this.setState({
+          slideoutActive: false,
+        });
+        document.dispatchEvent(event);
+      },
+      handleSlide: function(id) {
+        this.setState({
+          slideoutActive: !this.state.slideoutActive,
+        });
+        document.dispatchEvent(event);
+      },
+      render: function() {
+        var classes = React.addons.classSet({
+          'navSlideout': true,
+          'navSlideoutActive': this.state.slideoutActive,
+        });
+        var navClasses = React.addons.classSet({
+          'slidingNav': true,
+          'slidingNavActive': this.state.slideoutActive,
+        });
+        return (
+          React.createElement("div", null, 
+            React.createElement("div", {className: classes, onClick: this.handleSlide}, 
+              React.createElement("i", {className: "fa fa-bars"})
+            ), 
+            React.createElement("nav", {className: navClasses}, 
+              React.createElement("ul", null, 
+                this.props.data.map(this.renderNavItems)
+              )
+            )
+          )
+        );
+      },
+      renderNavItems: function(child, index) {
+        var classes = React.addons.classSet({
+          'navItem': true,
+          'navItemActive': this.state.currentPath === child.href,
+        });
+        return (
+          React.createElement("li", {key: index, className: classes}, 
+            React.createElement("a", {onClick: this.handleClick, href: child.href}, child.text)
+          )
+        );
+      },
+    });
+
+    function render(navData) {
+      React.render(
+        React.createElement(Nav, {data: navData}),
+        document.getElementById('navigation_wrap')
+      );
+    }
+    render(navData);
+  </script>
 </div>
+
+    <div class="navPusher">
+      <div class="mainContainer blogContainer postContainer">
+  <div id="main_wrap" class="wrapper mainWrapper">
+    <nav class='toc' id="blog_nav"></nav>
+<script>
+  
+  var blognavData = [
+    
+    {
+      key : "/blog/2015/05/22/Infer-on-open-source-android-apps.html",
+      title : "Infer on Open Source Android Apps",
+      url : "/blog/2015/05/22/Infer-on-open-source-android-apps.html",
+    }
+    
+  ];
+</script>
+<script type="text/javascript">  
+var BlogNav = React.createClass({displayName: "BlogNav",
+  getInitialState: function() {
+    return {
+      toggleActive: false,
+    };
+  },
+  getDefaultProps: function() {
+    return {
+      currentDoc: "Blog",
+      data: blognavData,
+    }
+  },
+  handleSlide: function(id) {
+    this.setState({
+      toggleActive: !this.state.toggleActive,
+    });
+  },
+  render: function() {
+    var classes = React.addons.classSet({
+      'navToggle': true,
+      'navToggleActive': this.state.toggleActive,
+    });
+    var navClasses = React.addons.classSet({
+      'toggleNav': true,
+      'toggleNavActive': this.state.toggleActive,
+    });
+    return (
+      React.createElement("div", {className: navClasses}, 
+        React.createElement("section", null, 
+          React.createElement("h3", null, "Recent Posts"), 
+          React.createElement("ul", null, 
+            this.props.data.map(this.renderNavItems), 
+            React.createElement("li", null, React.createElement("a", {href: "/blog/all.html"}, "All posts"))
+          )
+        ), 
+        React.createElement("div", {className: classes, onClick: this.handleSlide}, React.createElement("i", {className: "fa fa-chevron-circle-down"}))
+      )
+    );
+  },
+  renderNavItems: function(child, index) {
+    var itemClasses = React.addons.classSet({
+      'navListItem': true,
+      'navListItemActive': this.props.currentDoc === child.title,
+    });
+    var classes = React.addons.classSet({
+      'navItem': true,
+      'navItemActive': this.props.currentDoc === child.title,
+    });
+    return (
+      React.createElement("li", {className: itemClasses, key: index}, React.createElement("a", {className: classes, href: child.url},  child.title))
+    );
+  },
+});
+
+function blogNavRender(blognavData) {
+  React.render(
+    React.createElement(BlogNav, {data: blognavData}),
+    document.getElementById('blog_nav')
+  );
+}
+blogNavRender(blognavData);
+</script>
+    <div class="posts">
+  
+    <div class="post">
+  
+  <header class="post-header">
+    
+    <div class="authorPhoto">
+      <a href="https://facebook.com/1355558869" target="_blank"><img src="http://graph.facebook.com/1355558869/picture/" alt="" title="" /></a>
+    </div>
+    
+    
+    <p class="post-authorName">Dulma Rodriguez</p>
+    
+    <h1 class="post-title"><a href="/blog/2015/05/22/Infer-on-open-source-android-apps.html">Infer on Open Source Android Apps</a></h1>
+    <p class="post-meta">Posted May 22, 2015</p>
+  </header>
+
+  <article class="post-content">
+   
+      
+        <p>We ran Infer on a few open source Android apps with the aim of finding some bugs 
+and getting them fixed. Some of those reports got indeed fixed. </p>
+
+<p>One of the apps analyzed was the search engine <a href="https://github.com/duckduckgo/android">DuckDuckGo</a>. We found that many database cursors were not closed. Soon after we reported the issue, a developer <a href="https://github.com/duckduckgo/android/commit/2c2d79f990dde0e44cdbecb1925b73c63bf9141d">fixed it</a>.</p>
+
+<p>We also analyzed the popular email client <a href="https://github.com/k9mail/k-9">k-9</a>. We found a file not closed leak and reported it. Interestingly, a developer <a href="https://github.com/k9mail/k-9/commit/d538278be62687758c956af62ee47c53637d67d8">fixed it</a> by not writing some logging info to the file at all. So Infer helped them to simplify their code.</p>
+
+<p><a href="https://github.com/siacs/Conversations">Conversations</a> is an open source XMPP/Jabber client for Android smart phones. We analyzed it as well and found a file not closed leak, which was also <a href="https://github.com/Flowdalic/MemorizingTrustManager/commit/190c57a9a8385f4726c817924b123438af6adc2f">fixed</a>.</p>
+
+      
+    
+  </article>
+  <div class="pluginBlock allShareBlock">
+  <div class="fb-like pluginBlock" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
+<script>
+  window.fbAsyncInit = function() {
+  FB.init({
+    appId      : '1615782811974223',
+    xfbml      : true,
+    version    : 'v2.3'
+  });
+  };
+
+  (function(d, s, id){
+   var js, fjs = d.getElementsByTagName(s)[0];
+   if (d.getElementById(id)) {return;}
+   js = d.createElement(s); js.id = id;
+   js.src = "//connect.facebook.net/en_US/sdk.js";
+   fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script><div class="pluginBlock">
+  <a href="https://twitter.com/share" class="twitter-share-button" data-hashtags="Infer">Tweet</a> 
+</div>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script><div class="pluginBlock">
+  <div class="g-plusone" data-size="medium"></div>
+</div>
+
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+
+</div>  
+</div>
+  
+</div>
+
+  </div>
+</div>
+
+
+      <div class="footerContainer">
+  <div id="footer_wrap" class="wrapper footerWrapper">
+    <section id="fb_oss" class="fbOpenSourceFooter">
+      <a href="https://code.facebook.com/projects/" target="_blank"><img src="/static/oss_logo.png" alt="Facebook Open Source" title="Facebook Open Source" /></a>
+    </section>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </div>
+</div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44373548-7', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+    </div>
+  </body>
+
+</html>

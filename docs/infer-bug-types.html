@@ -1,0 +1,1359 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+	<meta property="og:url" content="http://infer.test.srain.in/docs/infer-bug-types.html" />
+	<meta property="og:site_name" content="Infer"/>
+	<meta property="og:title" content="Infer bug types" />
+	<meta property="og:image" content="http://infer.test.srain.in/static/og_image.png" />
+	<meta property="og:description" content="" />
+
+  <link rel="stylesheet" type="text/css" media="screen" href="/css/main.css">
+	<link rel="stylesheet" type="text/css" href="//cloud.typography.com/7491092/701726/css/fonts.css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/styles/default.min.css">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+  <link rel="icon" href="static/favicon.png" type="image/x-icon">
+  
+  <base href="http://infer.test.srain.in/" />
+  
+  <script src="/static/react-with-addons-0.13.1.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/highlight.min.js"></script>
+
+  <title>Infer bug types</title>
+  <meta name="description" content="">
+
+  <link rel="canonical" href="http://infer.test.srain.in/docs/infer-bug-types.html">
+  <link rel="alternate" type="application/rss+xml" title="Infer" href="http://infer.test.srain.in/feed.xml" />
+</head>
+
+  <body>    
+    <div id="fixed_header" class="fixedHeaderContainer visible">
+  <header>
+    <a href="http://infer.test.srain.in"><img src="/static/logo.png" /><h2>Infer</h2></a>
+    <div class="navigationWrapper navigationFull" id="flat_nav">
+      <nav class="navigation">
+        <ul>
+          
+          <li class="navItem navItemActive">
+            <a href=docs/getting-started.html>文档</a>
+          </li>
+          
+          <li class="navItem ">
+            <a href=support.html>帮助和支持</a>
+          </li>
+          
+          <li class="navItem ">
+            <a href=blog/>博客</a>
+          </li>
+          
+          <li class="navItem ">
+            <a href=http://github.com/facebook/infer>Github</a>
+          </li>
+          
+        </ul>
+      </nav>
+    </div>
+    <div class="navigationWrapper navigationSlider" id="navigation_wrap"></div>
+  </header>
+  <script>
+    var event = document.createEvent('Event');
+    event.initEvent('slide', true, true);
+    document.addEventListener('slide', function (e) {
+      document.body.classList.toggle('sliderActive');
+    }, false);
+    var navData = [
+      
+      {
+        href       : "docs/getting-started.html",
+        text       : "文档",
+      },
+      
+      {
+        href       : "support.html",
+        text       : "帮助和支持",
+      },
+      
+      {
+        href       : "blog/",
+        text       : "博客",
+      },
+      
+      {
+        href       : "http://github.com/facebook/infer",
+        text       : "Github",
+      },
+      
+    ];
+  </script>
+  <script type="text/javascript">  
+    var Nav = React.createClass({displayName: "Nav",
+      getInitialState: function() {
+        return {
+          currentPath: window.location.pathname,
+          slideoutActive: false,
+        };
+      },
+      getDefaultProps: function() {
+        return {
+          data: navData,
+        }
+      },
+      handleClick: function(id) {
+        this.setState({
+          slideoutActive: false,
+        });
+        document.dispatchEvent(event);
+      },
+      handleSlide: function(id) {
+        this.setState({
+          slideoutActive: !this.state.slideoutActive,
+        });
+        document.dispatchEvent(event);
+      },
+      render: function() {
+        var classes = React.addons.classSet({
+          'navSlideout': true,
+          'navSlideoutActive': this.state.slideoutActive,
+        });
+        var navClasses = React.addons.classSet({
+          'slidingNav': true,
+          'slidingNavActive': this.state.slideoutActive,
+        });
+        return (
+          React.createElement("div", null, 
+            React.createElement("div", {className: classes, onClick: this.handleSlide}, 
+              React.createElement("i", {className: "fa fa-bars"})
+            ), 
+            React.createElement("nav", {className: navClasses}, 
+              React.createElement("ul", null, 
+                this.props.data.map(this.renderNavItems)
+              )
+            )
+          )
+        );
+      },
+      renderNavItems: function(child, index) {
+        var classes = React.addons.classSet({
+          'navItem': true,
+          'navItemActive': this.state.currentPath === child.href,
+        });
+        return (
+          React.createElement("li", {key: index, className: classes}, 
+            React.createElement("a", {onClick: this.handleClick, href: child.href}, child.text)
+          )
+        );
+      },
+    });
+
+    function render(navData) {
+      React.render(
+        React.createElement(Nav, {data: navData}),
+        document.getElementById('navigation_wrap')
+      );
+    }
+    render(navData);
+  </script>
+</div>
+
+    <div class="navPusher">
+      <div class="mainContainer blogContainer postContainer">
+  <div id="main_wrap" class="wrapper mainWrapper">
+    <div>
+</div>
+<nav class='toc' id="doc_nav"></nav>
+<script>
+  var docnavData = [
+    
+    {
+      group     : "开始使用",
+      items     : [
+        
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/getting-started.html",
+          title : "开始使用",
+          url : "/docs/getting-started.html",
+        },
+        
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/hello-world.html",
+          title : "Hello, World!",
+          url : "/docs/hello-world.html",
+        }
+        
+      ],
+    },
+    
+    {
+      group     : "用户使用参考",
+      items     : [
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/infer-workflow.html",
+          title : "Infer 的工作机制",
+          url : "/docs/infer-workflow.html",
+        },
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/analyzing-apps-or-projects.html",
+          title : "Analyzing apps or projects",
+          url : "/docs/analyzing-apps-or-projects.html",
+        },
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/checkers.html",
+          title : "Infer : Checkers",
+          url : "/docs/checkers.html",
+        },
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/eradicate.html",
+          title : "Infer : Eradicate",
+          url : "/docs/eradicate.html",
+        },
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/install-from-source.html",
+          title : "Install from source",
+          url : "/docs/install-from-source.html",
+        },
+        
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/advanced-features.html",
+          title : "Advanced usage",
+          url : "/docs/advanced-features.html",
+        },
+        
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/adding-models.html",
+          title : "Adding models",
+          url : "/docs/adding-models.html",
+        }
+        
+      ],
+    },
+    
+    {
+      group     : "Foundations",
+      items     : [
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/about-Infer.html",
+          title : "About Infer",
+          url : "/docs/about-Infer.html",
+        },
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/separation-logic-and-bi-abduction.html",
+          title : "Separation logic and bi-abduction",
+          url : "/docs/separation-logic-and-bi-abduction.html",
+        },
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/limitations.html",
+          title : "Limitations, etc",
+          url : "/docs/limitations.html",
+        }
+        
+      ],
+    },
+    
+    {
+      group     : "Bug 类型参考",
+      items     : [
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+        {
+          key : "/docs/infer-bug-types.html",
+          title : "Infer bug types",
+          url : "/docs/infer-bug-types.html",
+        },
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/checkers-bug-types.html",
+          title : "Checkers bug types",
+          url : "/docs/checkers-bug-types.html",
+        },
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+        {
+          key : "/docs/eradicate-warnings.html",
+          title : "Eradicate warnings",
+          url : "/docs/eradicate-warnings.html",
+        }
+        
+      ],
+    },
+    
+  ];
+</script>
+<script type="text/javascript">  
+  var DocNav = React.createClass({displayName: "DocNav",
+    getInitialState: function() {
+      return {
+        toggleActive: false,
+      };
+    },
+    getDefaultProps: function() {
+      return {
+        currentDoc: "Infer bug types",
+        currentGroup: "Bug Types Reference",
+        data: docnavData,
+      }
+    },
+    handleSlide: function(id) {
+      this.setState({
+        toggleActive: !this.state.toggleActive,
+      });
+    },
+    render: function() {
+      var classes = React.addons.classSet({
+        'navToggle': true,
+        'navToggleActive': this.state.toggleActive,
+      });
+      var navClasses = React.addons.classSet({
+        'toggleNav': true,
+        'toggleNavActive': this.state.toggleActive,
+      });
+      return (
+        React.createElement("div", {className: navClasses}, 
+          React.createElement("section", null, 
+            this.props.data.map(this.renderNavGroups)
+          ), 
+          React.createElement("div", {className: classes, onClick: this.handleSlide}, React.createElement("i", {className: "fa fa-chevron-circle-down"}))
+        )
+      );
+    },
+    renderNavGroups: function(child, index) {
+      var classes = React.addons.classSet({
+        'navGroup': true,
+        'navGroupActive': this.props.currentGroup === child.group,
+      });
+      return (
+        React.createElement("div", {className: classes, key: index}, 
+          React.createElement("h3", null, child.group), 
+          React.createElement("ul", null, 
+            child.items.map(this.renderNavItems)
+          )
+        )
+      );
+    },
+    renderNavItems: function(child, index) {
+      var itemClasses = React.addons.classSet({
+        'navListItem': true,
+        'navListItemActive': this.props.currentDoc === child.title,
+      });
+      var classes = React.addons.classSet({
+        'navItem': true,
+        'navItemActive': this.props.currentDoc === child.title,
+      });
+      return (
+        React.createElement("li", {className: itemClasses, key: index}, React.createElement("a", {className: classes, href: child.url},  child.title))
+      );
+    },
+  });
+
+  function docNavRender(docnavData) {
+    React.render(
+      React.createElement(DocNav, {data: docnavData}),
+      document.getElementById('doc_nav')
+    );
+  }
+  docNavRender(docnavData);
+</script>
+    <div class="post">
+  <header class="post-header">
+    <h1 class="post-title">Infer bug types</h1>
+  </header>
+
+  <article class="post-content">
+   
+      <p>Here is an overview of the types of bugs currently reported by Infer.</p>
+
+<ul>
+<li><p>Bugs reported in Java</p>
+
+<ul>
+<li><a href="/docs/infer-bug-types.html#RESOURCE_LEAK">Resource leak</a> </li>
+<li><a href="/docs/infer-bug-types.html#NULL_DEREFERENCE">Null dereference</a></li>
+</ul></li>
+<li><p>Bugs reported in C and Objective-C</p>
+
+<ul>
+<li><a href="/docs/infer-bug-types.html#RESOURCE_LEAK">Resource leak</a> </li>
+<li><a href="/docs/infer-bug-types.html#MEMORY_LEAK">Memory leak</a></li>
+<li><a href="/docs/infer-bug-types.html#NULL_DEREFERENCE">Null dereference</a></li>
+<li><a href="/docs/infer-bug-types.html#PARAMETER_NOT_NULL_CHECKED">Parameter not null checked</a></li>
+<li><a href="/docs/infer-bug-types.html#IVAR_NOT_NULL_CHECKED">Ivar not null checked</a></li>
+<li><a href="/docs/infer-bug-types.html#PREMATURE_NIL_TERMINATION_ARGUMENT">Premature nil termination argument</a></li>
+</ul></li>
+<li><p>Bugs reported only in Objective-C</p>
+
+<ul>
+<li><a href="/docs/infer-bug-types.html#RETAIN_CYCLE">Retain cycle</a></li>
+</ul></li>
+</ul>
+
+<h2 id="-resource-leak"><a name="RESOURCE_LEAK"></a> Resource leak</h2>
+
+<p>Infer reports resource leaks in C, Objective-C and Java. In general, resources are entities such as files, sockets, connections, etc, that need to be closed after being used. </p>
+
+<h3 id="resource-leak-in-c">Resource leak in C</h3>
+
+<p>This is an example of a resource leak in C code:</p>
+<div class="highlight"><pre><code class="language-c" data-lang="c"><span class="o">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">resource_leak_bug</span> <span class="p">{</span>
+    <span class="kt">FILE</span> <span class="o">*</span><span class="n">fp</span><span class="p">;</span>
+    <span class="n">fp</span><span class="o">=</span><span class="n">fopen</span><span class="p">(</span><span class="s">&quot;c:</span><span class="se">\\</span><span class="s">test.txt&quot;</span><span class="p">,</span> <span class="s">&quot;r&quot;</span><span class="p">);</span> <span class="c1">// file opened and not closed.</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="resource-leak-in-java">Resource leak in Java</h3>
+
+<p>For the remaining of this section, we will consider examples of resource leaks in Java code.</p>
+
+<p>TIP: A common source of bugs is  <b>exceptions skipping past close() statements</b>. That is the first thing to look for if INFER reports a potential resource leak.</p>
+
+<h3 id="basics-and-standard-idiom">Basics and Standard Idiom</h3>
+
+<p>Some objects in Java, the <i>resources</i>, are supposed to be closed when you stop using them, and failure to close is a <i>resource leak</i>. Resources include
+input streams, output streams, readers, writers, sockets, http connections, cursors, and json parsers.</p>
+
+<p>The standard idiom is</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java">  <span class="c1">// Standard idiom</span>
+  <span class="n">Allocate</span> <span class="n">resource</span>
+  <span class="k">try</span> <span class="o">{</span>
+    <span class="k">do</span> <span class="n">some</span> <span class="n">stuff</span>
+  <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+    <span class="n">close</span> <span class="n">resource</span>
+  <span class="o">}</span>
+</code></pre></div>
+<p>or more for example,</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java">  <span class="c1">//  Standard Idiom</span>
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">foo</span> <span class="o">()</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">{</span>
+    <span class="n">FileOutputStream</span> <span class="n">fos</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">FileOutputStream</span><span class="o">(</span><span class="k">new</span> <span class="nf">File</span><span class="o">(</span><span class="s">&quot;whatever.txt&quot;</span><span class="o">));</span>
+    <span class="k">try</span> <span class="o">{</span>
+      <span class="n">fos</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="mi">7</span><span class="o">);</span>
+    <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+      <span class="n">fos</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+</code></pre></div>
+<p>and you should use the standard idiom for the most part, when you don&#39;t want to return the resource to the surrounding context.</p>
+
+<p>Sometimes people just leave out close(), and that is a bug, but more typically exceptional paths are the root of the problem, as in</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java">  <span class="c1">// leak because of exception</span>
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">foo</span> <span class="o">()</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+    <span class="n">FileOutputStream</span> <span class="n">fos</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">FileOutputStream</span><span class="o">(</span><span class="k">new</span> <span class="nf">File</span><span class="o">(</span><span class="s">&quot;whatever.txt&quot;</span><span class="o">));</span>
+    <span class="n">fos</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="mi">7</span><span class="o">);</span>   <span class="c1">//DOH! What if exception?</span>
+    <span class="n">fos</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+  <span class="o">}</span>
+</code></pre></div>
+<p>where an exception in fos.write will cause execution to skip past the close() statement.</p>
+
+<h4 id="multiple-resources-bugs">Multiple Resources Bugs</h4>
+
+<p>We can deal with multiple resources correctly and simply just by nesting the standard idiom.</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java">  <span class="c1">// Two Resources nested</span>
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">foo</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+    <span class="n">FileInputStream</span> <span class="n">fis</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">FileInputStream</span><span class="o">(</span><span class="k">new</span> <span class="nf">File</span><span class="o">(</span><span class="s">&quot;whatever.txt&quot;</span><span class="o">));</span>
+    <span class="k">try</span> <span class="o">{</span>
+      <span class="n">FileOutputStream</span> <span class="n">fos</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">FileOutputStream</span><span class="o">(</span><span class="k">new</span> <span class="nf">File</span><span class="o">(</span><span class="s">&quot;everwhat.txt&quot;</span><span class="o">));</span>
+      <span class="k">try</span> <span class="o">{</span>
+        <span class="n">fos</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">fis</span><span class="o">.</span><span class="na">read</span><span class="o">());</span>
+      <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+        <span class="n">fos</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+      <span class="o">}</span>
+    <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+      <span class="n">fis</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+</code></pre></div>
+<p>Bugs often occur when using multiple resources in other ways because of exceptions in close() methods. For example,</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java">  <span class="c1">// Classic Two Resources Bug</span>
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">foo</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+    <span class="n">FileInputStream</span> <span class="n">fis</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="n">FileOutputStream</span> <span class="n">fos</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="k">try</span> <span class="o">{</span>
+      <span class="n">fis</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">FileInputStream</span><span class="o">(</span><span class="k">new</span> <span class="nf">File</span><span class="o">(</span><span class="s">&quot;whatever.txt&quot;</span><span class="o">));</span>
+      <span class="n">fos</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">FileOutputStream</span><span class="o">(</span><span class="k">new</span> <span class="nf">File</span><span class="o">(</span><span class="s">&quot;everwhat.txt&quot;</span><span class="o">));</span>
+      <span class="n">fos</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">fis</span><span class="o">.</span><span class="na">read</span><span class="o">());</span>
+    <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">fis</span><span class="o">!=</span><span class="kc">null</span><span class="o">)</span>  <span class="n">fis</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">fos</span><span class="o">!=</span><span class="kc">null</span><span class="o">)</span> <span class="n">fos</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+</code></pre></div>
+<p>Here, if there is an exception in the call to fis.close() execution will skip past fos.close(); a leak.</p>
+
+<p>Another way, besides the standard idiom, to deal with this problem is to swallow exceptions.</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java">  <span class="c1">// Two Resources Fix 1</span>
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">foo</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+    <span class="n">FileInputStream</span> <span class="n">fis</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="n">FileOutputStream</span> <span class="n">fos</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="k">try</span> <span class="o">{</span>
+      <span class="n">fis</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">FileInputStream</span><span class="o">(</span><span class="k">new</span> <span class="nf">File</span><span class="o">(</span><span class="s">&quot;whatever.txt&quot;</span><span class="o">));</span>
+      <span class="n">fos</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">FileOutputStream</span><span class="o">(</span><span class="k">new</span> <span class="nf">File</span><span class="o">(</span><span class="s">&quot;everwhat.txt&quot;</span><span class="o">));</span>
+      <span class="n">fos</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">fis</span><span class="o">.</span><span class="na">read</span><span class="o">());</span>
+    <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+      <span class="k">try</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">fis</span><span class="o">!=</span><span class="kc">null</span><span class="o">)</span> <span class="n">fis</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+      <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{};</span>  <span class="c1">// Exception swallowing</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">fos</span><span class="o">!=</span><span class="kc">null</span><span class="o">)</span> <span class="n">fos</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+</code></pre></div>
+<p>You can also swallow the exception on the output stream. Some people prefer not to swallow output stream exceptions, and also flush before closing.
+      http://code.google.com/p/guava-libraries/issues/detail?id=1118</p>
+
+<p>Notice that the nested standard idiom does not need the checks for null, which are in there in this case to protect against the case when one of the allocations throws an exception, in which case one would get a NullPointerException.</p>
+
+<h3 id="nested_allocations">Nested_Allocations</h3>
+
+<p>When a resource allocation is included as an argument to a constructor,
+if the constructor fails it can leave an an unreachable resource that no one can close.</p>
+
+<p>For example
+  gzipOutputStream = new GZIPOutputStream(new FileOutputStream(out));
+is bad in case the outer constructor, GZIPOutputStream, throws an exception. In that case, no one will have a hold of the  FileOutputStream and so no one will be able to close it.</p>
+
+<p>In such a case you need to move  the allocation the FileOutputStream out of the nested position and name it, so you are able to close if anything goes wrong during execution of the GZIPOutputStream constructor.</p>
+
+<p>Here are resources that can throw exceptions i their constructor(s).</p>
+
+<ul>
+<li>ObjectInputStream , ObjectOutputStream, PipedInputStream, PipedOutputStream, PipedReader, PipedWriter,
+JarInputStream, JarOutputStream, GZIPInputStream, GZIPOutputStream , ZipFile
+all throw IOException</li>
+<li>PrintStream throws UnsupportedEncodingException</li>
+</ul>
+
+<p>The constructors for FileInputStream, FileOutputStream and RandomAccessFile throw FileNotFoundException, but these cases are not problematic in the sense that their arguments are not resources and so they do not cause the nested resource leak.</p>
+
+<h3 id="allocation-of-jsonparser-and-cursor-resources">Allocation of JSonParser and Cursor resources</h3>
+
+<p>Some resources are created inside libraries instead of by &quot;new&quot;.</p>
+
+<p>Cursor is an interface, the actual resources are something like SQLiteCursor.  So, every time you call a function that returns a Cursor object, there is an allocation.</p>
+
+<p>For instance, in the functions  from SQLiteDatabase
+   query(…) and rawQuery(…)
+allocate a cursor resource. For
+SQLiteQueryBuilder, ContentProviderClient, ContentResolver. MediaStore and DownloadManager it is only
+   query(…)
+Cursor objects cursor created by these functions need to be closed (i.e., cursor.close()).</p>
+
+<p>Similarly, JsonParser is an abstract class, and create a resource in functions  from the class JsonFactory
+  createParser(byte[] data)
+  createParser(byte[] data, int offset, int len)
+  createParser(String content)
+  createParser(URL url)
+  createParser(File f)
+JsonParser objects js created by these functions need to be closed (jp.close()). On the other hand . JasonParsers
+gotten from
+  createParser(InputStream in) and
+  createParser(Reader r)
+give you JsonParsers that don’t need to be closed. This is because they receive the resource from somewhere that will maintain the responsibility to close it.</p>
+
+<h3 id="escaping-resources-and-exceptions">Escaping resources and exceptions</h3>
+
+<p>Sometimes you want to return a resource to the outside, in which case you should not close it, but you still need to be careful of exceptions in
+case control skips past the return leaving no one to close. Here is a simple example of a positive use of escaping resources.</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java">  <span class="c1">// An escaping resource, shouldn&#39;t close</span>
+  <span class="kd">public</span> <span class="n">BugReportAttachment</span> <span class="nf">createAttachment</span><span class="o">(</span><span class="n">File</span> <span class="n">reportDirectory</span><span class="o">,</span> <span class="n">String</span> <span class="n">fileName</span><span class="o">)</span>
+      <span class="kd">throws</span> <span class="n">FileNotFoundException</span> <span class="o">{</span>
+    <span class="n">File</span> <span class="n">file</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">File</span><span class="o">(</span><span class="n">reportDirectory</span><span class="o">,</span> <span class="n">fileName</span><span class="o">);</span>
+    <span class="n">OutputStream</span> <span class="n">stream</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">FileOutputStream</span><span class="o">(</span><span class="n">file</span><span class="o">);</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">BugReportAttachment</span><span class="o">(</span><span class="n">Uri</span><span class="o">.</span><span class="na">fromFile</span><span class="o">(</span><span class="n">file</span><span class="o">),</span> <span class="n">stream</span><span class="o">);</span>
+  <span class="o">}</span>
+</code></pre></div>
+<p>In this case it is intended that an object that wraps <code>stream</code> is passed to the caller of <code>createAttachment</code>.
+You should certainly not close stream here, because it is being passed to the outside.</p>
+
+<p>But for escaping resources like this you still need to be careful of exceptions. For example, in</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java">  <span class="c1">// An escaping resource, and a leak</span>
+  <span class="kd">public</span> <span class="n">BugReportAttachment</span> <span class="nf">createAttachment</span><span class="o">(</span><span class="n">File</span> <span class="n">reportDirectory</span><span class="o">,</span> <span class="n">String</span> <span class="n">fileName</span><span class="o">)</span>
+      <span class="kd">throws</span> <span class="n">FileNotFoundException</span> <span class="o">{</span>
+    <span class="n">File</span> <span class="n">file</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">File</span><span class="o">(</span><span class="n">reportDirectory</span><span class="o">,</span> <span class="n">fileName</span><span class="o">);</span>
+    <span class="n">OutputStream</span> <span class="n">stream</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">FileOutputStream</span><span class="o">(</span><span class="n">file</span><span class="o">);</span>
+    <span class="n">stream</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="mi">7</span><span class="o">);</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">BugReportAttachment</span><span class="o">(</span><span class="n">Uri</span><span class="o">.</span><span class="na">fromFile</span><span class="o">(</span><span class="n">file</span><span class="o">),</span> <span class="n">stream</span><span class="o">);</span>
+  <span class="o">}</span>
+</code></pre></div>
+<p>if stream.write(7) throws an exception, then no one will have a hold of stream, and no one will be able to close it; a leak.</p>
+
+<h3 id="java-7&#39;s-try-with-resources">Java 7&#39;s try-with-resources</h3>
+
+<p><strong>(For use only if you have are using Java 7)</strong></p>
+
+<p>Clearly, accounting for the ramifications of all the exceptional cases is complicated, and there is a better way in Java 7.</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java">  <span class="c1">// Two Resources Fix 2; via try-with-resources</span>
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">foo</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+    <span class="k">try</span> <span class="o">(</span>
+      <span class="n">FileInputStream</span> <span class="n">fis</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">FileInputStream</span><span class="o">(</span><span class="k">new</span> <span class="nf">File</span><span class="o">(</span><span class="s">&quot;whatever.txt&quot;</span><span class="o">));</span>
+      <span class="n">FileOutputStream</span> <span class="n">fos</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">FileOutputStream</span><span class="o">(</span><span class="k">new</span> <span class="nf">File</span><span class="o">(</span><span class="s">&quot;everwhat.txt&quot;</span><span class="o">))</span>
+    <span class="o">)</span> <span class="o">{</span>
+      <span class="n">fos</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">fis</span><span class="o">.</span><span class="na">read</span><span class="o">());</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+</code></pre></div>
+<p>All the complicated exceptional cases above are (apparently) covered by this construct, and the result is much simpler.</p>
+
+<p>So, if you are trying to fix a potential leak in code with multiples resources you can go ahead and try to understand whether the potential leak is real.
+Or, if the code is complex and it is hard to figure out, it would be perfectly legitimate to   simply convert the code over to
+try-with-resources if you have access to Java 7, so as to save yourself some brain-cycles. You will also end up with cleaner code.</p>
+
+<p>If try-with-resources is so great you should <i>always</i> use it. But you shouldn&#39;t… Try-with-resources gives resources static scoping, and works via a stack discipline. Sometimes, you want a resource to persist beyond scope,
+as in the escaping example above.
+In an escaping example  maybe you could refactor lots of code so that try-with-resources applies, and maybe you cannot in a sensible way.
+This just illustrates that, though you might hear people say that try-with-resources &quot;solves&quot; the resource problem, it does not. It is very useful, but you cannot use it blindly
+when you see a resource-allocation site.</p>
+
+<h2 id="memory-leak"><a name="MEMORY_LEAK"></a>Memory leak</h2>
+
+<h3 id="memory-leak-in-c">Memory leak in C</h3>
+
+<p>This error type is only reported in C and Objective-C code. In Java we do not report memory leaks because it is a garbage collected language.</p>
+
+<p>In C, Infer reports memory leaks when objects are created with <code>malloc</code> and not freed. For example:</p>
+<div class="highlight"><pre><code class="language-c" data-lang="c"><span class="o">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">memory_leak_bug</span> <span class="p">{</span> 
+    <span class="k">struct</span> <span class="n">Person</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">Person</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="memory-leak-in-objective-c">Memory leak in Objective-C</h3>
+
+<p>Additionally, in Objective-C, Infer reports memory leaks that happen when objects from Core Foundation or Core Graphics don&#39;t get released. </p>
+<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="p">-(</span><span class="kt">void</span><span class="p">)</span> <span class="nf">memory_leak_bug_cf</span> <span class="p">{</span> 
+    <span class="n">CGPathRef</span> <span class="n">shadowPath</span> <span class="o">=</span> <span class="n">CGPathCreateWithRect</span><span class="p">(</span><span class="nb">self</span><span class="p">.</span><span class="n">inputView</span><span class="p">.</span><span class="n">bounds</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span> <span class="c1">//object created and not released.</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="-retain-cycle"><a name="RETAIN_CYCLE"></a> Retain cycle</h2>
+
+<p>A retain cycle is a situation when object A retains object B, and object B retains object A at the same time. Here is an example:</p>
+<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="k">@class</span> <span class="nc">Child</span>;
+<span class="k">@interface</span> <span class="nc">Parent</span> : <span class="bp">NSObject</span> <span class="p">{</span>
+    <span class="n">Child</span> <span class="o">*</span><span class="n">child</span><span class="p">;</span> <span class="c1">// Instance variables are implicitly __strong</span>
+<span class="p">}</span>
+<span class="k">@end</span>
+<span class="k">@interface</span> <span class="nc">Child</span> : <span class="bp">NSObject</span> <span class="p">{</span>
+    <span class="n">Parent</span> <span class="o">*</span><span class="n">parent</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">@end</span>
+</code></pre></div>
+<p>You can fix a retain cycle in ARC by using __weak variables or weak properties for your &quot;back links&quot;, i.e. links to direct or indirect parents in an object hierarchy:</p>
+<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="k">@class</span> <span class="nc">Child</span>;
+<span class="k">@interface</span> <span class="nc">Parent</span> : <span class="bp">NSObject</span> <span class="p">{</span>
+    <span class="n">Child</span> <span class="o">*</span><span class="n">child</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">@end</span>
+<span class="k">@interface</span> <span class="nc">Child</span> : <span class="bp">NSObject</span> <span class="p">{</span>
+    <span class="k">__weak</span> <span class="n">Parent</span> <span class="o">*</span><span class="n">parent</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">@end</span>
+</code></pre></div>
+<h2 id="null-dereference"><a name="NULL_DEREFERENCE"></a>Null Dereference</h2>
+
+<p>Infer reports null dereference bugs in C, Objective-C and Java. The issue is about a pointer that can be <code>null</code> 
+and it is dereferenced. This leads to a crash in all the above languages.</p>
+
+<h3 id="null-dereference-in-c">Null dereference in C</h3>
+
+<p>Here is an example of an inter-procedural null dereference bug in C:</p>
+<div class="highlight"><pre><code class="language-c" data-lang="c"><span class="k">struct</span> <span class="n">Person</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">age</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">height</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">weight</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="kt">int</span> <span class="nf">get_age</span><span class="p">(</span><span class="k">struct</span> <span class="n">Person</span> <span class="o">*</span><span class="n">who</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="n">who</span><span class="o">-&gt;</span><span class="n">age</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="kt">int</span> <span class="nf">null_pointer_interproc</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">struct</span> <span class="n">Person</span> <span class="o">*</span><span class="n">joe</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">return</span> <span class="n">get_age</span><span class="p">(</span><span class="n">joe</span><span class="p">);</span> 
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="null-dereference-in-objective-c">Null dereference in Objective-C</h3>
+
+<p>In Objective-C, null dereferences are less common than in Java, but they still happen and their cause can be hidden. 
+In general, passing a message to nil does not cause a crash and returns <code>nil</code>, but dereferencing a pointer directly 
+does cause a crash as well as calling a <code>nil</code> block.</p>
+<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="p">-(</span><span class="kt">void</span><span class="p">)</span> <span class="nf">foo:</span><span class="p">(</span><span class="kt">void</span> <span class="p">(</span><span class="o">^</span><span class="p">)())</span><span class="nv">callback</span> <span class="p">{</span>
+    <span class="n">callback</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="p">-(</span><span class="kt">void</span><span class="p">)</span> <span class="nf">bar</span> <span class="p">{</span>
+    <span class="p">[</span><span class="nb">self</span> <span class="nl">foo</span><span class="p">:</span><span class="nb">nil</span><span class="p">];</span> <span class="c1">//crash</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Moreover, there are functions from the libraries that do not allow <code>nil</code> to 
+be passed as argument. Here are some examples:</p>
+<div class="highlight"><pre><code class="language-objc" data-lang="objc"><span class="p">-(</span><span class="kt">void</span><span class="p">)</span> <span class="nf">foo</span> <span class="p">{</span>
+    <span class="bp">NSString</span> <span class="o">*</span><span class="n">str</span> <span class="o">=</span> <span class="nb">nil</span><span class="p">;</span>
+    <span class="bp">NSArray</span> <span class="o">*</span><span class="n">animals</span> <span class="o">=</span> <span class="l">@[</span><span class="s">@&quot;horse&quot;</span><span class="p">,</span> <span class="n">str</span><span class="p">,</span> <span class="s">@&quot;dolphin&quot;</span><span class="l">]</span><span class="p">;</span> <span class="c1">//crash</span>
+<span class="p">}</span>
+
+<span class="p">-(</span><span class="kt">void</span><span class="p">)</span> <span class="nf">bar</span> <span class="p">{</span>
+  <span class="n">CGColorSpaceRef</span> <span class="n">colorSpace</span> <span class="o">=</span> <span class="n">CGColorSpaceCreateDeviceRGB</span><span class="p">();</span> <span class="c1">//can return NULL</span>
+  <span class="p">...</span>
+  <span class="n">CFRelease</span><span class="p">(</span><span class="n">colorSpace</span><span class="p">);</span> <span class="c1">//crashes if called with NULL</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="null-dereference-in-java">Null dereference in Java</h3>
+
+<p>Many of Infer&#39;s reports of potential NPE&#39;s come from code of the form</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java">  <span class="n">p</span> <span class="o">=</span> <span class="n">foo</span><span class="o">();</span> <span class="c1">// foo() might return null</span>
+  <span class="n">stuff</span><span class="o">();</span>
+  <span class="n">p</span><span class="o">.</span><span class="na">goo</span><span class="o">();</span>   <span class="c1">// dereferencing p, potential NPE</span>
+</code></pre></div>
+<p>If you see code of this form, then you have several options.</p>
+
+<p><b> If you are unsure whether or not foo() will return null </b>, you should ideally
+    i. Change the code to ensure that foo() can not return null
+    ii. Add a check for whether p is null, and do something other than dereferencing p when it is null.</p>
+
+<p>Sometimes, in case ii it is not obvious what you should do when p is null. One possibility (a last option) is to throw an exception, failing early.
+This can be done using checkNotNull as in the following code:</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java">  <span class="c1">// code idiom for failing early</span>
+
+  <span class="kn">import</span> <span class="nn">static</span> <span class="n">com</span><span class="o">.</span><span class="na">google</span><span class="o">.</span><span class="na">common</span><span class="o">.</span><span class="na">base</span><span class="o">.</span><span class="na">Preconditions</span><span class="o">.</span><span class="na">checkNotNull</span><span class="o">;</span>
+
+  <span class="c1">//... intervening code</span>
+
+  <span class="n">p</span> <span class="o">=</span> <span class="n">checkNotNull</span><span class="o">(</span><span class="n">foo</span><span class="o">());</span> <span class="c1">// foo() might return null</span>
+  <span class="n">stuff</span><span class="o">();</span>
+  <span class="n">p</span><span class="o">.</span><span class="na">goo</span><span class="o">();</span>   <span class="c1">// dereferencing p, potential NPE</span>
+</code></pre></div>
+<p>The call checkNotNull(foo()) will never return null; in case foo()  returns null it fails early by throwing an NPE.</p>
+
+<p><b> If you are absolutely sure that foo() will not be null </b>, then if you land your diff this case will no longer be reported after your diff makes it to master.  In the future we might include analysis directives (hey, analyzer, p is not null!) like in Hack that tell the analyzer
+the information that you know, but that is for later.</p>
+
+<h2 id="-parameter-not-null-checked"><a name="PARAMETER_NOT_NULL_CHECKED"></a> Parameter not null checked</h2>
+
+<p>This error type is reported only in Objective-C. It is similar to Null dereference, but Infer hasn&#39;t found a whole trace where the error can happen, but only found that a null dereference can happen if you call a method with nil as an argument. Therefore it is only a warning. For example:</p>
+<div class="highlight"><pre><code class="language-objc" data-lang="objc">  <span class="o">-</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="nl">foo</span><span class="p">:(</span><span class="n">A</span><span class="o">*</span> <span class="n">a</span><span class="p">)</span> <span class="p">{</span>
+      <span class="n">B</span> <span class="n">b</span><span class="o">*</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span> <span class="n">foo</span><span class="p">];</span> <span class="c1">// sending a message with receiver nil returns nil</span>
+      <span class="k">return</span> <span class="n">b</span><span class="o">-&gt;</span><span class="n">x</span><span class="p">;</span> <span class="c1">// dereferencing b, potential NPE if you pass nil as the argument a.</span>
+  <span class="p">}</span>
+</code></pre></div>
+<p>or when the parameter is a block:</p>
+<div class="highlight"><pre><code class="language-objc" data-lang="objc">   <span class="o">-</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="nl">foo</span><span class="p">:(</span><span class="kt">void</span> <span class="p">(</span><span class="o">^</span><span class="p">)(</span><span class="kt">BOOL</span><span class="p">))</span><span class="n">block</span> <span class="p">{</span>
+      <span class="n">block</span><span class="p">(</span><span class="nb">YES</span><span class="p">);</span> <span class="c1">// calling a nil block will cause a crash.</span>
+   <span class="p">}</span>
+</code></pre></div>
+<p>Possible solutions are adding a check for <code>nil</code>, or making sure that the method is not called with <code>nil</code>.</p>
+
+<h2 id="-ivar-not-null-checked"><a name="IVAR_NOT_NULL_CHECKED"></a> Ivar not null checked</h2>
+
+<p>This error type is only reported in Objective-C. This is similar to Null dereference, but Infer hasn&#39;t found a whole trace where the error can happen, but only found that a null dereference can happen if an instance variable of a parameter is <code>nil</code>. For example:</p>
+<div class="highlight"><pre><code class="language-objc" data-lang="objc">  <span class="o">-</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="n">foo</span> <span class="p">{</span>
+      <span class="n">B</span> <span class="n">b</span><span class="o">*</span> <span class="o">=</span> <span class="p">[</span><span class="nb">self</span><span class="o">-&gt;</span><span class="n">_a</span> <span class="n">foo</span><span class="p">];</span> <span class="c1">// sending a message with receiver nil returns nil</span>
+      <span class="k">return</span> <span class="n">b</span><span class="o">-&gt;</span><span class="n">x</span><span class="p">;</span> <span class="c1">// dereferencing b, potential NPE if you pass nil as the argument a.</span>
+  <span class="p">}</span>
+</code></pre></div>
+<p>Possible solutions are adding a check for <code>nil</code>, or making sure that the method is not called with <code>nil</code>.</p>
+
+<h2 id="-premature-nil-termination-argument"><a name="PREMATURE_NIL_TERMINATION_ARGUMENT"></a> Premature nil termination argument</h2>
+
+<p>This error type is reported in C and Objective-C. In many variadic methods, <code>nil</code> is used to signify the end of the list of input objects. This is similar to nil-termination of C strings. If one of the arguments that is not the last argument to the method is <code>nil</code> as well, Infer reports an error because that may lead to unexpected behavior.</p>
+
+<p>An example of such variadic methods is <a href="https://developer.apple.com/library/prerelease/ios/documentation/Cocoa/Reference/Foundation/Classes/NSArray_Class/index.html#//apple_ref/occ/clm/NSArray/arrayWithObjects">arrayWithObjects</a></p>
+<div class="highlight"><pre><code class="language-objc" data-lang="objc">  <span class="bp">NSArray</span> <span class="o">*</span><span class="n">foo</span> <span class="o">=</span> <span class="p">[</span><span class="bp">NSArray</span> <span class="nl">arrayWithObjects</span><span class="p">:</span> <span class="s">@&quot;aaa&quot;</span><span class="p">,</span> <span class="n">str</span><span class="p">,</span> <span class="s">@&quot;bbb&quot;</span><span class="p">,</span> <span class="nb">nil</span><span class="p">];</span>
+</code></pre></div>
+<p>In this example, if <code>str</code> is <code>nil</code> then an array <code>@[@&quot;aaa&quot;]</code> of size 1 will be created, and not an array <code>@[@&quot;aaa&quot;, str, @&quot;bbb&quot;]</code> of size 3 as expected.</p>
+
+    
+  </article>
+  
+
+
+  
+  
+  
+    
+  
+    
+  
+
+  
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+  
+    
+      
+      
+    
+  
+    
+  
+    
+  
+
+
+  <div class="docPagination">
+    
+    
+    
+    
+      
+    
+    
+    
+    
+      
+    <div class="pager pagingPrevious"><a href="/docs/limitations.html">&lsaquo; <span class="pagerLabel">Previous</span><span class="pagerTitle">Limitations, etc</span></a></div>
+    
+    
+    <div class="pager pagingNext"><a href="/docs/checkers-bug-types.html"><span class="pagerTitle">Checkers bug types</span><span class="pagerLabel">Next</span> &rsaquo;</a></div>
+    
+  </div>
+
+</div>
+  </div>
+</div>
+
+
+      <div class="footerContainer">
+  <div id="footer_wrap" class="wrapper footerWrapper">
+    <section id="fb_oss" class="fbOpenSourceFooter">
+      <a href="https://code.facebook.com/projects/" target="_blank"><img src="/static/oss_logo.png" alt="Facebook Open Source" title="Facebook Open Source" /></a>
+    </section>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </div>
+</div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44373548-7', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+    </div>
+  </body>
+
+</html>

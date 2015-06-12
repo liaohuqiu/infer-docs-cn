@@ -5,9 +5,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
-	<meta property="og:url" content="http://infer.test.srain.in/blog/all.html" />
+	<meta property="og:url" content="http://infer.test.srain.in/" />
 	<meta property="og:site_name" content="Infer"/>
-	<meta property="og:title" content="Infer" />
+	<meta property="og:title" content="Infer 中文 | APP 的静态分析工具" />
 	<meta property="og:image" content="http://infer.test.srain.in/static/og_image.png" />
 	<meta property="og:description" content="" />
 
@@ -23,10 +23,10 @@
   <script src="/static/react-with-addons-0.13.1.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/highlight.min.js"></script>
 
-  <title>Infer</title>
+  <title>Infer 中文 | APP 的静态分析工具</title>
   <meta name="description" content="">
 
-  <link rel="canonical" href="http://infer.test.srain.in/blog/all.html">
+  <link rel="canonical" href="http://infer.test.srain.in/">
   <link rel="alternate" type="application/rss+xml" title="Infer" href="http://infer.test.srain.in/feed.xml" />
 </head>
 
@@ -46,7 +46,7 @@
             <a href=support.html>帮助和支持</a>
           </li>
           
-          <li class="navItem navItemActive">
+          <li class="navItem ">
             <a href=blog/>博客</a>
           </li>
           
@@ -160,103 +160,69 @@
 </div>
 
     <div class="navPusher">
-      <div class="mainContainer blogContainer postContainer">
-  <div id="main_wrap" class="wrapper mainWrapper">
-    <nav class='toc' id="blog_nav"></nav>
-<script>
-  
-  var blognavData = [
-    
-    {
-      key : "/blog/2015/05/22/Infer-on-open-source-android-apps.html",
-      title : "Infer on Open Source Android Apps",
-      url : "/blog/2015/05/22/Infer-on-open-source-android-apps.html",
-    }
-    
-  ];
-</script>
-<script type="text/javascript">  
-var BlogNav = React.createClass({displayName: "BlogNav",
-  getInitialState: function() {
-    return {
-      toggleActive: false,
-    };
-  },
-  getDefaultProps: function() {
-    return {
-      currentDoc: "",
-      data: blognavData,
-    }
-  },
-  handleSlide: function(id) {
-    this.setState({
-      toggleActive: !this.state.toggleActive,
-    });
-  },
-  render: function() {
-    var classes = React.addons.classSet({
-      'navToggle': true,
-      'navToggleActive': this.state.toggleActive,
-    });
-    var navClasses = React.addons.classSet({
-      'toggleNav': true,
-      'toggleNavActive': this.state.toggleActive,
-    });
-    return (
-      React.createElement("div", {className: navClasses}, 
-        React.createElement("section", null, 
-          React.createElement("h3", null, "Recent Posts"), 
-          React.createElement("ul", null, 
-            this.props.data.map(this.renderNavItems), 
-            React.createElement("li", null, React.createElement("a", {href: "/blog/all.html"}, "All posts"))
-          )
-        ), 
-        React.createElement("div", {className: classes, onClick: this.handleSlide}, React.createElement("i", {className: "fa fa-chevron-circle-down"}))
-      )
-    );
-  },
-  renderNavItems: function(child, index) {
-    var itemClasses = React.addons.classSet({
-      'navListItem': true,
-      'navListItemActive': this.props.currentDoc === child.title,
-    });
-    var classes = React.addons.classSet({
-      'navItem': true,
-      'navItemActive': this.props.currentDoc === child.title,
-    });
-    return (
-      React.createElement("li", {className: itemClasses, key: index}, React.createElement("a", {className: classes, href: child.url},  child.title))
-    );
-  },
-});
+      <div class="headerContainer">
+  <div id="header_wrap" class="wrapper headerWrapper">
+    <div class="inner">
+      <img class="projectLogo" height="200px" src="/static/logo.png" alt="Infer" title="Infer" />
+      <h1 id="project_title">Infer</h1>
+      <h2 id="project_tagline" class="fbossFontLight">在发布前，检测 Android 和 iOS 应用的问题</h2>
 
-function blogNavRender(blognavData) {
-  React.render(
-    React.createElement(BlogNav, {data: blognavData}),
-    document.getElementById('blog_nav')
-  );
-}
-blogNavRender(blognavData);
-</script>
-    <div class="posts">
-  <div class="post">
-    <h1>All Posts</h1>
-    
-      
-      <p>
-        <strong>
-          <a href="/blog/2015/05/22/Infer-on-open-source-android-apps.html">Infer on Open Source Android Apps</a>
-        </strong>
-          on May 22, 2015 by 
-      </p>
-    
+      <section id="intro">
+        <p></p>
+      </section>
+      <div id="promo" class="section promoSection">
+        
+          <div class="ascii-cinema pluginBlock"></div>
+<script type="text/javascript" src="https://asciinema.org/a/5uh7nmuvwsbdok61t2fh1iiob.js" id="asciicast-5uh7nmuvwsbdok61t2fh1iiob" async data-autoplay="true" data-loop="true"></script>
+          <div class="gridClear"></div>
+        
+          <a class="button blockButton fbossFontLight pluginBlock" href="docs/getting-started.html">Get Started</a>
+          <div class="gridClear"></div>
+        
+          <div class="pluginBlock">
+  <a aria-label="Star facebook/infer on GitHub" data-count-aria-label="# stargazers on GitHub" data-count-api="/repos/facebook/infer#stargazers_count" data-count-href="/facebook/infer/stargazers" data-style="mega" data-icon="octicon-star" href="https://github.com/facebook/infer" class="github-button">Star</a>
+</div>
+<script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
+          <div class="gridClear"></div>
+        
+      </div>
+    </div>
   </div>
 </div>
+      <div class="mainContainer">
+        <div id="main_wrap" class="wrapper mainWrapper homeWrapper">
+          <h2 id="什么是-infer？">什么是 Infer？</h2>
 
-  </div>
-</div>
+<p>Facebook 的 Infer 是一个静态分析工具。Infer 可以分析 Objective-C， Java 或者 C 代码，报告潜在的问题。</p>
 
+<p>任何人都可以使用 Infer 检测应用，这可以将那些严重的 bug 扼杀在发布之前，同时防止应用崩溃和性能低下。</p>
 
+<p><img src="static/images/Infer-landing.png" alt="在开发流程中引入 Infer"></p>
+
+<h2 id="特性">特性</h2>
+
+<h3 id="android-和-java">Android 和 Java</h3>
+
+<p>Infer 可检查 Android 和 Java 代码中的 NullPointException 和 资源泄露。</p>
+
+<h3 id="ios">iOS</h3>
+
+<p>除了以上，Infer 还可发现 iOS 和 C 代码中的内存泄露。</p>
+
+<h2 id="谁在使用-infer？">谁在使用 Infer？</h2>
+
+<p>Infer 已经成为 Facebook 开发流程的一个环节，包括 Facebook Android 和 iOS 主客户端，Facebook Messenger， Instagram 在内的，以及其他影响亿万用户的手机应用，每次代码变更，都要经过 Infer 的检测。</p>
+
+<h2 id="使用-infer">使用 Infer</h2>
+
+<p>从 <a href="docs/getting-started.html">开始使用</a> 指南和我们的其他 <a href="docs/">文档</a> 开始，下载并尝试使用 Infer 吧。</p>
+
+<p>Infer 还在持续改进，我们将会开源状态下，持续开发。</p>
+
+<p>我们希望 Infer 对其他项目有所帮助，所以我们希望你可以试着使用它，或者给这个项目添砖加瓦，加入我们的技术社区，给我们反馈吧！</p>
+
+        </div>
+      </div>
       <div class="footerContainer">
   <div id="footer_wrap" class="wrapper footerWrapper">
     <section id="fb_oss" class="fbOpenSourceFooter">

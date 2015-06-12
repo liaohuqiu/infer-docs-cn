@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+	<meta property="og:url" content="http://infer.test.srain.in/docs/eradicate-warnings.html" />
+	<meta property="og:site_name" content="Infer"/>
+	<meta property="og:title" content="Eradicate warnings" />
+	<meta property="og:image" content="http://infer.test.srain.in/static/og_image.png" />
+	<meta property="og:description" content="" />
+
+  <link rel="stylesheet" type="text/css" media="screen" href="/css/main.css">
+	<link rel="stylesheet" type="text/css" href="//cloud.typography.com/7491092/701726/css/fonts.css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/styles/default.min.css">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+  <link rel="icon" href="static/favicon.png" type="image/x-icon">
+  
+  <base href="http://infer.test.srain.in/" />
+  
+  <script src="/static/react-with-addons-0.13.1.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/highlight.min.js"></script>
+
+  <title>Eradicate warnings</title>
+  <meta name="description" content="">
+
+  <link rel="canonical" href="http://infer.test.srain.in/docs/eradicate-warnings.html">
+  <link rel="alternate" type="application/rss+xml" title="Infer" href="http://infer.test.srain.in/feed.xml" />
+</head>
+
+  <body>    
+    <div id="fixed_header" class="fixedHeaderContainer visible">
+  <header>
+    <a href="http://infer.test.srain.in"><img src="/static/logo.png" /><h2>Infer</h2></a>
+    <div class="navigationWrapper navigationFull" id="flat_nav">
+      <nav class="navigation">
+        <ul>
+          
+          <li class="navItem navItemActive">
+            <a href=docs/getting-started.html>文档</a>
+          </li>
+          
+          <li class="navItem ">
+            <a href=support.html>帮助和支持</a>
+          </li>
+          
+          <li class="navItem ">
+            <a href=blog/>博客</a>
+          </li>
+          
+          <li class="navItem ">
+            <a href=http://github.com/facebook/infer>Github</a>
+          </li>
+          
+        </ul>
+      </nav>
+    </div>
+    <div class="navigationWrapper navigationSlider" id="navigation_wrap"></div>
+  </header>
+  <script>
+    var event = document.createEvent('Event');
+    event.initEvent('slide', true, true);
+    document.addEventListener('slide', function (e) {
+      document.body.classList.toggle('sliderActive');
+    }, false);
+    var navData = [
+      
+      {
+        href       : "docs/getting-started.html",
+        text       : "文档",
+      },
+      
+      {
+        href       : "support.html",
+        text       : "帮助和支持",
+      },
+      
+      {
+        href       : "blog/",
+        text       : "博客",
+      },
+      
+      {
+        href       : "http://github.com/facebook/infer",
+        text       : "Github",
+      },
+      
+    ];
+  </script>
+  <script type="text/javascript">  
+    var Nav = React.createClass({displayName: "Nav",
+      getInitialState: function() {
+        return {
+          currentPath: window.location.pathname,
+          slideoutActive: false,
+        };
+      },
+      getDefaultProps: function() {
+        return {
+          data: navData,
+        }
+      },
+      handleClick: function(id) {
+        this.setState({
+          slideoutActive: false,
+        });
+        document.dispatchEvent(event);
+      },
+      handleSlide: function(id) {
+        this.setState({
+          slideoutActive: !this.state.slideoutActive,
+        });
+        document.dispatchEvent(event);
+      },
+      render: function() {
+        var classes = React.addons.classSet({
+          'navSlideout': true,
+          'navSlideoutActive': this.state.slideoutActive,
+        });
+        var navClasses = React.addons.classSet({
+          'slidingNav': true,
+          'slidingNavActive': this.state.slideoutActive,
+        });
+        return (
+          React.createElement("div", null, 
+            React.createElement("div", {className: classes, onClick: this.handleSlide}, 
+              React.createElement("i", {className: "fa fa-bars"})
+            ), 
+            React.createElement("nav", {className: navClasses}, 
+              React.createElement("ul", null, 
+                this.props.data.map(this.renderNavItems)
+              )
+            )
+          )
+        );
+      },
+      renderNavItems: function(child, index) {
+        var classes = React.addons.classSet({
+          'navItem': true,
+          'navItemActive': this.state.currentPath === child.href,
+        });
+        return (
+          React.createElement("li", {key: index, className: classes}, 
+            React.createElement("a", {onClick: this.handleClick, href: child.href}, child.text)
+          )
+        );
+      },
+    });
+
+    function render(navData) {
+      React.render(
+        React.createElement(Nav, {data: navData}),
+        document.getElementById('navigation_wrap')
+      );
+    }
+    render(navData);
+  </script>
+</div>
+
+    <div class="navPusher">
+      <div class="mainContainer blogContainer postContainer">
+  <div id="main_wrap" class="wrapper mainWrapper">
+    <div>
+</div>
+<nav class='toc' id="doc_nav"></nav>
+<script>
+  var docnavData = [
+    
+    {
+      group     : "开始使用",
+      items     : [
+        
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/getting-started.html",
+          title : "开始使用",
+          url : "/docs/getting-started.html",
+        },
+        
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/hello-world.html",
+          title : "Hello, World!",
+          url : "/docs/hello-world.html",
+        }
+        
+      ],
+    },
+    
+    {
+      group     : "用户使用参考",
+      items     : [
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/infer-workflow.html",
+          title : "Infer 的工作机制",
+          url : "/docs/infer-workflow.html",
+        },
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/analyzing-apps-or-projects.html",
+          title : "Analyzing apps or projects",
+          url : "/docs/analyzing-apps-or-projects.html",
+        },
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/checkers.html",
+          title : "Infer : Checkers",
+          url : "/docs/checkers.html",
+        },
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/eradicate.html",
+          title : "Infer : Eradicate",
+          url : "/docs/eradicate.html",
+        },
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/install-from-source.html",
+          title : "Install from source",
+          url : "/docs/install-from-source.html",
+        },
+        
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/advanced-features.html",
+          title : "Advanced usage",
+          url : "/docs/advanced-features.html",
+        },
+        
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/adding-models.html",
+          title : "Adding models",
+          url : "/docs/adding-models.html",
+        }
+        
+      ],
+    },
+    
+    {
+      group     : "Foundations",
+      items     : [
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/about-Infer.html",
+          title : "About Infer",
+          url : "/docs/about-Infer.html",
+        },
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/separation-logic-and-bi-abduction.html",
+          title : "Separation logic and bi-abduction",
+          url : "/docs/separation-logic-and-bi-abduction.html",
+        },
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/limitations.html",
+          title : "Limitations, etc",
+          url : "/docs/limitations.html",
+        }
+        
+      ],
+    },
+    
+    {
+      group     : "Bug 类型参考",
+      items     : [
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+        {
+          key : "/docs/infer-bug-types.html",
+          title : "Infer bug types",
+          url : "/docs/infer-bug-types.html",
+        },
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/checkers-bug-types.html",
+          title : "Checkers bug types",
+          url : "/docs/checkers-bug-types.html",
+        },
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+        {
+          key : "/docs/eradicate-warnings.html",
+          title : "Eradicate warnings",
+          url : "/docs/eradicate-warnings.html",
+        }
+        
+      ],
+    },
+    
+  ];
+</script>
+<script type="text/javascript">  
+  var DocNav = React.createClass({displayName: "DocNav",
+    getInitialState: function() {
+      return {
+        toggleActive: false,
+      };
+    },
+    getDefaultProps: function() {
+      return {
+        currentDoc: "Eradicate warnings",
+        currentGroup: "Bug Types Reference",
+        data: docnavData,
+      }
+    },
+    handleSlide: function(id) {
+      this.setState({
+        toggleActive: !this.state.toggleActive,
+      });
+    },
+    render: function() {
+      var classes = React.addons.classSet({
+        'navToggle': true,
+        'navToggleActive': this.state.toggleActive,
+      });
+      var navClasses = React.addons.classSet({
+        'toggleNav': true,
+        'toggleNavActive': this.state.toggleActive,
+      });
+      return (
+        React.createElement("div", {className: navClasses}, 
+          React.createElement("section", null, 
+            this.props.data.map(this.renderNavGroups)
+          ), 
+          React.createElement("div", {className: classes, onClick: this.handleSlide}, React.createElement("i", {className: "fa fa-chevron-circle-down"}))
+        )
+      );
+    },
+    renderNavGroups: function(child, index) {
+      var classes = React.addons.classSet({
+        'navGroup': true,
+        'navGroupActive': this.props.currentGroup === child.group,
+      });
+      return (
+        React.createElement("div", {className: classes, key: index}, 
+          React.createElement("h3", null, child.group), 
+          React.createElement("ul", null, 
+            child.items.map(this.renderNavItems)
+          )
+        )
+      );
+    },
+    renderNavItems: function(child, index) {
+      var itemClasses = React.addons.classSet({
+        'navListItem': true,
+        'navListItemActive': this.props.currentDoc === child.title,
+      });
+      var classes = React.addons.classSet({
+        'navItem': true,
+        'navItemActive': this.props.currentDoc === child.title,
+      });
+      return (
+        React.createElement("li", {className: itemClasses, key: index}, React.createElement("a", {className: classes, href: child.url},  child.title))
+      );
+    },
+  });
+
+  function docNavRender(docnavData) {
+    React.render(
+      React.createElement(DocNav, {data: docnavData}),
+      document.getElementById('doc_nav')
+    );
+  }
+  docNavRender(docnavData);
+</script>
+    <div class="post">
+  <header class="post-header">
+    <h1 class="post-title">Eradicate warnings</h1>
+  </header>
+
+  <article class="post-content">
+   
+      <p>Below you will find a description of all the warnings reported by 
+<a href="/docs/eradicate.html">Eradicate</a>.</p>
+
+<ul>
+<li><a href="/docs/eradicate-warnings.html#ERADICATE_NULL_FIELD_ACCESS">Eradicate null field access</a></li>
+<li><a href="/docs/eradicate-warnings.html#ERADICATE_NULL_METHOD_CALL">Eradicate null method call</a></li>
+<li><a href="/docs/eradicate-warnings.html#ERADICATE_FIELD_NOT_NULLABLE">Eradicate field not nullable</a></li>
+<li><a href="/docs/eradicate-warnings.html#ERADICATE_FIELD_NOT_INITIALIZED">Eradicate field not initialized</a></li>
+<li><a href="/docs/eradicate-warnings.html#ERADICATE_PARAMETER_NOT_NULLABLE">Eradicate parameter not nullable</a></li>
+<li><a href="/docs/eradicate-warnings.html#ERADICATE_RETURN_NOT_NULLABLE">Eradicate return not nullable</a></li>
+<li><a href="/docs/eradicate-warnings.html#ERADICATE_CONDITION_REDUNDANT">Eradicate condition redundant</a></li>
+<li><a href="/docs/eradicate-warnings.html#ERADICATE_RETURN_OVER_ANNOTATED">Eradicate return over annotated</a></li>
+<li><a href="/docs/eradicate-warnings.html#ERADICATE_INCONSISTENT_SUBCLASS_RETURN_ANNOTATION">Eradicate inconsistent subclass return annotation</a></li>
+<li><a href="/docs/eradicate-warnings.html#ERADICATE_INCONSISTENT_SUBCLASS_PARAMETER_ANNOTATION">Eradicate inconsistent subclass parameter annotation</a></li>
+</ul>
+
+<h2 id="eradicate-null-field-access"><a name="ERADICATE_NULL_FIELD_ACCESS"></a>Eradicate null field access</h2>
+
+<p>A field access of the form x.field where x could be null.</p>
+
+<p>Example:</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">C</span> <span class="o">{</span>
+  <span class="kt">void</span> <span class="nf">foo</span><span class="o">(</span><span class="nd">@Nullable</span> <span class="n">C</span> <span class="n">x</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">x</span><span class="o">.</span><span class="na">field</span> <span class="o">=</span> <span class="mi">3</span><span class="o">;</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+<p>Action:
+Make sure that x cannot be null by changing the code or changing annotations.
+If this cannot be done, the only choice is to use defensive programming:
+  if (x != null) { ... x.field ... }
+  else {  ... you need to decide what to do when x is null ... }
+The general recommendation is to push null checks up the call chain as much as possible in order
+to detect the place where null values originate and deal with them at that point.
+When a null value is propagated down the call chain it is often difficult to determine
+its origin without global knowledge of what the program does.
+For example, a null value could originate in third party libraries which are not under your
+control, and the best place to check for null is typically immediately after calling these
+library functions.</p>
+
+<h2 id="eradicate-null-method-call"><a name="ERADICATE_NULL_METHOD_CALL"></a>Eradicate null method call</h2>
+
+<p>A method call x.m(...) where x could be null.</p>
+
+<p>Example:</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">C</span> <span class="o">{</span>
+  <span class="kt">void</span> <span class="nf">foo</span><span class="o">(</span><span class="nd">@Nullable</span> <span class="n">C</span> <span class="n">x</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="na">toString</span><span class="o">();</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+<p>Action:
+Same as for Null field access.</p>
+
+<h2 id="eradicate-field-not-nullable"><a name="ERADICATE_FIELD_NOT_NULLABLE"></a>Eradicate field not nullable</h2>
+
+<p>An  assignment x.f = v where v could be null and field f is not annotated with @Nullable.</p>
+
+<p>Example:</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">C</span> <span class="o">{</span>
+  <span class="n">String</span> <span class="n">f</span><span class="o">;</span>
+
+  <span class="kt">void</span> <span class="nf">foo</span><span class="o">(</span><span class="nd">@Nullable</span> <span class="n">String</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">s</span><span class="o">;</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+<p>Action:
+The preferred action is to ensure that a null value is never stored in the field,
+by changing the code or changing annotations.
+If this cannot be done, add a @Nullable annotation to the field. This annotation might trigger
+more warnings in other code that uses the field, as that code must now deal with null values.</p>
+
+<h2 id="-eradicate-field-not-initialized"><a name="ERADICATE_FIELD_NOT_INITIALIZED"> </a>Eradicate field not initialized</h2>
+
+<p>The constructor does not initialize a field f which is not annotated with @Nullable</p>
+
+<p>Example:</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">C</span> <span class="o">{</span>
+  <span class="n">String</span> <span class="n">f</span><span class="o">;</span>
+
+  <span class="n">C</span> <span class="o">()</span> <span class="o">{</span> <span class="c1">// field f not initialized and not annotated @Nullable</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+<p>Action:
+The preferred action is to initialize the field with a value that is not null.
+If, by design, null is a valid value for the field, then it should be annotated with @Nullable.</p>
+
+<h2 id="-eradicate-parameter-not-nullable"><a name="ERADICATE_PARAMETER_NOT_NULLABLE"> </a>Eradicate parameter not nullable</h2>
+
+<p>Method call x.m(..., v, ...) where v can be null and the corresponding parameter in method m is not annotated with @Nullable</p>
+
+<p>Example:</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">C</span> <span class="o">{</span>
+  <span class="kt">void</span> <span class="nf">m</span><span class="o">(</span><span class="n">C</span> <span class="n">x</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="na">toString</span><span class="o">()</span>
+  <span class="o">}</span>
+
+  <span class="kt">void</span> <span class="nf">test</span><span class="o">(</span><span class="nd">@Nullable</span> <span class="n">C</span> <span class="n">x</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">m</span><span class="o">(</span><span class="n">x</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+<p>Action:
+The preferred action is to ensure that a null value is never passed to the method,
+by changing the code or changing annotations.
+If this cannot be done, add a @Nullable annotation to the relevant parameter in the method declaration.
+This annotation might trigger more warnings in the implementation of method m, as that code must now deal with null values.</p>
+
+<h2 id="-eradicate-return-not-nullable"><a name="ERADICATE_RETURN_NOT_NULLABLE"> </a>Eradicate return not nullable</h2>
+
+<p>Method m can return null, but the method&#39;s return type is not annotated with @Nullable</p>
+
+<p>Example:</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">C</span> <span class="o">{</span>
+  <span class="n">String</span> <span class="nf">m</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+<p>Action:
+The preferred action is to ensure that a null value is never returned by the method,
+by changing the code or changing annotations.
+If this cannot be done, add a @Nullable annotation to the the method declaration.
+This annotation might trigger more warnings in the callers of method m, as the callers must now deal with null values.</p>
+
+<h2 id="-eradicate-condition-redundant"><a name="ERADICATE_CONDITION_REDUNDANT"> </a>Eradicate condition redundant</h2>
+
+<p>This report is inactive by default. Condition (x != null) or (x == null) when x cannot be null: the first condition is always true and the second is always false</p>
+
+<p>Example:</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">C</span> <span class="o">{</span>
+  <span class="kt">void</span> <span class="nf">m</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">String</span><span class="o">(</span><span class="s">&quot;abc&quot;</span><span class="o">);</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">s</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+      <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="na">length</span><span class="o">();</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+<p>Action:
+Make sure that the annotations are correct, as the condition is considered redundant based on the existing annotations.
+In particular, check the annotation of any input parameters and fields of the current method, as well
+as the annotations of any method called directly by the current method, if relevant.
+If the annotations are correct, you can remove the redundant case.</p>
+
+<h2 id="-eradicate-return-overannotated"><a name="ERADICATE_RETURN_OVER_ANNOTATED"> </a>Eradicate return overannotated</h2>
+
+<p>This report is inactive by default. Method m is annotated with @Nullable but the method cannot return null</p>
+
+<p>Example:</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">C</span> <span class="o">{</span>
+  <span class="nd">@Nullable</span> <span class="n">String</span> <span class="nf">m</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">String</span><span class="o">(</span><span class="s">&quot;abc&quot;</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">s</span><span class="o">;</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+<p>Action:
+Make sure that the annotations are correct, as the return annotation is considered redundant based on the existing annotations.
+In particular, check the annotation of any input parameters and fields of the current method, as well
+as the annotations of any method called directly by the current method, if relevant.
+If the annotations are correct, you can remove the @Nullable annotation.</p>
+
+<h2 id="-eradicate-inconsistent-subclass-return-annotation"><a name="ERADICATE_INCONSISTENT_SUBCLASS_RETURN_ANNOTATION"> </a>Eradicate inconsistent subclass return annotation</h2>
+
+<p>The return type of the overridden method is annotated @Nullable, but the corresponding method in the superclass is not.</p>
+
+<p>Action: choose a consistent annotation based on the desired invariant.</p>
+
+<p>Example:</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">A</span> <span class="o">{</span>
+  <span class="n">String</span> <span class="nf">create</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">String</span><span class="o">(</span><span class="s">&quot;abc&quot;</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">B</span> <span class="kd">extends</span> <span class="n">A</span> <span class="o">{</span>
+  <span class="nd">@Nullable</span> <span class="n">String</span> <span class="nf">create</span><span class="o">()</span> <span class="o">{</span>  <span class="c1">// Inconsistent @Nullable annotation.</span>
+      <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+<p>A consistent use of @Nullable on the return type across subtyping should prevent runtime issue like in:</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+
+  <span class="kt">int</span> <span class="nf">foo</span><span class="o">(</span><span class="n">A</span> <span class="n">a</span><span class="o">)</span> <span class="o">{</span>
+     <span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="na">create</span><span class="o">();</span>
+     <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="na">length</span><span class="o">();</span>
+  <span class="o">}</span>
+
+  <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+     <span class="n">A</span> <span class="n">a</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">B</span><span class="o">();</span>
+     <span class="n">foo</span><span class="o">(</span><span class="n">a</span><span class="o">);</span>
+  <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div>
+<h2 id="-inconsistent-subclass-parameter-annotation"><a name="ERADICATE_INCONSISTENT_SUBCLASS_PARAMETER_ANNOTATION"></a> Inconsistent subclass parameter annotation</h2>
+
+<p>A parameter of the overridden method is missing a @Nullable annotation present in the superclass.</p>
+
+<p>Action: choose a consistent annotation based on the desired invariant.</p>
+
+<p>Example:</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">A</span> <span class="o">{</span>
+
+  <span class="kt">int</span> <span class="nf">len</span><span class="o">(</span><span class="nd">@Nullable</span> <span class="n">String</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">s</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="na">length</span><span class="o">();</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">B</span> <span class="kd">extends</span> <span class="n">A</span> <span class="o">{</span>
+
+  <span class="kt">int</span> <span class="nf">len</span><span class="o">(</span><span class="n">String</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>  <span class="c1">// @Nullable missing.</span>
+    <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="na">length</span><span class="o">();</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+<p>A consistent use of @Nullable on parameters across subtyping should prevent runtime issue like in:</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+
+  <span class="n">String</span> <span class="n">s</span><span class="o">;</span>
+
+  <span class="kt">int</span> <span class="nf">foo</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">A</span> <span class="n">a</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">B</span><span class="o">();</span>
+    <span class="k">return</span> <span class="n">a</span><span class="o">.</span><span class="na">len</span><span class="o">(</span><span class="n">s</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+    
+  </article>
+  
+
+
+  
+  
+  
+    
+  
+    
+  
+
+  
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+  
+    
+  
+    
+  
+    
+      
+      
+    
+  
+
+
+  <div class="docPagination">
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <div class="pager pagingPrevious"><a href="/docs/checkers-bug-types.html">&lsaquo; <span class="pagerLabel">Previous</span><span class="pagerTitle">Checkers bug types</span></a></div>
+    
+    
+  </div>
+
+</div>
+  </div>
+</div>
+
+
+      <div class="footerContainer">
+  <div id="footer_wrap" class="wrapper footerWrapper">
+    <section id="fb_oss" class="fbOpenSourceFooter">
+      <a href="https://code.facebook.com/projects/" target="_blank"><img src="/static/oss_logo.png" alt="Facebook Open Source" title="Facebook Open Source" /></a>
+    </section>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </div>
+</div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44373548-7', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+    </div>
+  </body>
+
+</html>

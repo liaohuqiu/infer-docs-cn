@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+	<meta property="og:url" content="http://infer.test.srain.in/docs/separation-logic-and-bi-abduction.html" />
+	<meta property="og:site_name" content="Infer"/>
+	<meta property="og:title" content="Separation logic and bi-abduction" />
+	<meta property="og:image" content="http://infer.test.srain.in/static/og_image.png" />
+	<meta property="og:description" content="" />
+
+  <link rel="stylesheet" type="text/css" media="screen" href="/css/main.css">
+	<link rel="stylesheet" type="text/css" href="//cloud.typography.com/7491092/701726/css/fonts.css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/styles/default.min.css">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+  <link rel="icon" href="static/favicon.png" type="image/x-icon">
+  
+  <base href="http://infer.test.srain.in/" />
+  
+  <script src="/static/react-with-addons-0.13.1.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/highlight.min.js"></script>
+
+  <title>Separation logic and bi-abduction</title>
+  <meta name="description" content="">
+
+  <link rel="canonical" href="http://infer.test.srain.in/docs/separation-logic-and-bi-abduction.html">
+  <link rel="alternate" type="application/rss+xml" title="Infer" href="http://infer.test.srain.in/feed.xml" />
+</head>
+
+  <body>    
+    <div id="fixed_header" class="fixedHeaderContainer visible">
+  <header>
+    <a href="http://infer.test.srain.in"><img src="/static/logo.png" /><h2>Infer</h2></a>
+    <div class="navigationWrapper navigationFull" id="flat_nav">
+      <nav class="navigation">
+        <ul>
+          
+          <li class="navItem navItemActive">
+            <a href=docs/getting-started.html>文档</a>
+          </li>
+          
+          <li class="navItem ">
+            <a href=support.html>帮助和支持</a>
+          </li>
+          
+          <li class="navItem ">
+            <a href=blog/>博客</a>
+          </li>
+          
+          <li class="navItem ">
+            <a href=http://github.com/facebook/infer>Github</a>
+          </li>
+          
+        </ul>
+      </nav>
+    </div>
+    <div class="navigationWrapper navigationSlider" id="navigation_wrap"></div>
+  </header>
+  <script>
+    var event = document.createEvent('Event');
+    event.initEvent('slide', true, true);
+    document.addEventListener('slide', function (e) {
+      document.body.classList.toggle('sliderActive');
+    }, false);
+    var navData = [
+      
+      {
+        href       : "docs/getting-started.html",
+        text       : "文档",
+      },
+      
+      {
+        href       : "support.html",
+        text       : "帮助和支持",
+      },
+      
+      {
+        href       : "blog/",
+        text       : "博客",
+      },
+      
+      {
+        href       : "http://github.com/facebook/infer",
+        text       : "Github",
+      },
+      
+    ];
+  </script>
+  <script type="text/javascript">  
+    var Nav = React.createClass({displayName: "Nav",
+      getInitialState: function() {
+        return {
+          currentPath: window.location.pathname,
+          slideoutActive: false,
+        };
+      },
+      getDefaultProps: function() {
+        return {
+          data: navData,
+        }
+      },
+      handleClick: function(id) {
+        this.setState({
+          slideoutActive: false,
+        });
+        document.dispatchEvent(event);
+      },
+      handleSlide: function(id) {
+        this.setState({
+          slideoutActive: !this.state.slideoutActive,
+        });
+        document.dispatchEvent(event);
+      },
+      render: function() {
+        var classes = React.addons.classSet({
+          'navSlideout': true,
+          'navSlideoutActive': this.state.slideoutActive,
+        });
+        var navClasses = React.addons.classSet({
+          'slidingNav': true,
+          'slidingNavActive': this.state.slideoutActive,
+        });
+        return (
+          React.createElement("div", null, 
+            React.createElement("div", {className: classes, onClick: this.handleSlide}, 
+              React.createElement("i", {className: "fa fa-bars"})
+            ), 
+            React.createElement("nav", {className: navClasses}, 
+              React.createElement("ul", null, 
+                this.props.data.map(this.renderNavItems)
+              )
+            )
+          )
+        );
+      },
+      renderNavItems: function(child, index) {
+        var classes = React.addons.classSet({
+          'navItem': true,
+          'navItemActive': this.state.currentPath === child.href,
+        });
+        return (
+          React.createElement("li", {key: index, className: classes}, 
+            React.createElement("a", {onClick: this.handleClick, href: child.href}, child.text)
+          )
+        );
+      },
+    });
+
+    function render(navData) {
+      React.render(
+        React.createElement(Nav, {data: navData}),
+        document.getElementById('navigation_wrap')
+      );
+    }
+    render(navData);
+  </script>
+</div>
+
+    <div class="navPusher">
+      <div class="mainContainer blogContainer postContainer">
+  <div id="main_wrap" class="wrapper mainWrapper">
+    <div>
+</div>
+<nav class='toc' id="doc_nav"></nav>
+<script>
+  var docnavData = [
+    
+    {
+      group     : "开始使用",
+      items     : [
+        
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/getting-started.html",
+          title : "开始使用",
+          url : "/docs/getting-started.html",
+        },
+        
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/hello-world.html",
+          title : "Hello, World!",
+          url : "/docs/hello-world.html",
+        }
+        
+      ],
+    },
+    
+    {
+      group     : "用户使用参考",
+      items     : [
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/infer-workflow.html",
+          title : "Infer 的工作机制",
+          url : "/docs/infer-workflow.html",
+        },
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/analyzing-apps-or-projects.html",
+          title : "Analyzing apps or projects",
+          url : "/docs/analyzing-apps-or-projects.html",
+        },
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/checkers.html",
+          title : "Infer : Checkers",
+          url : "/docs/checkers.html",
+        },
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/eradicate.html",
+          title : "Infer : Eradicate",
+          url : "/docs/eradicate.html",
+        },
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/install-from-source.html",
+          title : "Install from source",
+          url : "/docs/install-from-source.html",
+        },
+        
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/advanced-features.html",
+          title : "Advanced usage",
+          url : "/docs/advanced-features.html",
+        },
+        
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/adding-models.html",
+          title : "Adding models",
+          url : "/docs/adding-models.html",
+        }
+        
+      ],
+    },
+    
+    {
+      group     : "Foundations",
+      items     : [
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/about-Infer.html",
+          title : "About Infer",
+          url : "/docs/about-Infer.html",
+        },
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/separation-logic-and-bi-abduction.html",
+          title : "Separation logic and bi-abduction",
+          url : "/docs/separation-logic-and-bi-abduction.html",
+        },
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/limitations.html",
+          title : "Limitations, etc",
+          url : "/docs/limitations.html",
+        }
+        
+      ],
+    },
+    
+    {
+      group     : "Bug 类型参考",
+      items     : [
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+        {
+          key : "/docs/infer-bug-types.html",
+          title : "Infer bug types",
+          url : "/docs/infer-bug-types.html",
+        },
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/checkers-bug-types.html",
+          title : "Checkers bug types",
+          url : "/docs/checkers-bug-types.html",
+        },
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+        {
+          key : "/docs/eradicate-warnings.html",
+          title : "Eradicate warnings",
+          url : "/docs/eradicate-warnings.html",
+        }
+        
+      ],
+    },
+    
+  ];
+</script>
+<script type="text/javascript">  
+  var DocNav = React.createClass({displayName: "DocNav",
+    getInitialState: function() {
+      return {
+        toggleActive: false,
+      };
+    },
+    getDefaultProps: function() {
+      return {
+        currentDoc: "Separation logic and bi-abduction",
+        currentGroup: "Foundations",
+        data: docnavData,
+      }
+    },
+    handleSlide: function(id) {
+      this.setState({
+        toggleActive: !this.state.toggleActive,
+      });
+    },
+    render: function() {
+      var classes = React.addons.classSet({
+        'navToggle': true,
+        'navToggleActive': this.state.toggleActive,
+      });
+      var navClasses = React.addons.classSet({
+        'toggleNav': true,
+        'toggleNavActive': this.state.toggleActive,
+      });
+      return (
+        React.createElement("div", {className: navClasses}, 
+          React.createElement("section", null, 
+            this.props.data.map(this.renderNavGroups)
+          ), 
+          React.createElement("div", {className: classes, onClick: this.handleSlide}, React.createElement("i", {className: "fa fa-chevron-circle-down"}))
+        )
+      );
+    },
+    renderNavGroups: function(child, index) {
+      var classes = React.addons.classSet({
+        'navGroup': true,
+        'navGroupActive': this.props.currentGroup === child.group,
+      });
+      return (
+        React.createElement("div", {className: classes, key: index}, 
+          React.createElement("h3", null, child.group), 
+          React.createElement("ul", null, 
+            child.items.map(this.renderNavItems)
+          )
+        )
+      );
+    },
+    renderNavItems: function(child, index) {
+      var itemClasses = React.addons.classSet({
+        'navListItem': true,
+        'navListItemActive': this.props.currentDoc === child.title,
+      });
+      var classes = React.addons.classSet({
+        'navItem': true,
+        'navItemActive': this.props.currentDoc === child.title,
+      });
+      return (
+        React.createElement("li", {className: itemClasses, key: index}, React.createElement("a", {className: classes, href: child.url},  child.title))
+      );
+    },
+  });
+
+  function docNavRender(docnavData) {
+    React.render(
+      React.createElement(DocNav, {data: docnavData}),
+      document.getElementById('doc_nav')
+    );
+  }
+  docNavRender(docnavData);
+</script>
+    <div class="post">
+  <header class="post-header">
+    <h1 class="post-title">Separation logic and bi-abduction</h1>
+  </header>
+
+  <article class="post-content">
+   
+      <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+<p><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.2.0/katex.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.2.0/katex.min.js"></script></p>
+
+<ul>
+<li><a href="docs/separation-logic-and-bi-abduction.html#separation-logic">Separation logic</a></li>
+<li><a href="docs/separation-logic-and-bi-abduction.html#bi-abduction">Bi-abduction</a></li>
+<li><a href="docs/separation-logic-and-bi-abduction.html#technical-papers">Technical papers</a></li>
+</ul>
+
+<h2 id="separation-logic">Separation logic</h2>
+
+<p>Separation logic is a novel kind of mathematical logic which facilitates reasoning about
+mutations to computer memory. It enables scalability by breaking reasoning into chunks
+corresponding to local operations on memory, and then composing
+the reasoning chunks together.</p>
+
+<p>Separation logic is based on a logical connective \( * \) called the <em>separating conjunction</em> and pronounced &quot;and separately&quot;. Separation logic formulae are interpreted over program allocated heaps. The logical formula
+\( A*B \) holds of a piece of program heap (a heaplet) when it can be divided into two sub-heaplets described by \(A\) and \(B\).
+For example, the formula
+$$x \mapsto y * y \mapsto x $$ can be read &quot;\(x\) points to \(y\) and separately \(y\) points to \(x\)&quot;. This formula describes precisely two allocated memory cells. The first cell is allocated at the address denoted by the pointer \(x\) and the content of this cell is the value of \(y\).
+The second cell is 
+allocated at the address denoted by the pointer \(y\) and the content of this second cell is the value of \(x\). Crucially, we know that there are precisely two cells because \( * \) stipulates that they are separated and therefore the cells are allocated in two different parts of memory. In other words, \( * \) 
+says that \(x\) and \(y\) do not hold the same value (i.e., these pointers are not aliased).
+The heaplet partitioning defined by the formula above can visualized like so:</p>
+
+<p><img src="static/images/SepSplit.jpg" alt="static/images/SepSplit.jpg"></p>
+
+<p>The important thing about separating conjunction is
+the way that it fits together with mutation to computer memory; reasoning about program commands
+tends to work by updating \(*\)-conjuncts in-place, mimicking the operational in-place update of RAM. </p>
+
+<p>Separation logic uses Hoare triples of the form \( \lbrace pre \rbrace prog \lbrace post \rbrace \) where \(pre\) is the precondition, \(prog\) a program part, and \(post\)
+the postcondition. Triples are abstract specifications of the behavior of the program. For example, we could take</p>
+
+<p>$$ \lbrace r \mapsto open\rbrace \, closeResource(r)\, \lbrace r \mapsto closed\rbrace  \;\;\; (spec)$$</p>
+
+<p>as a specification for a method which closes a resource given to it as a parameter.</p>
+
+<p>Now, suppose we have two resources \( r_1 \) and \( r_2 \), described by \(r_1 \mapsto open * r_2 \mapsto open\)
+and we close the first of them. We think operationally in terms of updating the memory in place, leaving \(r_2 \mapsto open\) alone,
+as described by this triple:</p>
+
+<p>$$ \lbrace r_1 \mapsto open * r_2 \mapsto open\rbrace  closeResource(r_1) \lbrace r_1 \mapsto closed * r_2 \mapsto open \rbrace \;\;\; (use)$$</p>
+
+<p>What we have here is the that specification (spec) described how \(closeResource()\) works by mentioning only one
+piece of state, what is sometimes called a small specification,
+and in (use) we use that specification to update a larger precondition in place.</p>
+
+<p>This is an instance of a general pattern.
+There is a rule that lets you go from smaller to bigger specifications
+$$ \frac{\lbrace pre \rbrace prog \lbrace post \rbrace}{\lbrace pre * frame \rbrace prog \lbrace post * frame \rbrace}$$
+Our passage from (spec) to (use) is obtained by taking</p>
+
+<ul>
+<li>\(pre\) to be \(r_1 \mapsto open\)</li>
+<li>\(post\) to be \(r_1 \mapsto closed \), and</li>
+<li>\(frame\) to be  \(r_2 \mapsto open \)</li>
+</ul>
+
+<p>This rule is called the <em>frame rule</em> of separation logic. It is named after the frame problem, a classic problem in artificial intelligence.
+Generally, the \(frame\) describes state that remains unchanged; the terminology comes from the analogy of
+a background scene in an animation as unchanging while the objects and characters within the scene change.</p>
+
+<p>The frame rule is the key to the principle of local reasoning in separation logic: reasoning and specifications
+should concentrate on the resources that a program accesses (the footprint), without mentioning what
+doesn&#39;t change.</p>
+
+<h2 id="bi-abduction">Bi-abduction</h2>
+
+<p>Bi-abduction is a form of logical inference for separation logic which automates the key ideas about local
+reasoning.</p>
+
+<p>Usually, logic works with validity or entailment statements like
+$$
+A \vdash B
+$$
+which says that \(A\) implies \(B\). Infer uses an extension of this inference question in an internal
+theorem prover while it runs over program statements.
+Infer&#39;s question
+$$
+A * ?antiframe \vdash B * ?frame
+$$
+is called <em>bi-abduction</em>. The problem here is for the theorem prover to <i> discover </i> a pair of frame and antiframe formulae that make the entailment statement valid.</p>
+
+<p>Global analyses of large programs are normally computational untractable. However, 
+bi-abduction allows to break the large analysis of a large program in small independent analyses of its procedures.  This gives Infer the ability to scale independently of the size of the analyzed code. Moreover, by breaking the analysis in small
+independent parts, when the full program is analyzed again because 
+of a code change the analysis results of the unchanged part of the 
+code can be reused and only the code change needs to be re-analyzed. This process is called incremental analysis and it 
+is very powerful when integrating a static analysis tool like infer in a development environment.</p>
+
+<p>In order to be able to decompose a global analysis in small independent analyses, let&#39;s first consider how a function
+call is analyzed in separation logic. Assume we have the following spec for a function \( f() \):
+$$ \lbrace pre_f \rbrace \;\; f() \;\; \lbrace post_f \rbrace $$ 
+and by analyzing the caller function, we compute that before 
+the call of \( f \), the formula \( CallingState \) hold. Then
+to utilize the specification of \( f \) the following implication must holds:</p>
+
+<p>$$ CallingState \vdash pre_f  \;\;\;\;\;\;\;\;\;\;\;\; (Function Call)$$</p>
+
+<p>Given that, 
+bi-abduction is used at procedure call sites for two reasons: to discover missing state that is needed for the above implication to hold and allow the analysis
+to proceed (the antiframe) as well as state that the procedure leaves unchanged (the frame).</p>
+
+<p>To see how this works suppose we have some bare code
+$$
+closeResource(r1); \, closeResource(r2)
+$$
+but no overall specification;
+we are going to describe how to discover a pre/post spec for it.
+Considering the first statement and the (spec) above, the human might say: if only we had
+\(r1 \mapsto open\) in the precondition then we could proceed.
+Technically,
+we ask a bi-abduction question
+$$
+emp * ?antiframe \vdash r1 \mapsto open * ?frame
+$$
+and we can fill this in easily by picking \(antiframe = r1 \mapsto open\) and \(frame = emp\),
+where emp means the empty state. The emp is recording that at the start we presume nothing. So we obtain the trivially true implication:
+$$
+emp * r1 \mapsto open \vdash r1 \mapsto open * emp
+$$
+which, by applying logical rules, can be re-written equivalently to:
+$$
+r1 \mapsto open \vdash r1 \mapsto open
+$$
+Notice that this satisfy the (Function Call) requirement to correctly make the call.
+So let&#39;s add that information in the pre, and while we are at it
+record the information in the post of the first statement that comes from (spec).
+<center>
+\( \lbrace r1 \mapsto open  \rbrace \)<br>
+\( closeResource(r1) \)<br>
+\( \lbrace r1 \mapsto closed \rbrace \)<br>
+\( closeResource(r2) \)
+</center>
+Now, let&#39;s move to the second statement. Its precondition \(r1 \mapsto closed\) in the partial symbolic execution trace just given
+does not have the information needed by \(closeResource(r2)\), so we can fill that in and continue by
+putting \(r2 \mapsto open\) in the pre. While we are at it we can thread this assertion back to the beginning.
+<center>
+\( \lbrace r1 \mapsto open * r2 \mapsto open  \rbrace \)<br>
+\( closeResource(r1) \)<br>
+\( \lbrace r1 \mapsto closed * r2 \mapsto open\rbrace \)<br>
+\( closeResource(r2) \)
+</center>
+This information on what to threat backwards can be obtained as the antiframe part of the bi-abduction question
+$$
+r1 \mapsto closed * ?antiframe \vdash r2 \mapsto open * ?frame
+$$
+where the solution picks
+\(antiframe = r2 \mapsto open\) and \(frame = r1 \mapsto closed\).
+Note that the antiframe is precisely the information missing from the precondition in order for \(closeResource(r2)\) to proceed. On the other hand, the frame \(r1 \mapsto closed\) is the portion of state not changed by \(closeResource(r2)\);
+we can thread that trough to the overall postconditon 
+( as justified by the frame rule), giving us
+<center>
+\( \lbrace r1 \mapsto open * r2 \mapsto open  \rbrace \)<br>
+\( closeResource(r1) \)<br>
+\( \lbrace r1 \mapsto closed * r2 \mapsto open\rbrace \)<br>
+\( closeResource(r2) \)<br>
+\( \lbrace r1 \mapsto closed * r2 \mapsto closed \rbrace\)
+</center>
+Thus, we have obtained a pre and post for this code by symbolically executing it, using bi-abduction
+to discover preconditions (abduction of antiframes) as well as untouched portions of memory (frames) as we go along.</p>
+
+<p>In general, bi-abduction
+provides a way to infer a pre/post specs from bare code, as long as we know specs for the primitives at the base level of the code. The human does not need to write preconditions and postconditions for all the procedures,
+which is the key to  having a high level of automation.
+This is the basis for how Infer works, why it can scale, and how it can analyze code changes incrementally.</p>
+
+<p>Context: The logical terminology we have been using here comes from AI and philosophy of science.
+Abductive inference was introduced by the philosopher Charles Peirce, and described as the mechanism
+underpinning  hypothesis formation (or, guessing  what might be true about the world), the most
+creative part of the scientific process. 
+Abduction and the frame problem have both attracted significant attention in AI.
+Infer uses an automated form of abduction to generate
+preconditions describing the memory that a program touches (the antiframe part above), and frame inference to
+discover what isn&#39;t touched.
+Infer then uses deductive reasoning to
+calculate a formula describing the effect of a program, starting from the preconditions.
+In a sense, Infer approaches automated reasoning about programs by mimicking what a human might do when trying to understand a program: it abduces what the program needs, and deduces conclusions of that.
+It is when the reasoning goes wrong that Infer reports a potential bug.</p>
+
+<p>This description is by necessity simplified compared to what Infer actually does.
+More technical information can be found in the following papers. The descriptions in the papers are 
+precise, but still simplified; there are many engineering decisions not recorded there. Finally, beyond the papers,
+you can read the source code if you wish!</p>
+
+<h2 id="technical-papers">Technical papers</h2>
+
+<p>The following papers contain some of the technical background on Infer and information on how it is used inside Facebook.</p>
+
+<ul>
+<li><a href="http://link.springer.com/chapter/10.1007%2F3-540-44802-0_1">Local Reasoning about Programs that Alter Data Structures.</a> An early separation logic paper which advanced ideas about local reasoning and the frame rule.</li>
+<li><a href="http://link.springer.com/chapter/10.1007/11804192_6">Smallfoot: Modular Automatic Assertion Checking with Separation Logic.</a> First separation logic verification tool, introduced frame inference</li>
+<li><a href="http://link.springer.com/chapter/10.1007%2F11691372_19">A Local Shape Analysis Based on Separation Logic.</a> Separation logic meets abstract interpretation; calculating loop invariants via a fixed-point computation.</li>
+<li><a href="http://dl.acm.org/citation.cfm?id=2049700">Compositional Shape Analysis by Means of Bi-Abduction.</a>
+The bi-abduction paper.</li>
+<li><a href="https://research.facebook.com/publications/422671501231772/moving-fast-with-software-verification/">Moving Fast with Software Verification.</a> A paper about the way we use Infer at Facebook.</li>
+</ul>
+
+<script type="text/javascript">
+/* global katex */
+
+var findEndOfMath = function(delimiter, text, startIndex) {
+    // Adapted from
+    // https://github.com/Khan/perseus/blob/master/src/perseus-markdown.jsx
+    var index = startIndex;
+    var braceLevel = 0;
+
+    var delimLength = delimiter.length;
+
+    while (index < text.length) {
+        var character = text[index];
+
+        if (braceLevel <= 0 &&
+            text.slice(index, index + delimLength) === delimiter) {
+            return index;
+        } else if (character === "\\") {
+            index++;
+        } else if (character === "{") {
+            braceLevel++;
+        } else if (character === "}") {
+            braceLevel--;
+        }
+
+        index++;
+    }
+
+    return -1;
+};
+
+var splitAtDelimiters = function(startData, leftDelim, rightDelim, display) {
+    var finalData = [];
+
+    for (var i = 0; i < startData.length; i++) {
+        if (startData[i].type === "text") {
+            var text = startData[i].data;
+
+            var lookingForLeft = true;
+            var currIndex = 0;
+            var nextIndex;
+
+            nextIndex = text.indexOf(leftDelim);
+            if (nextIndex !== -1) {
+                currIndex = nextIndex;
+                finalData.push({
+                    type: "text",
+                    data: text.slice(0, currIndex)
+                });
+                lookingForLeft = false;
+            }
+
+            while (true) {
+                if (lookingForLeft) {
+                    nextIndex = text.indexOf(leftDelim, currIndex);
+                    if (nextIndex === -1) {
+                        break;
+                    }
+
+                    finalData.push({
+                        type: "text",
+                        data: text.slice(currIndex, nextIndex)
+                    });
+
+                    currIndex = nextIndex;
+                } else {
+                    nextIndex = findEndOfMath(
+                        rightDelim,
+                        text,
+                        currIndex + leftDelim.length);
+                    if (nextIndex === -1) {
+                        break;
+                    }
+
+                    finalData.push({
+                        type: "math",
+                        data: text.slice(
+                            currIndex + leftDelim.length,
+                            nextIndex),
+                        rawData: text.slice(
+                            currIndex,
+                            nextIndex + rightDelim.length),
+                        display: display
+                    });
+
+                    currIndex = nextIndex + rightDelim.length;
+                }
+
+                lookingForLeft = !lookingForLeft;
+            }
+
+            finalData.push({
+                type: "text",
+                data: text.slice(currIndex)
+            });
+        } else {
+            finalData.push(startData[i]);
+        }
+    }
+
+    return finalData;
+};
+
+var splitWithDelimiters = function(text, delimiters) {
+    var data = [{type: "text", data: text}];
+    for (var i = 0; i < delimiters.length; i++) {
+        var delimiter = delimiters[i];
+        data = splitAtDelimiters(
+            data, delimiter.left, delimiter.right,
+            delimiter.display || false);
+    }
+    return data;
+};
+
+var renderMathInText = function(text, delimiters) {
+    var data = splitWithDelimiters(text, delimiters);
+
+    var fragment = document.createDocumentFragment();
+
+    for (var i = 0; i < data.length; i++) {
+        if (data[i].type === "text") {
+            fragment.appendChild(document.createTextNode(data[i].data));
+        } else {
+            var span = document.createElement("span");
+            var math = data[i].data;
+            try {
+                katex.render(math, span, {
+                    displayMode: data[i].display
+                });
+            } catch (e) {
+                if (!(e instanceof katex.ParseError)) {
+                    throw e;
+                }
+                console.error(
+                    "KaTeX auto-render: Failed to parse `" + data[i].data +
+                    "` with ",
+                    e
+                );
+                fragment.appendChild(document.createTextNode(data[i].rawData));
+                continue;
+            }
+            fragment.appendChild(span);
+        }
+    }
+
+    return fragment;
+};
+
+var renderElem = function(elem, delimiters, ignoredTags) {
+    for (var i = 0; i < elem.childNodes.length; i++) {
+        var childNode = elem.childNodes[i];
+        if (childNode.nodeType === 3) {
+            // Text node
+            var frag = renderMathInText(childNode.textContent, delimiters);
+            i += frag.childNodes.length - 1;
+            elem.replaceChild(frag, childNode);
+        } else if (childNode.nodeType === 1) {
+            // Element node
+            var shouldRender = ignoredTags.indexOf(
+                childNode.nodeName.toLowerCase()) === -1;
+
+            if (shouldRender) {
+                renderElem(childNode, delimiters, ignoredTags);
+            }
+        }
+        // Otherwise, it's something else, and ignore it.
+    }
+};
+
+var defaultOptions = {
+    delimiters: [
+        {left: "$$", right: "$$", display: true},
+        {left: "\\[", right: "\\]", display: true},
+        {left: "\\(", right: "\\)", display: false}
+        // LaTeX uses this, but it ruins the display of normal `$` in text:
+        // {left: "$", right: "$", display: false}
+    ],
+
+    ignoredTags: [
+        "script", "noscript", "style", "textarea", "pre", "code"
+    ]
+};
+
+var extend = function(obj) {
+    // Adapted from underscore.js' `_.extend`. See LICENSE.txt for license.
+    var source, prop;
+    for (var i = 1, length = arguments.length; i < length; i++) {
+        source = arguments[i];
+        for (prop in source) {
+            if (Object.prototype.hasOwnProperty.call(source, prop)) {
+                obj[prop] = source[prop];
+            }
+        }
+    }
+    return obj;
+};
+
+var renderMathInElement = function(elem, options) {
+    if (!elem) {
+        throw new Error("No element provided to render");
+    }
+
+    options = extend({}, defaultOptions, options);
+
+    renderElem(elem, options.delimiters, options.ignoredTags);
+};
+
+renderMathInElement(document.body);
+
+</script>
+
+    
+  </article>
+  
+
+
+  
+  
+  
+    
+  
+    
+  
+
+  
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+  
+    
+  
+    
+      
+      
+    
+  
+    
+  
+
+  
+  
+  
+    
+  
+    
+  
+    
+  
+
+
+  <div class="docPagination">
+    
+    
+    
+    
+      
+    
+    
+      
+    
+    
+    
+    <div class="pager pagingPrevious"><a href="/docs/about-Infer.html">&lsaquo; <span class="pagerLabel">Previous</span><span class="pagerTitle">About Infer</span></a></div>
+    
+    
+    <div class="pager pagingNext"><a href="/docs/limitations.html"><span class="pagerTitle">Limitations, etc</span><span class="pagerLabel">Next</span> &rsaquo;</a></div>
+    
+  </div>
+
+</div>
+  </div>
+</div>
+
+
+      <div class="footerContainer">
+  <div id="footer_wrap" class="wrapper footerWrapper">
+    <section id="fb_oss" class="fbOpenSourceFooter">
+      <a href="https://code.facebook.com/projects/" target="_blank"><img src="/static/oss_logo.png" alt="Facebook Open Source" title="Facebook Open Source" /></a>
+    </section>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </div>
+</div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44373548-7', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+    </div>
+  </body>
+
+</html>

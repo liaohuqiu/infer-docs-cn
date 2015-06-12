@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+	<meta property="og:url" content="http://infer.test.srain.in/docs/advanced-features.html" />
+	<meta property="og:site_name" content="Infer"/>
+	<meta property="og:title" content="Advanced usage" />
+	<meta property="og:image" content="http://infer.test.srain.in/static/og_image.png" />
+	<meta property="og:description" content="" />
+
+  <link rel="stylesheet" type="text/css" media="screen" href="/css/main.css">
+	<link rel="stylesheet" type="text/css" href="//cloud.typography.com/7491092/701726/css/fonts.css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/styles/default.min.css">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+  <link rel="icon" href="static/favicon.png" type="image/x-icon">
+  
+  <base href="http://infer.test.srain.in/" />
+  
+  <script src="/static/react-with-addons-0.13.1.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/highlight.min.js"></script>
+
+  <title>Advanced usage</title>
+  <meta name="description" content="">
+
+  <link rel="canonical" href="http://infer.test.srain.in/docs/advanced-features.html">
+  <link rel="alternate" type="application/rss+xml" title="Infer" href="http://infer.test.srain.in/feed.xml" />
+</head>
+
+  <body>    
+    <div id="fixed_header" class="fixedHeaderContainer visible">
+  <header>
+    <a href="http://infer.test.srain.in"><img src="/static/logo.png" /><h2>Infer</h2></a>
+    <div class="navigationWrapper navigationFull" id="flat_nav">
+      <nav class="navigation">
+        <ul>
+          
+          <li class="navItem navItemActive">
+            <a href=docs/getting-started.html>文档</a>
+          </li>
+          
+          <li class="navItem ">
+            <a href=support.html>帮助和支持</a>
+          </li>
+          
+          <li class="navItem ">
+            <a href=blog/>博客</a>
+          </li>
+          
+          <li class="navItem ">
+            <a href=http://github.com/facebook/infer>Github</a>
+          </li>
+          
+        </ul>
+      </nav>
+    </div>
+    <div class="navigationWrapper navigationSlider" id="navigation_wrap"></div>
+  </header>
+  <script>
+    var event = document.createEvent('Event');
+    event.initEvent('slide', true, true);
+    document.addEventListener('slide', function (e) {
+      document.body.classList.toggle('sliderActive');
+    }, false);
+    var navData = [
+      
+      {
+        href       : "docs/getting-started.html",
+        text       : "文档",
+      },
+      
+      {
+        href       : "support.html",
+        text       : "帮助和支持",
+      },
+      
+      {
+        href       : "blog/",
+        text       : "博客",
+      },
+      
+      {
+        href       : "http://github.com/facebook/infer",
+        text       : "Github",
+      },
+      
+    ];
+  </script>
+  <script type="text/javascript">  
+    var Nav = React.createClass({displayName: "Nav",
+      getInitialState: function() {
+        return {
+          currentPath: window.location.pathname,
+          slideoutActive: false,
+        };
+      },
+      getDefaultProps: function() {
+        return {
+          data: navData,
+        }
+      },
+      handleClick: function(id) {
+        this.setState({
+          slideoutActive: false,
+        });
+        document.dispatchEvent(event);
+      },
+      handleSlide: function(id) {
+        this.setState({
+          slideoutActive: !this.state.slideoutActive,
+        });
+        document.dispatchEvent(event);
+      },
+      render: function() {
+        var classes = React.addons.classSet({
+          'navSlideout': true,
+          'navSlideoutActive': this.state.slideoutActive,
+        });
+        var navClasses = React.addons.classSet({
+          'slidingNav': true,
+          'slidingNavActive': this.state.slideoutActive,
+        });
+        return (
+          React.createElement("div", null, 
+            React.createElement("div", {className: classes, onClick: this.handleSlide}, 
+              React.createElement("i", {className: "fa fa-bars"})
+            ), 
+            React.createElement("nav", {className: navClasses}, 
+              React.createElement("ul", null, 
+                this.props.data.map(this.renderNavItems)
+              )
+            )
+          )
+        );
+      },
+      renderNavItems: function(child, index) {
+        var classes = React.addons.classSet({
+          'navItem': true,
+          'navItemActive': this.state.currentPath === child.href,
+        });
+        return (
+          React.createElement("li", {key: index, className: classes}, 
+            React.createElement("a", {onClick: this.handleClick, href: child.href}, child.text)
+          )
+        );
+      },
+    });
+
+    function render(navData) {
+      React.render(
+        React.createElement(Nav, {data: navData}),
+        document.getElementById('navigation_wrap')
+      );
+    }
+    render(navData);
+  </script>
+</div>
+
+    <div class="navPusher">
+      <div class="mainContainer blogContainer postContainer">
+  <div id="main_wrap" class="wrapper mainWrapper">
+    <div>
+</div>
+<nav class='toc' id="doc_nav"></nav>
+<script>
+  var docnavData = [
+    
+    {
+      group     : "开始使用",
+      items     : [
+        
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/getting-started.html",
+          title : "开始使用",
+          url : "/docs/getting-started.html",
+        },
+        
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/hello-world.html",
+          title : "Hello, World!",
+          url : "/docs/hello-world.html",
+        }
+        
+      ],
+    },
+    
+    {
+      group     : "用户使用参考",
+      items     : [
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/infer-workflow.html",
+          title : "Infer 的工作机制",
+          url : "/docs/infer-workflow.html",
+        },
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/analyzing-apps-or-projects.html",
+          title : "Analyzing apps or projects",
+          url : "/docs/analyzing-apps-or-projects.html",
+        },
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/checkers.html",
+          title : "Infer : Checkers",
+          url : "/docs/checkers.html",
+        },
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/eradicate.html",
+          title : "Infer : Eradicate",
+          url : "/docs/eradicate.html",
+        },
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/install-from-source.html",
+          title : "Install from source",
+          url : "/docs/install-from-source.html",
+        },
+        
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/advanced-features.html",
+          title : "Advanced usage",
+          url : "/docs/advanced-features.html",
+        },
+        
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/adding-models.html",
+          title : "Adding models",
+          url : "/docs/adding-models.html",
+        }
+        
+      ],
+    },
+    
+    {
+      group     : "Foundations",
+      items     : [
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/about-Infer.html",
+          title : "About Infer",
+          url : "/docs/about-Infer.html",
+        },
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/separation-logic-and-bi-abduction.html",
+          title : "Separation logic and bi-abduction",
+          url : "/docs/separation-logic-and-bi-abduction.html",
+        },
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/limitations.html",
+          title : "Limitations, etc",
+          url : "/docs/limitations.html",
+        }
+        
+      ],
+    },
+    
+    {
+      group     : "Bug 类型参考",
+      items     : [
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+        {
+          key : "/docs/infer-bug-types.html",
+          title : "Infer bug types",
+          url : "/docs/infer-bug-types.html",
+        },
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+          
+        
+        {
+          key : "/docs/checkers-bug-types.html",
+          title : "Checkers bug types",
+          url : "/docs/checkers-bug-types.html",
+        },
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+          
+        
+        {
+          key : "/docs/eradicate-warnings.html",
+          title : "Eradicate warnings",
+          url : "/docs/eradicate-warnings.html",
+        }
+        
+      ],
+    },
+    
+  ];
+</script>
+<script type="text/javascript">  
+  var DocNav = React.createClass({displayName: "DocNav",
+    getInitialState: function() {
+      return {
+        toggleActive: false,
+      };
+    },
+    getDefaultProps: function() {
+      return {
+        currentDoc: "Advanced usage",
+        currentGroup: "User Guide",
+        data: docnavData,
+      }
+    },
+    handleSlide: function(id) {
+      this.setState({
+        toggleActive: !this.state.toggleActive,
+      });
+    },
+    render: function() {
+      var classes = React.addons.classSet({
+        'navToggle': true,
+        'navToggleActive': this.state.toggleActive,
+      });
+      var navClasses = React.addons.classSet({
+        'toggleNav': true,
+        'toggleNavActive': this.state.toggleActive,
+      });
+      return (
+        React.createElement("div", {className: navClasses}, 
+          React.createElement("section", null, 
+            this.props.data.map(this.renderNavGroups)
+          ), 
+          React.createElement("div", {className: classes, onClick: this.handleSlide}, React.createElement("i", {className: "fa fa-chevron-circle-down"}))
+        )
+      );
+    },
+    renderNavGroups: function(child, index) {
+      var classes = React.addons.classSet({
+        'navGroup': true,
+        'navGroupActive': this.props.currentGroup === child.group,
+      });
+      return (
+        React.createElement("div", {className: classes, key: index}, 
+          React.createElement("h3", null, child.group), 
+          React.createElement("ul", null, 
+            child.items.map(this.renderNavItems)
+          )
+        )
+      );
+    },
+    renderNavItems: function(child, index) {
+      var itemClasses = React.addons.classSet({
+        'navListItem': true,
+        'navListItemActive': this.props.currentDoc === child.title,
+      });
+      var classes = React.addons.classSet({
+        'navItem': true,
+        'navItemActive': this.props.currentDoc === child.title,
+      });
+      return (
+        React.createElement("li", {className: itemClasses, key: index}, React.createElement("a", {className: classes, href: child.url},  child.title))
+      );
+    },
+  });
+
+  function docNavRender(docnavData) {
+    React.render(
+      React.createElement(DocNav, {data: docnavData}),
+      document.getElementById('doc_nav')
+    );
+  }
+  docNavRender(docnavData);
+</script>
+    <div class="post">
+  <header class="post-header">
+    <h1 class="post-title">Advanced usage</h1>
+  </header>
+
+  <article class="post-content">
+   
+      <p>In this section we discuss how to use Infer if you wish to make contributions to it or just look under the hood
+to learn more about how it is working.
+There are, for instance, debug options and ways to obtain the specs from the methods.</p>
+
+<h2 id="structure-of-the-results-folder">Structure of the results folder</h2>
+
+<p>After a successful Infer run, a directory is created to store the
+results of the analysis. By default this directory is called
+<code>infer-out</code>.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">infer-out
+├── captured/
+├── log/
+├── multicore/
+├── sources/
+├── specs/
+├── bugs.txt
+├── procs.csv
+├── report.csv
+├── report.json
+└── stats.json
+</code></pre></div>
+<ul>
+<li><code>captured/</code> contains information for each file analyzed by Infer. See <a href="docs/advanced-features.html#captured-folder">below</a> for more information.</li>
+<li>The <code>log/</code>, <code>multicore/</code>, and <code>sources/</code> folders are used internally to drive the analyzer.</li>
+<li><code>specs/</code> contains the <a href="docs/advanced-features.html#print-the-specs">specs</a> of each function that was analyzed, as inferred by Infer.</li>
+<li><code>bugs.txt</code>, <code>report.csv</code>, and <code>report.json</code> contain the Infer reports in three different formats.</li>
+<li><code>procs.csv</code> and <code>stats.json</code> contain debug information about the run.</li>
+</ul>
+
+<h3 id="captured-folder">Captured folder</h3>
+
+<p>Inside the folder <code>infer-out/captured</code> there is a folder for each captured file. Assume we captured a file called <code>example.c</code>. Then, Infer creates the following files inside the folder <code>infer-out/captured/example.c/</code>:</p>
+
+<ul>
+<li><code>example.c.cfg</code></li>
+<li><code>example.c.cg</code></li>
+<li><code>example.c.tenv</code></li>
+</ul>
+
+<p>The files <code>.cfg</code>, <code>.cg</code> and <code>.tenv</code> contain the intermediate representation of that file. This data is passed to the backend of Infer, which then performs the analysis. The files contain serialized OCaml data structures. The <code>.cfg</code> file contains a control flow graph for each function or method implemented in the file. The file <code>.cg</code> contains the call graph of the functions defined or called from that file. Finally, the file <code>.tenv</code> contains all the types that are defined or used in the file.</p>
+
+<h2 id="debug-mode">Debug mode</h2>
+
+<p>With the debug option enabled <code>infer --debug -- &lt;build command&gt;</code>, Infer outputs debug information. When using <code>make</code> or <code>clang</code>, one needs an extra debug argument for the frontend:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">infer --frontend_debug --debug -- make example.c
+</code></pre></div>
+<p>In each captured folder, we obtain the file <code>icfg.dot</code>, which is the graphical representation of the file <code>.cfg</code> and the file
+<code>call_graph.dot</code>, that is the graphical representation of the call graph.</p>
+
+<p>Moreover, we obtain an html page for each captured file inside <code>infer-out/captured</code>. This html file contains the source file. In each line of the file there are links to the nodes of the control flow graph that correspond to that line of code. So one can see what the translation looks like. Moreover, when you click on those links you can see details of the symbolic execution of that particular node. If the option <code>--no_test</code> is also passed to <code>infer</code>, then the page pointed to from the nodes contains the printout of the whole symbolic execution.</p>
+
+<h2 id="print-the-specs">Print the specs</h2>
+
+<p>It is also possible to print the specs created by Infer using the command <code>InferPrint</code>. You can print one particular spec that corresponds to one method, or you can print all the specs in the results directory. Let us look at an example:</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">Hello</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">x</span><span class="o">;</span>
+    <span class="kt">void</span> <span class="nf">setX</span><span class="o">(</span><span class="kt">int</span> <span class="n">newX</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">x</span> <span class="o">=</span> <span class="n">newX</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+<p>We run Infer on this example with:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">    infer -- javac Hello.java
+</code></pre></div>
+<p>Infer saves the spec for the method <code>setX</code> in <code>infer-out/specs</code> and we can print it with the command:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">    InferPrint infer-out/specs/Hello.setX<span class="o">{</span>98B5<span class="o">}</span>:void.specs
+</code></pre></div>
+<p>The convention for method names in Java is <code>&lt;class name&gt;.&lt;method name&gt;</code>. This outputs the following:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">Procedure: void Hello.setX<span class="o">(</span>int<span class="o">)</span>
+void void Hello.setX<span class="o">(</span>int<span class="o">)(</span>class Hello *this, int newX<span class="o">)</span>
+Timestamp: 1
+Status: INACTIVE
+Phase: RE_EXECUTION
+Dependency_map:
+TIME:0.006893 s TIMEOUT:N SYMOPS:34 CALLS:0,0
+ERRORS:
+--------------------------- <span class="m">1</span> of <span class="m">1</span> <span class="o">[</span>nvisited: <span class="m">4</span> <span class="m">5</span> 6<span class="o">]</span> ---------------------------
+PRE:
+<span class="nv">this</span> <span class="o">=</span> val<span class="nv">$1</span>: <span class="p">;</span>
+<span class="nv">newX</span> <span class="o">=</span> val<span class="nv">$3</span>: <span class="p">;</span>
+this<span class="p">|</span>-&gt;<span class="o">{</span>Hello.x:val<span class="nv">$2</span><span class="o">}</span>:
+POST <span class="m">1</span> of 1:
+<span class="nv">this</span> <span class="o">=</span> val<span class="nv">$1</span>: <span class="p">;</span>
+<span class="k">return</span> <span class="o">=</span> val<span class="nv">$4</span>: <span class="p">;</span>
+<span class="nv">newX</span> <span class="o">=</span> val<span class="nv">$3</span>: <span class="p">;</span>
+this<span class="p">|</span>-&gt;<span class="o">{</span>Hello.x:newX<span class="o">}</span>:
+----------------------------------------------------------------
+</code></pre></div>
+<p>which expresses the fact that <code>this</code> needs to be allocated at the beginning of the method, and that at the end of the method the field <code>x</code> is equal to <code>newX</code>.</p>
+
+<p>Moreover, you can print all the specs in the results directory with the command:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">InferPrint -results_dir infer-out
+</code></pre></div>
+<h2 id="run-internal-tests">Run internal tests</h2>
+
+<p>There are many tests in the Infer code base that check that Infer behaves correctly on small program examples. The tests use <a href="http://buckbuild.com/">Buck</a>, another Facebook&#39;s open source tool for building projects. We provide the script <code>inferTest</code> to run the tests, which requires buck to be in your PATH.</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">inferTest java    <span class="c"># Run the tests about Java analysis</span>
+inferTest clang   <span class="c"># Run the tests about C and Objective-C analysis</span>
+inferTest c       <span class="c"># Run the tests about C analysis</span>
+inferTest objc    <span class="c"># Run the tests about Objective-C analysis</span>
+</code></pre></div>
+    
+  </article>
+  
+
+
+  
+  
+  
+    
+  
+    
+  
+
+  
+  
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      
+      
+    
+  
+    
+  
+
+  
+  
+  
+    
+  
+    
+  
+    
+  
+
+  
+  
+  
+    
+  
+    
+  
+    
+  
+
+
+  <div class="docPagination">
+    
+    
+    
+    
+      
+    
+    
+      
+    
+    
+    
+    <div class="pager pagingPrevious"><a href="/docs/install-from-source.html">&lsaquo; <span class="pagerLabel">Previous</span><span class="pagerTitle">Install from source</span></a></div>
+    
+    
+    <div class="pager pagingNext"><a href="/docs/adding-models.html"><span class="pagerTitle">Adding models</span><span class="pagerLabel">Next</span> &rsaquo;</a></div>
+    
+  </div>
+
+</div>
+  </div>
+</div>
+
+
+      <div class="footerContainer">
+  <div id="footer_wrap" class="wrapper footerWrapper">
+    <section id="fb_oss" class="fbOpenSourceFooter">
+      <a href="https://code.facebook.com/projects/" target="_blank"><img src="/static/oss_logo.png" alt="Facebook Open Source" title="Facebook Open Source" /></a>
+    </section>
+    <script>hljs.initHighlightingOnLoad();</script>
+  </div>
+</div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44373548-7', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+    </div>
+  </body>
+
+</html>
