@@ -3,10 +3,10 @@
   <channel>
     <title>Infer</title>
     <description></description>
-    <link>http://infer.test.srain.in/</link>
-    <atom:link href="http://infer.test.srain.in/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 13 Jun 2015 02:45:25 +0800</pubDate>
-    <lastBuildDate>Sat, 13 Jun 2015 02:45:25 +0800</lastBuildDate>
+    <link>/</link>
+    <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Sat, 13 Jun 2015 02:54:28 +0800</pubDate>
+    <lastBuildDate>Sat, 13 Jun 2015 02:54:28 +0800</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
@@ -21,8 +21,8 @@ and getting them fixed. Some of those reports got indeed fixed. &lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://github.com/siacs/Conversations&quot;&gt;Conversations&lt;/a&gt; is an open source XMPP/Jabber client for Android smart phones. We analyzed it as well and found a file not closed leak, which was also &lt;a href=&quot;https://github.com/Flowdalic/MemorizingTrustManager/commit/190c57a9a8385f4726c817924b123438af6adc2f&quot;&gt;fixed&lt;/a&gt;.&lt;/p&gt;
 </description>
         <pubDate>Fri, 22 May 2015 00:00:00 +0800</pubDate>
-        <link>http://infer.test.srain.in/blog/2015/05/22/Infer-on-open-source-android-apps.html</link>
-        <guid isPermaLink="true">http://infer.test.srain.in/blog/2015/05/22/Infer-on-open-source-android-apps.html</guid>
+        <link>/blog/2015/05/22/Infer-on-open-source-android-apps.html</link>
+        <guid isPermaLink="true">/blog/2015/05/22/Infer-on-open-source-android-apps.html</guid>
         
         
         <category>blog</category>
