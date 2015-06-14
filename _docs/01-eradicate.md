@@ -32,31 +32,30 @@ Infer:Eradicate 也用来将之前未标记注解的代码添加注解。
 
 ### 什么是 @Nullable 约定？
 
+通常对于一个对象，如果你什么都没说明，默认认为这个对象不会是空值。在可能的情况下，我们建议：
 
-If you say nothing, you're saying that the value cannot be null. This is the recommended option when possible:
+安全编程，注解空值。
 
-Program safely, annotate nothing!
+如果可能为空值，即为类型参数加上 @Nullable 注解。
 
-When this cannot be done, add a @Nullable annotation before the type to indicate that the value can be null.
+### 什么是注解
 
-### What is annotated?
+注解放在方法调用或者成员变量访问的接口中：
 
-Annotations are placed at the interface of method calls and field accesses:
+- 定义方法时的参数和返回值类型
+- 成员变量申明
 
-- Parameters and return type of a method declaration.
-- Field declarations.
-
-Local variable declarations are not annotated: their nullability is inferred.
+局部变量没有办法加注解，他们的可空性是推断出来的。
 
 ### Infer:Eradicate 如何调用？
 
-Eradicate can be invoked by adding the option `-a eradicate` to the analysis command as in this example:
+通过 `-a eradicate` 选项，可以启用 Eradicate，如下：
 
 ```bash
 infer -a eradicate -- javac Test.java
 ```
 
-The checker will report an error on the following program that accesses a nullable value without null check:
+对于这样的代码，试图访问一个可空的值，却没有做空检查，检测器会检查并报告错误。
 
 ```java
 class C {
@@ -66,7 +65,7 @@ class C {
 }
 ```
 
-But it will not report an error on this guarded dereference:
+但如果是以下这样，那么就没问题：
 
 ```java
 class C {
