@@ -331,7 +331,7 @@
         
         {
           key : "/docs/analyzing-apps-or-projects.html",
-          title : "Analyzing apps or projects",
+          title : "分析 APP 或者其他项目",
           url : "/docs/analyzing-apps-or-projects.html",
         },
         
@@ -448,7 +448,7 @@
         
         {
           key : "/docs/install-from-source.html",
-          title : "Install from source",
+          title : "源码安装",
           url : "/docs/install-from-source.html",
         },
         
@@ -572,7 +572,7 @@
         
         {
           key : "/docs/about-Infer.html",
-          title : "About Infer",
+          title : "关于 Infer",
           url : "/docs/about-Infer.html",
         },
         
@@ -735,7 +735,7 @@
         
         {
           key : "/docs/checkers-bug-types.html",
-          title : "Checkers bug types",
+          title : "校验器报告的问题类型",
           url : "/docs/checkers-bug-types.html",
         },
         
@@ -864,19 +864,14 @@
 
   <article class="post-content">
    
-      <p>The Infer analyzer performs sophisticated interprocedural static
-analysis. When this power is not needed, such as for analyses of the
-kind usually found in so-called <em>linters</em>, we have a framework called
-Infer:Checkers.</p>
+      <p>Infer 的分析器执行复杂的程序间（interprocedural，专注整体）静态分析。但当我们针对那些 linter 中常见的分析，不需要复杂的程序间的分析的时候，我们有一个称为 Infer:Checkers（Infer 校验器） 的框架。</p>
 
-<p>Infer:Checkers can check a given property in each method of a given
-project, but <em>intra-procedurally</em>, not inter-procedurally.</p>
+<p>Infer:Checkers 可以检测给定项目中每个方法的某个指定属性，虽然分析了整个项目，但是这种分析算是程序内的而不是程序间的。</p>
 
-<p>The checkers can be run by adding the option <code>-a checkers</code> to the analysis command as in this example:</p>
+<p>通过选项 <code>-a checkers</code> 可以在分析时加入校验器(checkers)，如下：</p>
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">infer -a checkers -- javac Test.java
 </code></pre></div>
-<p>At the moment, we have the checker 
-<a href="docs/checkers-bug-types.html#CHECKERS_IMMUTABLE_CAST">immutable cast</a>. </p>
+<p>目前，我们有<a href="docs/checkers-bug-types.html#CHECKERS_IMMUTABLE_CAST">不可变转化校验器</a>. </p>
 
     
   </article>
@@ -945,7 +940,7 @@ project, but <em>intra-procedurally</em>, not inter-procedurally.</p>
     
     
     
-    <div class="pager pagingPrevious"><a href="/docs/analyzing-apps-or-projects.html">&lsaquo; <span class="pagerLabel">Previous</span><span class="pagerTitle">Analyzing apps or projects</span></a></div>
+    <div class="pager pagingPrevious"><a href="/docs/analyzing-apps-or-projects.html">&lsaquo; <span class="pagerLabel">Previous</span><span class="pagerTitle">分析 APP 或者其他项目</span></a></div>
     
     
     <div class="pager pagingNext"><a href="/docs/eradicate.html"><span class="pagerTitle">Infer : Eradicate</span><span class="pagerLabel">Next</span> &rsaquo;</a></div>

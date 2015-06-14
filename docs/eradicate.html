@@ -331,7 +331,7 @@
         
         {
           key : "/docs/analyzing-apps-or-projects.html",
-          title : "Analyzing apps or projects",
+          title : "分析 APP 或者其他项目",
           url : "/docs/analyzing-apps-or-projects.html",
         },
         
@@ -448,7 +448,7 @@
         
         {
           key : "/docs/install-from-source.html",
-          title : "Install from source",
+          title : "源码安装",
           url : "/docs/install-from-source.html",
         },
         
@@ -572,7 +572,7 @@
         
         {
           key : "/docs/about-Infer.html",
-          title : "About Infer",
+          title : "关于 Infer",
           url : "/docs/about-Infer.html",
         },
         
@@ -735,7 +735,7 @@
         
         {
           key : "/docs/checkers-bug-types.html",
-          title : "Checkers bug types",
+          title : "校验器报告的问题类型",
           url : "/docs/checkers-bug-types.html",
         },
         
@@ -870,52 +870,54 @@
 <p><a href="http://en.wikipedia.org/wiki/Tony_Hoare">Tony Hoare</a></p>
 </blockquote>
 
-<h3 id="what-is-infer:eradicate?">What is Infer:Eradicate?</h3>
+<h3 id="什么是-infer:eradicate-？">什么是 Infer:Eradicate ？</h3>
 
-<p>Infer:Eradicate is a type checker for @Nullable annotations for Java. It is part of the Infer static analysis suite of tools.
-The goal is to eradicate null pointer exceptions.</p>
+<p>Infer:Eradicate 是针对Java @Nullable 注解的一个检查器，是 Infer 静态分析工具套件中的一部分，目标是消除空指针异常。</p>
 
-<p><a href="https://developer.android.com/reference/android/support/annotation/Nullable.html">@Nullable</a>
-annotations denote that a parameter, field or the return value of a method can be null.
-When decorating a parameter, this denotes that the parameter can legitimately be null and the method will need to deal with it. When decorating a method, this denotes the method might legitimately return null.</p>
+<p><a href="https://developer.android.com/reference/android/support/annotation/Nullable.html">@Nullable</a> 注解指示一个参数，类成员，或者方法返回值可以是 null。</p>
 
-<p>Starting from @Nullable-annotated programs, the checker performs a flow sensitive analysis
-to propagate the nullability through assignments and calls, and flags errors for
-unprotected accesses to nullable values or inconsistent/missing annotations.
-It can also be used to add annotations to a previously un-annotated program.</p>
+<p>当这个注解修饰一个参数时，说明这个参数是允许为空的，方法体内部应该处理为空的情况。</p>
 
-<h3 id="what-is-the-@nullable-convention?">What is the @Nullable convention?</h3>
+<p>当注解修饰一个参数时，说明方法的返回值是可以为空的。</p>
 
-<p>If you say nothing, you&#39;re saying that the value cannot be null. This is the recommended option when possible:</p>
+<p>从标注为 <code>@Nullable</code> 的程序开始，可空性将随着赋值和调用进行传播，分析器对这个流程敏感的传播过程进行分析。</p>
 
-<p>Program safely, annotate nothing!</p>
+<p>分析之后，对那些未受保护的空值访问，前后不一致的@Nullable 注解或者该标记却没标记的方法或变量，加上错误标记。</p>
 
-<p>When this cannot be done, add a @Nullable annotation before the type to indicate that the value can be null.</p>
+<p>Infer:Eradicate 也用来将之前未标记注解的代码添加注解。</p>
 
-<h3 id="what-is-annotated?">What is annotated?</h3>
+<h3 id="什么是-@nullable-约定？">什么是 @Nullable 约定？</h3>
 
-<p>Annotations are placed at the interface of method calls and field accesses:</p>
+<p>通常对于一个对象，如果你什么都没说明，默认认为这个对象不会是空值。在可能的情况下，我们建议：</p>
+
+<p>安全编程，注解空值。</p>
+
+<p>如果可能为空值，即为类型参数加上 @Nullable 注解。</p>
+
+<h3 id="什么是注解">什么是注解</h3>
+
+<p>注解放在方法调用或者成员变量访问的接口中：</p>
 
 <ul>
-<li>Parameters and return type of a method declaration.</li>
-<li>Field declarations.</li>
+<li>定义方法时的参数和返回值类型</li>
+<li>成员变量申明</li>
 </ul>
 
-<p>Local variable declarations are not annotated: their nullability is inferred.</p>
+<p>局部变量没有办法加注解，他们的可空性是推断出来的。</p>
 
-<h3 id="how-is-infer:eradicate-invoked?">How is Infer:Eradicate invoked?</h3>
+<h3 id="infer:eradicate-如何调用？">Infer:Eradicate 如何调用？</h3>
 
-<p>Eradicate can be invoked by adding the option <code>-a eradicate</code> to the analysis command as in this example:</p>
+<p>通过 <code>-a eradicate</code> 选项，可以启用 Eradicate，如下：</p>
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">infer -a eradicate -- javac Test.java
 </code></pre></div>
-<p>The checker will report an error on the following program that accesses a nullable value without null check:</p>
+<p>对于这样的代码，试图访问一个可空的值，却没有做空检查，检测器会检查并报告错误。</p>
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">C</span> <span class="o">{</span>
   <span class="kt">int</span> <span class="nf">getLength</span><span class="o">(</span><span class="nd">@Nullable</span> <span class="n">String</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="na">length</span><span class="o">();</span>
   <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div>
-<p>But it will not report an error on this guarded dereference:</p>
+<p>但如果是以下这样，那么就没问题：</p>
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">C</span> <span class="o">{</span>
   <span class="kt">int</span> <span class="nf">getLength</span><span class="o">(</span><span class="nd">@Nullable</span> <span class="n">String</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">if</span> <span class="o">(</span><span class="n">s</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
@@ -926,7 +928,7 @@ It can also be used to add annotations to a previously un-annotated program.</p>
   <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div>
-<p>Eradicate reports the following <a href="/docs/eradicate-warnings.html">warnings</a>.</p>
+<p>Eradicate 会输出这些<a href="/docs/eradicate-warnings.html">警告</a>.</p>
 
     
   </article>
@@ -998,7 +1000,7 @@ It can also be used to add annotations to a previously un-annotated program.</p>
     <div class="pager pagingPrevious"><a href="/docs/checkers.html">&lsaquo; <span class="pagerLabel">Previous</span><span class="pagerTitle">Infer : Checkers</span></a></div>
     
     
-    <div class="pager pagingNext"><a href="/docs/install-from-source.html"><span class="pagerTitle">Install from source</span><span class="pagerLabel">Next</span> &rsaquo;</a></div>
+    <div class="pager pagingNext"><a href="/docs/install-from-source.html"><span class="pagerTitle">源码安装</span><span class="pagerLabel">Next</span> &rsaquo;</a></div>
     
   </div>
 

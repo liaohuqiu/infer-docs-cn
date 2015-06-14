@@ -7,7 +7,7 @@
   
 	<meta property="og:url" content="/docs/analyzing-apps-or-projects.html" />
 	<meta property="og:site_name" content="Infer"/>
-	<meta property="og:title" content="Analyzing apps or projects" />
+	<meta property="og:title" content="分析 APP 或者其他项目" />
 	<meta property="og:image" content="/static/og_image.png" />
 	<meta property="og:description" content="" />
 
@@ -23,7 +23,7 @@
   <script src="/static/react-with-addons-0.13.1.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/highlight.min.js"></script>
 
-  <title>Analyzing apps or projects</title>
+  <title>分析 APP 或者其他项目</title>
   <meta name="description" content="">
 
   <link rel="canonical" href="/docs/analyzing-apps-or-projects.html">
@@ -331,7 +331,7 @@
         
         {
           key : "/docs/analyzing-apps-or-projects.html",
-          title : "Analyzing apps or projects",
+          title : "分析 APP 或者其他项目",
           url : "/docs/analyzing-apps-or-projects.html",
         },
         
@@ -448,7 +448,7 @@
         
         {
           key : "/docs/install-from-source.html",
-          title : "Install from source",
+          title : "源码安装",
           url : "/docs/install-from-source.html",
         },
         
@@ -572,7 +572,7 @@
         
         {
           key : "/docs/about-Infer.html",
-          title : "About Infer",
+          title : "关于 Infer",
           url : "/docs/about-Infer.html",
         },
         
@@ -735,7 +735,7 @@
         
         {
           key : "/docs/checkers-bug-types.html",
-          title : "Checkers bug types",
+          title : "校验器报告的问题类型",
           url : "/docs/checkers-bug-types.html",
         },
         
@@ -792,7 +792,7 @@
     },
     getDefaultProps: function() {
       return {
-        currentDoc: "Analyzing apps or projects",
+        currentDoc: "分析 APP 或者其他项目",
         currentGroup: "User Guide",
         data: docnavData,
       }
@@ -859,20 +859,18 @@
 </script>
     <div class="post">
   <header class="post-header">
-    <h1 class="post-title">Analyzing apps or projects</h1>
+    <h1 class="post-title">分析 APP 或者其他项目</h1>
   </header>
 
   <article class="post-content">
    
-      <p>To analyze files with Infer you can use the compilers <code>javac</code> and <code>clang</code>. You can also use Infer with <code>gcc</code>, however, internally Infer will use <code>clang</code> to compile your code. So, it may not work if your code does not compile with <code>clang</code>. </p>
+      <p>使用 Infer 分析文件时，你可以使用 <code>javac</code> 或者 <code>clang</code> 编译器，当然你也可以使用 <code>gcc</code>。但在 Infer 内部会使用 <code>clang</code> 去编译你的代码。所以如果你的代码无法用 <code>clang</code> 编译的话，可能无法使用 Infer。</p>
 
-<p>Moreover, you can run Infer with a variety of build systems. Notice that you can run infer faster by running the compilation command in parallel, e.g. <code>infer -- make -j8</code>.
-Please also take into account that if you wish to analyze a project, you should probably do <code>clean</code> beforehand so that the compiler compiles all the files and so Infer also analyses all the files (see the <a href="docs/infer-workflow.html">previous section</a>).</p>
+<p>除此之外，你还可以和其他许多编译系统一起使用 Infer。注意一点，你可以通过并行编译命令来加快 Infer 的运行检测，比如：<code>infer -- make -j8</code>。</p>
 
-<p>Here is an overview of the build systems supported by Infer. You can
-get more information about how a particular build system is supported
-by running <code>infer --help -- &lt;build system&gt;</code>, for instance <code>infer
---help -- gradle</code>.</p>
+<p>如果你想分析整个项目的话，分析之前，记得清理项目。这样编译器才会重新编译所有文件，Infer 才会分析这些编译的文件（具体看 <a href="docs/infer-workflow.html">这个章节</a>）。</p>
+
+<p>以下是 Infer 目前支持的编译系统。对于某个特定的系统，你可以通过 <code>infer --help -- &lt;build system&gt;</code> 了解更多具体的信息。比如： <code>infer --help -- gradle</code>。</p>
 
 <h3 id="gradle">Gradle</h3>
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">infer -- gradle &lt;gradle task, e.g. <span class="s2">&quot;build&quot;</span>&gt;
@@ -886,14 +884,14 @@ infer -- ./gradlew &lt;gradle task, e.g. <span class="s2">&quot;build&quot;</spa
 </code></pre></div>
 <h3 id="xcodebuild">Xcodebuild</h3>
 
-<p>Infer can analyze apps built using <code>xcodebuild</code>. Only <code>.m</code> and <code>.c</code>
-files will be analyzed; <code>.cpp</code>, <code>.cc</code> and <code>.mm</code> files will be
-ignored. For instance, for an iOS app:</p>
+<p>Infer 可是分析使用 <code>xcodebuild</code> 构建的应用，但是只分析 <code>.m</code> 和 <code>.c</code> 文件，其他的文件，比如：<code>.cpp</code>，<code>.cc</code>，<code>.mm</code> 文件会被忽略。</p>
+
+<p>比如一个 iOS 应用：</p>
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">infer -- xcodebuild -target &lt;target name&gt; -configuration &lt;build configuration&gt; -sdk iphonesimulator
 </code></pre></div>
 <h3 id="make">Make</h3>
 
-<p>Infer can analyze projects that compile with <code>make</code>. If there are C++ files in the project, they will be ignored.</p>
+<p>Infer 可以分析使用 <code>make</code> 构建的项目，项目中的 C++ 文件会被忽略。</p>
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">infer -- make &lt;make target&gt;
 </code></pre></div>
     

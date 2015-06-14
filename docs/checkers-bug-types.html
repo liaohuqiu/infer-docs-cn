@@ -7,7 +7,7 @@
   
 	<meta property="og:url" content="/docs/checkers-bug-types.html" />
 	<meta property="og:site_name" content="Infer"/>
-	<meta property="og:title" content="Checkers bug types" />
+	<meta property="og:title" content="校验器报告的问题类型" />
 	<meta property="og:image" content="/static/og_image.png" />
 	<meta property="og:description" content="" />
 
@@ -23,7 +23,7 @@
   <script src="/static/react-with-addons-0.13.1.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/highlight.min.js"></script>
 
-  <title>Checkers bug types</title>
+  <title>校验器报告的问题类型</title>
   <meta name="description" content="">
 
   <link rel="canonical" href="/docs/checkers-bug-types.html">
@@ -331,7 +331,7 @@
         
         {
           key : "/docs/analyzing-apps-or-projects.html",
-          title : "Analyzing apps or projects",
+          title : "分析 APP 或者其他项目",
           url : "/docs/analyzing-apps-or-projects.html",
         },
         
@@ -448,7 +448,7 @@
         
         {
           key : "/docs/install-from-source.html",
-          title : "Install from source",
+          title : "源码安装",
           url : "/docs/install-from-source.html",
         },
         
@@ -572,7 +572,7 @@
         
         {
           key : "/docs/about-Infer.html",
-          title : "About Infer",
+          title : "关于 Infer",
           url : "/docs/about-Infer.html",
         },
         
@@ -735,7 +735,7 @@
         
         {
           key : "/docs/checkers-bug-types.html",
-          title : "Checkers bug types",
+          title : "校验器报告的问题类型",
           url : "/docs/checkers-bug-types.html",
         },
         
@@ -792,7 +792,7 @@
     },
     getDefaultProps: function() {
       return {
-        currentDoc: "Checkers bug types",
+        currentDoc: "校验器报告的问题类型",
         currentGroup: "Bug Types Reference",
         data: docnavData,
       }
@@ -859,22 +859,22 @@
 </script>
     <div class="post">
   <header class="post-header">
-    <h1 class="post-title">Checkers bug types</h1>
+    <h1 class="post-title">校验器报告的问题类型</h1>
   </header>
 
   <article class="post-content">
    
-      <h2 id="checker-immutable-cast"><a name="CHECKERS_IMMUTABLE_CAST"></a>Checker immutable cast</h2>
+      <h2 id="不可变转化校验器"><a name="CHECKERS_IMMUTABLE_CAST"></a>不可变转化校验器</h2>
 
-<p>This error type is reported in Java. It fires when an immutable collection is returned from a method whose type is mutable.</p>
+<p>这个问题会在 Java 代码中出现。当函数返回类型是一个可变集合，但是实际返回的是不可变集合。</p>
 <div class="highlight"><pre><code class="language-java" data-lang="java">  <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">getSomeList</span><span class="o">()</span> <span class="o">{</span>
     <span class="n">ImmutableList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">l</span> <span class="o">=</span> <span class="n">foo</span><span class="o">(...);</span>
     <span class="k">return</span> <span class="n">l</span><span class="o">;</span>
   <span class="o">}</span>
 </code></pre></div>
-<p>This can lead to a runtime error if users of <code>getSomeList</code> try to modify the list e.g. by adding elements.</p>
+<p>如果对 <code>getSomeList</code> 的返回值进行操作，比如添加一些数据项，将会触发运行时错误。</p>
 
-<p>Action: you can change the return type to be immutable, or make a copy of the collection so that it can be modified.</p>
+<p>至于修改方案，你可以修改返回类型，也可以把集合数据拷贝一份，变成可变集合。</p>
 
     
   </article>

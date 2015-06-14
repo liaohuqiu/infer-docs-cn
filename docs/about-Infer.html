@@ -7,7 +7,7 @@
   
 	<meta property="og:url" content="/docs/about-Infer.html" />
 	<meta property="og:site_name" content="Infer"/>
-	<meta property="og:title" content="About Infer" />
+	<meta property="og:title" content="关于 Infer" />
 	<meta property="og:image" content="/static/og_image.png" />
 	<meta property="og:description" content="" />
 
@@ -23,7 +23,7 @@
   <script src="/static/react-with-addons-0.13.1.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/highlight.min.js"></script>
 
-  <title>About Infer</title>
+  <title>关于 Infer</title>
   <meta name="description" content="">
 
   <link rel="canonical" href="/docs/about-Infer.html">
@@ -331,7 +331,7 @@
         
         {
           key : "/docs/analyzing-apps-or-projects.html",
-          title : "Analyzing apps or projects",
+          title : "分析 APP 或者其他项目",
           url : "/docs/analyzing-apps-or-projects.html",
         },
         
@@ -448,7 +448,7 @@
         
         {
           key : "/docs/install-from-source.html",
-          title : "Install from source",
+          title : "源码安装",
           url : "/docs/install-from-source.html",
         },
         
@@ -572,7 +572,7 @@
         
         {
           key : "/docs/about-Infer.html",
-          title : "About Infer",
+          title : "关于 Infer",
           url : "/docs/about-Infer.html",
         },
         
@@ -735,7 +735,7 @@
         
         {
           key : "/docs/checkers-bug-types.html",
-          title : "Checkers bug types",
+          title : "校验器报告的问题类型",
           url : "/docs/checkers-bug-types.html",
         },
         
@@ -792,7 +792,7 @@
     },
     getDefaultProps: function() {
       return {
-        currentDoc: "About Infer",
+        currentDoc: "关于 Infer",
         currentGroup: "Foundations",
         data: docnavData,
       }
@@ -859,22 +859,17 @@
 </script>
     <div class="post">
   <header class="post-header">
-    <h1 class="post-title">About Infer</h1>
+    <h1 class="post-title">关于 Infer</h1>
   </header>
 
   <article class="post-content">
    
-      <p>Infer is a static program analyzer for Java, C, and Objective-C, written in <a href="https://ocaml.org/">OCaml</a>.<br>
-Infer is deployed within Facebook and it is running continuously to verify select properties of every code modification for the main Facebook apps for Android and iOS, Facebook Messenger, Instagram, and other apps.
-It can be used for other code too: Infer can analyze also C code and Java code that is not Android.
-At present Infer is tracking problems caused by null pointer dereferences and resource and memory leaks, which cause some of the more important problems on mobile. </p>
+      <p>Infer 是一个静态程序分析工具,可以对 Java、C 和 Objective-C 程序进行分析，此工具是用 <a href="https://ocaml.org/">OCaml</a> 写成的。<br>
+Infer 最早部署在 Facebook 内部，用于发布移动应用之前对每一行代码进行分析，目前 Facebook 使用此工具分析所开发的 Android、iOS 应用,包括 Facebook Messenger、Instagram 和其他一些应用。
+Infer 不仅仅用于移动应用程序的分析，还可以分析  C、Java 等不是 Android 系统的代码。
+目前 Infer 着重于发现一些诸如空指针的访问、资源和内存的泄露等导致手机程序崩溃或性能严重下降的问题。</p>
 
-<p>Infer came to Facebook with the acquisition of the verification startup Monoidics in 2013. 
-Monoidics was itself based on recent
-academic research, particularly on separation logic and bi-abduction.
-Within Facebook, Infer has been undergoing iterative development and changing in response to feedback from developers.
-We are continuing development of Infer as open-source so that others can benefit from using it, and so that we
-can partner with the community on a journey aimed at making program verification technology more broadly practical.  </p>
+<p>Infer 源自 2013 年收购的一家初创企业 Monoidics。Monoidics 本身就是根据最近的学术研究成果，特别是在 separation logic 和 bi-abduction。在 Facebook 内部，Infer 进行持续的迭代开发，并根据从开发者收集的反馈进行相应的调整。开源之后我们将继续开发 Infer，已造福其他使用者，并且我们可以与社区的其他开发者已开发出更好的程序检验技术为目标而为之奋斗。</p>
 
     
   </article>
