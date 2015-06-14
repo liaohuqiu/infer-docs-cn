@@ -1,6 +1,6 @@
 ---
 id: analyzing-apps-or-projects
-title: Analyzing apps or projects
+title: 分析 APP 或者其他项目
 layout: docs
 permalink: /docs/analyzing-apps-or-projects.html
 section: User Guide
@@ -8,15 +8,13 @@ section_order: 01
 order: 02
 ---
 
-To analyze files with Infer you can use the compilers `javac` and `clang`. You can also use Infer with `gcc`, however, internally Infer will use `clang` to compile your code. So, it may not work if your code does not compile with `clang`. 
+使用 Infer 分析文件时，你可以使用 `javac` 或者 `clang` 编译器，当然你也可以使用 `gcc`。但在 Infer 内部会使用 `clang` 去编译你的代码。所以如果你的代码无法用 `clang` 编译的话，可能无法使用 Infer。
 
-Moreover, you can run Infer with a variety of build systems. Notice that you can run infer faster by running the compilation command in parallel, e.g. `infer -- make -j8`.
-Please also take into account that if you wish to analyze a project, you should probably do `clean` beforehand so that the compiler compiles all the files and so Infer also analyses all the files (see the [previous section](docs/infer-workflow.html)).
+除此之外，你还可以和其他许多编译系统一起使用 Infer。注意一点，你可以通过并行编译命令来加快 Infer 的运行检测，比如：`infer -- make -j8`。
 
-Here is an overview of the build systems supported by Infer. You can
-get more information about how a particular build system is supported
-by running `infer --help -- <build system>`, for instance `infer
---help -- gradle`.
+如果你想分析整个项目的话，分析之前，记得清理项目。这样编译器才会重新编译所有文件，Infer 才会分析这些编译的文件（具体看 [这个章节](docs/infer-workflow.html)）。
+
+以下是 Infer 目前支持的编译系统。对于某个特定的系统，你可以通过 `infer --help -- <build system>` 了解更多具体的信息。比如： `infer --help -- gradle`。
 
 ### Gradle
 
@@ -38,9 +36,9 @@ infer -- mvn <maven target>
 
 ### Xcodebuild
 
-Infer can analyze apps built using `xcodebuild`. Only `.m` and `.c`
-files will be analyzed; `.cpp`, `.cc` and `.mm` files will be
-ignored. For instance, for an iOS app:
+Infer 可是分析使用 `xcodebuild` 构建的应用，但是只分析 `.m` 和 `.c` 文件，其他的文件，比如：`.cpp`，`.cc`，`.mm` 文件会被忽略。
+
+比如一个 iOS 应用：
 
 ```bash
 infer -- xcodebuild -target <target name> -configuration <build configuration> -sdk iphonesimulator
@@ -48,7 +46,7 @@ infer -- xcodebuild -target <target name> -configuration <build configuration> -
 
 ### Make
 
-Infer can analyze projects that compile with `make`. If there are C++ files in the project, they will be ignored.
+Infer 可以分析使用 `make` 构建的项目，项目中的 C++ 文件会被忽略。
 
 ```bash
 infer -- make <make target>
