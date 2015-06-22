@@ -1,57 +1,49 @@
 ---
 layout: support
-title: Infer | Need help?
+title: Infer | 帮助和支持
 id: support
 category: support
 ---
 
-## Need help?
+## 帮助和支持
 
-Do not hesitate to ask questions using the following channels, or to
-submit pull request!
+欢迎通过以下渠道反馈你遇到的问题。当然对于PR，我们更加欢迎。
 
 ### GitHub issues
 
-The [GitHub issues](https://github.com/facebook/Infer/issues) page is
-a good place to ask questions, find answers, and report issues.
+[GitHub issues](https://github.com/facebook/Infer/issues) 是一个提问，查找答案和提交新 issue 的好地方，欢迎你来。
 
 ### Twitter
 
-Keep up to date with the latest Infer news on
-[@fbinfer](https://twitter.com/fbinfer).
+关注 [@fbinfer](https://twitter.com/fbinfer)，获取关于 Infer 的最新的新闻。
 
 ### IRC
 
-Our IRC channel is [#infer](irc://chat.freenode.net/infer) on
-Freenode.net.
+Freenode.net 上的 IRC 频道 [#infer](irc://chat.freenode.net/infer)。
 
+## 常见问题集锦
 
-## Troubleshooting
+### 运行 "infer -- \<build command\>" 失败
 
-### Running "infer -- \<build command\>" fails.
+请确认：
 
-Please make sure that:
+- \<build command\> 编译命令本身运行没问题
+- `infer` 能在 `$PATH` 变量中找到。(试试 `which infer`，看 `infer` 所在的路径)
 
-- \<build command\> runs successfully on its own.
-- `infer` is in your `$PATH` (try `which infer`, it should show where `infer` is located)
+### "ImportError: No module named xml.etree.ElementTree"
 
-### Running Infer fails with "ImportError: No module named xml.etree.ElementTree"
-
-Make sure that the `xml` Python package is installed. For instance, on
-OpenSuse 13.1, it is provided by the
+确认 Python 的 `xml` 包已经安装。比如在 OpenSuse 13.1, 在
 [`python-xmldiff`](http://software.opensuse.org/download.html?project=XML&package=python-xmldiff)
-package.
+这个包中。
 
-### My problem is not listed here
+### 其他问题
 
-Do not hesitate to [contact us](support.html#need-help?).
-
+其他不在以上列表中的问题，请通过以上提到的方式联系我们。
 
 ## FAQ
 
-Here are some frequently asked questions. More to come.
+常见问题解答。随时更新。
 
-### Is Infer supported for Windows?
+### Windows 上能用吗
 
-Infer is not supported on Windows at the moment. You may try
-installing Infer on a Linux virtual machine.
+抱歉，暂不支持，用 Windows 的话，可以试试建一个 Linux 虚拟机试试。

@@ -1,6 +1,6 @@
 ---
 id: advanced-features
-title: Advanced usage
+title: 高级用法
 layout: docs
 permalink: /docs/advanced-features.html
 section: User Guide
@@ -8,15 +8,12 @@ section_order: 01
 order: 06
 ---
 
-In this section we discuss how to use Infer if you wish to make contributions to it or just look under the hood
-to learn more about how it is working.
-There are, for instance, debug options and ways to obtain the specs from the methods.
+如果你想详细了解 Infer 具体是如何工作的，或者想为 Infer 添砖加瓦，这个章节我们会具体讨论诸如调试选项，获取方法详细参数指标的办法等细节问题。
 
-## Structure of the results folder
+## 结果文件夹结构
 
-After a successful Infer run, a directory is created to store the
-results of the analysis. By default this directory is called
-`infer-out`.
+检测成功运行之后，分析结果会被放入一个默认文件夹，`infer-out`：
+
 
 ```
 infer-out
@@ -32,20 +29,23 @@ infer-out
 └── stats.json
 ```
 
-- `captured/` contains information for each file analyzed by Infer. See [below](docs/advanced-features.html#captured-folder) for more information.
-- The `log/`, `multicore/`, and `sources/` folders are used internally to drive the analyzer.
-- `specs/` contains the [specs](docs/advanced-features.html#print-the-specs) of each function that was analyzed, as inferred by Infer.
-- `bugs.txt`, `report.csv`, and `report.json` contain the Infer reports in three different formats.
-- `procs.csv` and `stats.json` contain debug information about the run.
+
+- `captured/` 包含了 Infer 分析需要的每个文件的信息，具体看 [下面](docs/advanced-features.html#captured-folder) for more information。
+- `log/`, `multicore/`, 和 `sources/` 文件夹是分析器内部驱动所需。
+- `specs/` 包含了所分析的各个方法的 [参数指标](docs/advanced-features.html#print-the-specs)，Infer 据此推断文件。
+- `bugs.txt`, `report.csv`, 和 `report.json` 为三种不同格式的分析结果。
+- `procs.csv` and `stats.json` 包含 debug 信息的分析结果。
 
 
-### Captured folder
+### 捕获文件夹
 
-Inside the folder `infer-out/captured` there is a folder for each captured file. Assume we captured a file called `example.c`. Then, Infer creates the following files inside the folder `infer-out/captured/example.c/`:
+每个被捕获进行分析的文件在 `infer-out/captured` 下都有一个对应的文件夹。比如有一个文件名为 `example.c`，那么便会有一个文件夹 `infer-out/captured/example.c/`：
 
 - `example.c.cfg`
 - `example.c.cg`
 - `example.c.tenv`
+
+`.cfg`， `.cg` 和 `.tenv` 后缀的文件包含了所分析文件的中间表示，这些数据传送给 Infer 的后端程序进行分析。 The files contain serialized OCaml data structures. The `.cfg` file contains a control flow graph for each function or method implemented in the file. The file `.cg` contains the call graph of the functions defined or called from that file. Finally, the file `.tenv` contains all the types that are defined or used in the file.
 
 The files `.cfg`, `.cg` and `.tenv` contain the intermediate representation of that file. This data is passed to the backend of Infer, which then performs the analysis. The files contain serialized OCaml data structures. The `.cfg` file contains a control flow graph for each function or method implemented in the file. The file `.cg` contains the call graph of the functions defined or called from that file. Finally, the file `.tenv` contains all the types that are defined or used in the file.
 

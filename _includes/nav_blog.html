@@ -41,10 +41,10 @@ var BlogNav = React.createClass({displayName: "BlogNav",
     return (
       React.createElement("div", {className: navClasses}, 
         React.createElement("section", null, 
-          React.createElement("h3", null, "Recent Posts"), 
+          React.createElement("h3", null, "最新文章"), 
           React.createElement("ul", null, 
             this.props.data.map(this.renderNavItems), 
-            React.createElement("li", null, React.createElement("a", {href: "/blog/all.html"}, "All posts"))
+            React.createElement("li", null, React.createElement("a", {href: "/blog/all.html"}, "所有文章"))
           )
         ), 
         React.createElement("div", {className: classes, onClick: this.handleSlide}, React.createElement("i", {className: "fa fa-chevron-circle-down"}))
