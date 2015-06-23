@@ -119,7 +119,9 @@ InferPrint -results_dir infer-out
 
 ## 运行内部测试用例
 
-There are many tests in the Infer code base that check that Infer behaves correctly on small program examples. The tests use [Buck](http://buckbuild.com/), another Facebook's open source tool for building projects. We provide the script `inferTest` to run the tests, which requires buck to be in your PATH.
+在 Infer 的代码中，有很多测试用例。我们使用这些测试用例来检验 Infer 行为的正确性。
+
+运行这些测试用例时候，我们使用 Facebook 的另外一个开源项目 [Buck](http://buckbuild.com/) 来构建项目，我们有一个 `inferTest` 脚本来运行这些测试用例。使用这个脚本需要确保 buck 路径在 PATH 变量中。
 
 
 ```bash
