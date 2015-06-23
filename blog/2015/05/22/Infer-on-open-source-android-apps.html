@@ -7,9 +7,9 @@
   
 	<meta property="og:url" content="/blog/2015/05/22/Infer-on-open-source-android-apps.html" />
 	<meta property="og:site_name" content="Infer"/>
-	<meta property="og:title" content="Infer on Open Source Android Apps" />
+	<meta property="og:title" content="检测一些开源 Android 应用" />
 	<meta property="og:image" content="/static/og_image.png" />
-	<meta property="og:description" content="We ran Infer on a few open source Android apps with the aim of finding some bugs and getting them fixed. Some of those reports got indeed fixed. " />
+	<meta property="og:description" content="我们用 Infer 检测一些开源的 Android 应用，试着找出并修复一些问题。到现在为止，确实修复了一些问题。" />
 
   <link rel="stylesheet" type="text/css" media="screen" href="/css/main.css">
 	<link rel="stylesheet" type="text/css" href="//cloud.typography.com/7491092/701726/css/fonts.css" />
@@ -23,8 +23,8 @@
   <script src="/static/react-with-addons-0.13.1.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/highlight.min.js"></script>
 
-  <title>Infer on Open Source Android Apps</title>
-  <meta name="description" content="We ran Infer on a few open source Android apps with the aim of finding some bugs and getting them fixed. Some of those reports got indeed fixed. ">
+  <title>检测一些开源 Android 应用</title>
+  <meta name="description" content="我们用 Infer 检测一些开源的 Android 应用，试着找出并修复一些问题。到现在为止，确实修复了一些问题。">
 
   <link rel="canonical" href="/blog/2015/05/22/Infer-on-open-source-android-apps.html">
   <link rel="alternate" type="application/rss+xml" title="Infer" href="/feed.xml" />
@@ -169,7 +169,7 @@
     
     {
       key : "/blog/2015/05/22/Infer-on-open-source-android-apps.html",
-      title : "Infer on Open Source Android Apps",
+      title : "检测一些开源 Android 应用",
       url : "/blog/2015/05/22/Infer-on-open-source-android-apps.html",
     }
     
@@ -184,7 +184,7 @@ var BlogNav = React.createClass({displayName: "BlogNav",
   },
   getDefaultProps: function() {
     return {
-      currentDoc: "Infer on Open Source Android Apps",
+      currentDoc: "检测一些开源 Android 应用",
       data: blognavData,
     }
   },
@@ -205,10 +205,10 @@ var BlogNav = React.createClass({displayName: "BlogNav",
     return (
       React.createElement("div", {className: navClasses}, 
         React.createElement("section", null, 
-          React.createElement("h3", null, "Recent Posts"), 
+          React.createElement("h3", null, "最新文章"), 
           React.createElement("ul", null, 
             this.props.data.map(this.renderNavItems), 
-            React.createElement("li", null, React.createElement("a", {href: "/blog/all.html"}, "All posts"))
+            React.createElement("li", null, React.createElement("a", {href: "/blog/all.html"}, "所有文章"))
           )
         ), 
         React.createElement("div", {className: classes, onClick: this.handleSlide}, React.createElement("i", {className: "fa fa-chevron-circle-down"}))
@@ -238,6 +238,7 @@ function blogNavRender(blognavData) {
 }
 blogNavRender(blognavData);
 </script>
+
     <div class="post">
   
   <header class="post-header">
@@ -249,20 +250,21 @@ blogNavRender(blognavData);
     
     <p class="post-authorName">Dulma Rodriguez</p>
     
-    <h1 class="post-title">Infer on Open Source Android Apps</h1>
+    <h1 class="post-title">检测一些开源 Android 应用</h1>
     <p class="post-meta">Posted May 22, 2015</p>
   </header>
 
   <article class="post-content">
    
-      <p>We ran Infer on a few open source Android apps with the aim of finding some bugs 
-and getting them fixed. Some of those reports got indeed fixed. </p>
+      <p>我们用 Infer 检测一些开源的 Android 应用，试着找出并修复一些问题。到现在为止，确实修复了一些问题。</p>
 
-<p>One of the apps analyzed was the search engine <a href="https://github.com/duckduckgo/android">DuckDuckGo</a>. We found that many database cursors were not closed. Soon after we reported the issue, a developer <a href="https://github.com/duckduckgo/android/commit/2c2d79f990dde0e44cdbecb1925b73c63bf9141d">fixed it</a>.</p>
+<p>其中一个应用就是搜索引擎 <a href="https://github.com/duckduckgo/android">DuckDuckGo</a>。 我们发现有很多数据库的 cursor 没有及时关闭。我们报告了这个问题之后，一个开发者很快就<a href="https://github.com/duckduckgo/android/commit/2c2d79f990dde0e44cdbecb1925b73c63bf9141d">修复了这个问题</a>.</p>
 
-<p>We also analyzed the popular email client <a href="https://github.com/k9mail/k-9">k-9</a>. We found a file not closed leak and reported it. Interestingly, a developer <a href="https://github.com/k9mail/k-9/commit/d538278be62687758c956af62ee47c53637d67d8">fixed it</a> by not writing some logging info to the file at all. So Infer helped them to simplify their code.</p>
+<p>我们也分析了很流行的邮件客户端 <a href="https://github.com/k9mail/k-9">k-9</a>。我们发现有一个文件没关闭导致泄露，我们也提交了一个 issue。有意思的是，一个开发者<a href="https://github.com/k9mail/k-9/commit/d538278be62687758c956af62ee47c53637d67d8">修复了这个问题</a>，修复方式是不往这个文件写任何日志信息。看吧，Infer 帮助他们简化了他们的代码。</p>
 
 <p><a href="https://github.com/siacs/Conversations">Conversations</a> is an open source XMPP/Jabber client for Android smart phones. We analyzed it as well and found a file not closed leak, which was also <a href="https://github.com/Flowdalic/MemorizingTrustManager/commit/190c57a9a8385f4726c817924b123438af6adc2f">fixed</a>.</p>
+
+<p><a href="https://github.com/siacs/Conversations">Conversations</a> 是一个开源的 XMPP/Jabber Android 应用。我们分析这个项目时，也发现了一个文件泄露。<a href="https://github.com/Flowdalic/MemorizingTrustManager/commit/190c57a9a8385f4726c817924b123438af6adc2f">当然，现在修复了</a>。</p>
 
     
   </article>
