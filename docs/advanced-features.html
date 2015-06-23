@@ -954,7 +954,9 @@ this<span class="p">|</span>-&gt;<span class="o">{</span>Hello.x:newX<span class
 </code></pre></div>
 <h2 id="运行内部测试用例">运行内部测试用例</h2>
 
-<p>There are many tests in the Infer code base that check that Infer behaves correctly on small program examples. The tests use <a href="http://buckbuild.com/">Buck</a>, another Facebook&#39;s open source tool for building projects. We provide the script <code>inferTest</code> to run the tests, which requires buck to be in your PATH.</p>
+<p>在 Infer 的代码中，有很多测试用例。我们使用这些测试用例来检验 Infer 行为的正确性。</p>
+
+<p>测试使用 Facebook 的另外一个开源项目 <a href="http://buckbuild.com/">Buck</a> 来构建项目，我们有一个 <code>inferTest</code> 脚本来运行这些测试用例。使用这个脚本需要确保 buck 路径在 PATH 变量中。</p>
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">inferTest java    <span class="c"># Run the tests about Java analysis</span>
 inferTest clang   <span class="c"># Run the tests about C and Objective-C analysis</span>
 inferTest c       <span class="c"># Run the tests about C analysis</span>
