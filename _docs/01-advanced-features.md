@@ -8,7 +8,7 @@ section_order: 01
 order: 06
 ---
 
-如果你想详细了解 Infer 具体是如何工作的，或者想为 Infer 添砖加瓦，这个章节我们会具体讨论诸如调试选项，获取方法详细参数指标的办法等细节问题。
+如果你想详细了解 Infer 具体是如何工作的，或者想为 Infer 添砖加瓦，这个章节我们会具体讨论诸如调试选项，获取方法详细定义的办法等细节问题。
 
 ## 结果文件夹结构
 
@@ -30,7 +30,7 @@ infer-out
 ```
 
 
-- `captured/` 包含了 Infer 分析需要的每个文件的信息，具体看 [下面](docs/advanced-features.html#captured-folder) for more information。
+- `captured/` 包含了 Infer 分析需要的每个文件的信息，具体看 [下面](docs/advanced-features.html#captured-folder)
 - `log/`, `multicore/`, 和 `sources/` 文件夹是分析器内部驱动所需。
 - `specs/` 包含了所分析的各个方法的 [参数指标](docs/advanced-features.html#print-the-specs)，Infer 据此推断文件。
 - `bugs.txt`, `report.csv`, 和 `report.json` 为三种不同格式的分析结果。
@@ -45,29 +45,24 @@ infer-out
 - `example.c.cg`
 - `example.c.tenv`
 
-`.cfg`， `.cg` 和 `.tenv` 后缀的文件包含了所分析文件的中间表示，这些数据传送给 Infer 的后端程序进行分析。 The files contain serialized OCaml data structures. The `.cfg` file contains a control flow graph for each function or method implemented in the file. The file `.cg` contains the call graph of the functions defined or called from that file. Finally, the file `.tenv` contains all the types that are defined or used in the file.
-
-The files `.cfg`, `.cg` and `.tenv` contain the intermediate representation of that file. This data is passed to the backend of Infer, which then performs the analysis. The files contain serialized OCaml data structures. The `.cfg` file contains a control flow graph for each function or method implemented in the file. The file `.cg` contains the call graph of the functions defined or called from that file. Finally, the file `.tenv` contains all the types that are defined or used in the file.
+`.cfg`， `.cg` 和 `.tenv` 后缀的文件包含了所分析文件的中间表示，这些数据传送给 Infer 的后端程序进行分析。 这些文件包含了序列化后的 OCaml 数据结构。`.cfg` 文件包含了代码文件中每个函数或方法的控制流程。`.cg` 包含了代码文件中定义的函数的调用关系，以及该文件对外部函数的调用关系。 `.tenv` 包含了代码文件中定义和用到的类型。
 
 
+## Debug 模式
 
-## Debug mode
-
-With the debug option enabled `infer --debug -- <build command>`, Infer outputs debug information. When using `make` or `clang`, one needs an extra debug argument for the frontend:
+通过 debug 选项 `infer --debug -- <build command>` 可输出调试信息。当使用 `make` 和 `clang` 的时候，需要加一个额外的前端调试选项：
 
 ```bash
 infer --frontend_debug --debug -- make example.c
 ```
 
-In each captured folder, we obtain the file `icfg.dot`, which is the graphical representation of the file `.cfg` and the file
-`call_graph.dot`, that is the graphical representation of the call graph.
+在每个捕获文件夹中，会有一个 `icfg.dot` 文件，这个文件是 `.cfg` 和 `call_graph.dot` 文件的图表示，也就是说，这是调用关系的图表示。
 
+另外，在 `infer-out/captured` 文件夹下，每个文件还有一个 html 页面文件。这个文件包含了源代码文件，文件的每一行，都有链接指向该行代码对应的控制流程的节点。点击各个节点的链接可以查看各个节点的对应的符号执行的详细情况。如果开启了 `--no_test` 选项，节点详细情况页面将会包含打印出来的所有符号执行的情况。
 
-Moreover, we obtain an html page for each captured file inside `infer-out/captured`. This html file contains the source file. In each line of the file there are links to the nodes of the control flow graph that correspond to that line of code. So one can see what the translation looks like. Moreover, when you click on those links you can see details of the symbolic execution of that particular node. If the option `--no_test` is also passed to `infer`, then the page pointed to from the nodes contains the printout of the whole symbolic execution.
+## 输出方法的详细定义
 
-## Print the specs
-
-It is also possible to print the specs created by Infer using the command `InferPrint`. You can print one particular spec that corresponds to one method, or you can print all the specs in the results directory. Let us look at an example:
+使用 `InferPrint` 可以输出 Infer 创建的方法的详细定义，你可以输出一个方法或者所有方法的详细定义，如下：
 
 ```java
 class Hello {
@@ -78,19 +73,19 @@ class Hello {
 }
 ```
 
-We run Infer on this example with:
+运行：
 
 ```bash
 	infer -- javac Hello.java
 ```
 
-Infer saves the spec for the method `setX` in `infer-out/specs` and we can print it with the command:
+`setX` 的详细定义储存在 `infer-out/specs`，我们可以如下打印输出：
 
 ```bash
 	InferPrint infer-out/specs/Hello.setX{98B5}:void.specs
 ```
 
-The convention for method names in Java is `<class name>.<method name>`. This outputs the following:
+Java 方法的命名规则为，`<class name>.<method name>`，输出如下：
 
 ```bash
 Procedure: void Hello.setX(int)
@@ -114,19 +109,18 @@ this|->{Hello.x:newX}:
 ----------------------------------------------------------------
 ```
 
-which expresses the fact that `this` needs to be allocated at the beginning of the method, and that at the end of the method the field `x` is equal to `newX`.
+以上可见，方法执行最开始，`this` 需要初始化，在方法最后，`x` 和 `newX` 是相等的。
 
-
-Moreover, you can print all the specs in the results directory with the command:
+如果要打印结果文件夹下所有的方法的详细定义：
 
 ```bash
 InferPrint -results_dir infer-out
 ```
 
-
-## Run internal tests
+## 运行内部测试用例
 
 There are many tests in the Infer code base that check that Infer behaves correctly on small program examples. The tests use [Buck](http://buckbuild.com/), another Facebook's open source tool for building projects. We provide the script `inferTest` to run the tests, which requires buck to be in your PATH.
+
 
 ```bash
 inferTest java    # Run the tests about Java analysis
