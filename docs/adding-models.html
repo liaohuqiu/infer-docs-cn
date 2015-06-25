@@ -7,7 +7,7 @@
   
 	<meta property="og:url" content="/docs/adding-models.html" />
 	<meta property="og:site_name" content="Infer"/>
-	<meta property="og:title" content="Adding models" />
+	<meta property="og:title" content="模块" />
 	<meta property="og:image" content="/static/og_image.png" />
 	<meta property="og:description" content="" />
 
@@ -23,7 +23,7 @@
   <script src="/static/react-with-addons-0.13.1.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.5/highlight.min.js"></script>
 
-  <title>Adding models</title>
+  <title>模块</title>
   <meta name="description" content="">
 
   <link rel="canonical" href="/docs/adding-models.html">
@@ -526,7 +526,7 @@
         
         {
           key : "/docs/adding-models.html",
-          title : "Adding models",
+          title : "模块",
           url : "/docs/adding-models.html",
         }
         
@@ -792,7 +792,7 @@
     },
     getDefaultProps: function() {
       return {
-        currentDoc: "Adding models",
+        currentDoc: "模块",
         currentGroup: "User Guide",
         data: docnavData,
       }
@@ -859,14 +859,16 @@
 </script>
     <div class="post">
   <header class="post-header">
-    <h1 class="post-title">Adding models</h1>
+    <h1 class="post-title">模块</h1>
   </header>
 
   <article class="post-content">
    
-      <h2 id="why-do-we-need-models">Why do we need models</h2>
+      <h2 id="为什么需要模块">为什么需要模块</h2>
 
-<p>When analyzing projects with call dependencies between functions, Infer follows the call graph to decide in which order analyze these functions. The main goal is to use the analysis summary of a function wherever this function is called. On the following example:</p>
+<p>当我们分析一个项目时， 函数之间相互依赖。Infer 会跟随调用关系决定以什么样的一个顺序分析这些函数。这样做的目的是不管在哪里调用该方法时，总能用上这个方法的分析概要。</p>
+
+<p>我们举个例子来说明：</p>
 <div class="highlight"><pre><code class="language-C" data-lang="C"><span class="kt">int</span> <span class="nf">foo</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;</span> <span class="mi">42</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">return</span> <span class="n">x</span><span class="p">;</span>
@@ -883,9 +885,9 @@
   <span class="k">return</span> <span class="n">foo</span><span class="p">(</span><span class="mi">54</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>Infer starts with the analysis on <code>foo</code> and detect that this function either returns <code>0</code> if the argument is greater than or equal to <code>42</code>, or returns the value of the argument otherwise. With this information, Infer detects that <code>bar</code> always returns <code>24</code> and <code>baz</code> always returns <code>0</code>.</p>
+<p>从 <code>foo</code> 开始，Infer 发现这个函数要么在参数小于 <code>42</code> 时返回 <code>0</code>，要么直接返回参数的值。根据这个信息，Infer 便可以发现，<code>bar</code> 总是返回 <code>24</code> 而 <code>baz</code> 总是返回 <code>0</code>。</p>
 
-<p>Now, it may happen that the code of some function is not available during the analysis. For example, this happens when a project uses pre-compiled libraries. The most typical case is the use of the standard library like in the following example:</p>
+<p>当然，在分析的过程中，一些函数的代码可能不存在。比如，一个使用预编译库的项目，最典型的情况就是我们是一共标准库的时候，如下：</p>
 <div class="highlight"><pre><code class="language-C" data-lang="C"><span class="cp">#include &lt;stdlib.h&gt;</span>
 
 <span class="kt">int</span><span class="o">*</span> <span class="nf">create</span><span class="p">()</span> <span class="p">{</span>
@@ -904,11 +906,11 @@
   <span class="k">return</span> <span class="n">p</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>Here, Infer will start with the analysis of <code>create</code> but will not find the source code for <code>malloc</code>. To deal with this situation, Infer relies on models of the missing functions to proceed with the analysis. The function <code>malloc</code> is internally modeled as either returning <code>NULL</code>, or returning a valid and allocated pointer. Similarly, the function <code>exit</code> is modeled as terminating the execution. Using these two models, Infer detects that <code>create</code> always returns an allocated pointer and that <code>my_function</code> is safe.</p>
+<p>在上面的例子中，当 Infer 首先会分析 <code>create</code> 函数，当这时 <code>malloc</code> 对应的源码是找不到的。为了处理这种情况，Infer 依赖这些没有源码的函数的模块才能进行分析。<code>malloc</code> 函数在内部模块化为要么返回 <code>NULL</code> 要么返回一个有效的分配后的内存指针。类似地，<code>exit</code> 函数被模块化为退出执行。使用这两个模型，Infer 发现 <code>create</code> 总是发现一个分配后的指针，<code>my_function</code> 是安全的。</p>
 
-<p>At this point, it is important to note that missing source code and missing models do not make the analysis fail. Missing functions are treated as having no effect. However, even though skipping these missing functions is fine in most cases, there can be cases where it affects the quality of the analysis. For example, missing models can lead to incorrect bug reports.</p>
+<p>这时，我们必须要注意，缺失源码和模块都不会导致分析失败。源码缺失的函数被当做无效函数。虽然在大多数情况下，会直接跳过这些函数不会有问题，但这有可能影响到分析的质量。比如缺失的模块将有可能导致生成不正确的 bug 报告。</p>
 
-<p>Consider the case of a function <code>lib_exit</code> having the same semantic as <code>exit</code> but defined in an pre-compiled library not part of the project being analyzed:</p>
+<p>我们现在来考虑这样一种情况：有一个函数 <code>lib_exit</code> 和 <code>exit</code> 有相同的作用，不过这个函数被定义在一个不属于这个项目的预编译库中。</p>
 <div class="highlight"><pre><code class="language-C" data-lang="C"><span class="kt">void</span> <span class="nf">lib_exit</span><span class="p">(</span><span class="kt">int</span><span class="p">);</span>
 
 <span class="kt">int</span><span class="o">*</span> <span class="nf">create</span><span class="p">()</span> <span class="p">{</span>
@@ -917,9 +919,9 @@
   <span class="k">return</span> <span class="n">p</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>In this case, Infer will not be able to know that the return statement is only possible in the case where <code>p</code> is not null. When analyzing <code>my_function</code>, Infer will consider the null case and report a null dereference error in the call to <code>assign(42, p)</code>.</p>
+<p>这时，Infer 只有在 <code>p</code> 非空的时候，才有可能知道返回值。当分析 <code>my_function</code> 时，Infer 会考虑参数为空的情况，并在调用 <code>assign(42, p)</code> 处报一个空引用错误。</p>
 
-<p>Similarly, considering a function <code>lib_alloc</code> equivalent to <code>malloc</code>, and the function <code>create</code> now defined as:</p>
+<p>相同地， 我们有 <code>lib_alloc</code> 和 <code>malloc</code>，<code>create</code> 定义如下：</p>
 <div class="highlight"><pre><code class="language-C" data-lang="C"><span class="kt">int</span><span class="o">*</span> <span class="nf">lib_alloc</span><span class="p">(</span><span class="kt">int</span><span class="p">);</span>
 
 <span class="kt">int</span><span class="o">*</span> <span class="nf">create</span><span class="p">()</span> <span class="p">{</span>
@@ -927,13 +929,13 @@
   <span class="k">return</span> <span class="n">p</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>Then Infer will not report any null dereference in <code>my_function</code>.</p>
+<p>这时，在 <code>my_function</code> 却不会报任何空引用错误。因为 lib_alloc 源码缺失，返回总是 <code>NULL</code>。</p>
 
-<h2 id="examples-of-models">Examples of models</h2>
+<h2 id="示例">示例</h2>
 
-<h3 id="some-models-for-c">Some models for C</h3>
+<h3 id="c">C</h3>
 
-<p>Adding new models is easy. The models for C can be found in <a href="https://github.com/facebook/infer/tree/master/infer/models/c/src"><code>infer/models/c/src/</code></a>. The file <a href="https://github.com/facebook/infer/blob/master/infer/models/c/src/libc_basic.c"><code>libc_basic.c</code></a> contains models for some of the most commonly encountered functions from the C standard library. For example, the function <code>xmalloc</code>, which is essentially the same function as <code>create</code> defined above, is modeled by:</p>
+<p>添加新的模块很简单，C 的模块在 <a href="https://github.com/facebook/infer/tree/master/infer/models/c/src"><code>infer/models/c/src/</code></a>. The file <a href="https://github.com/facebook/infer/blob/master/infer/models/c/src/libc_basic.c"><code>libc_basic.c</code></a>。这包含了为 C 标准库中最常用的函数定义的模块。 比如，<code>xmalloc</code> ，本质上和上述 <code>create</code> 是一样的。模块定义如下：</p>
 <div class="highlight"><pre><code class="language-C" data-lang="C"><span class="kt">void</span> <span class="o">*</span><span class="nf">xmalloc</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">size</span><span class="p">)</span> <span class="p">{</span>
   <span class="kt">void</span> <span class="o">*</span><span class="n">ret</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="n">size</span><span class="p">);</span>
   <span class="n">INFER_EXCLUDE_CONDITION</span><span class="p">(</span><span class="n">ret</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">);</span>
