@@ -1,6 +1,6 @@
 ---
 id: adding-models
-title: Adding models
+title: 模块
 layout: docs
 permalink: /docs/adding-models.html
 section: User Guide
@@ -8,9 +8,12 @@ section_order: 01
 order: 07
 ---
 
-## Why do we need models
+## 为什么需要模块
 
-When analyzing projects with call dependencies between functions, Infer follows the call graph to decide in which order analyze these functions. The main goal is to use the analysis summary of a function wherever this function is called. On the following example:
+当我们分析一个项目时， 函数之间相互依赖。Infer 会跟随调用关系决定以什么样的一个顺序分析这些函数。这样做的目的是不管在哪里调用该方法时，总能用上这个方法的分析概要。
+
+我们举个例子来说明：
+
 
 ```C
 int foo(int x) {
@@ -30,9 +33,9 @@ int baz() {
 }
 ```
 
-Infer starts with the analysis on `foo` and detect that this function either returns `0` if the argument is greater than or equal to `42`, or returns the value of the argument otherwise. With this information, Infer detects that `bar` always returns `24` and `baz` always returns `0`.
+从 `foo` 开始，Infer 发现这个函数要么在参数小于 `42` 时返回 `0`，要么直接返回参数的值。根据这个信息，Infer 便可以发现，`bar` 总是返回 `24` 而 `baz` 总是返回 `0`。
 
-Now, it may happen that the code of some function is not available during the analysis. For example, this happens when a project uses pre-compiled libraries. The most typical case is the use of the standard library like in the following example:
+当然，在分析的过程中，一些函数的代码可能不存在。比如，一个使用预编译库的项目，最典型的情况就是我们是一共标准库的时候，如下：
 
 ```C
 #include <stdlib.h>
@@ -54,11 +57,11 @@ int* my_function() {
 }
 ```
 
-Here, Infer will start with the analysis of `create` but will not find the source code for `malloc`. To deal with this situation, Infer relies on models of the missing functions to proceed with the analysis. The function `malloc` is internally modeled as either returning `NULL`, or returning a valid and allocated pointer. Similarly, the function `exit` is modeled as terminating the execution. Using these two models, Infer detects that `create` always returns an allocated pointer and that `my_function` is safe.
+在上面的例子中，当 Infer 首先会分析 `create` 函数，当这时 `malloc` 对应的源码是找不到的。为了处理这种情况，Infer 依赖这些没有源码的函数的模块才能进行分析。`malloc` 函数在内部模块化为要么返回 `NULL` 要么返回一个有效的分配后的内存指针。类似地，`exit` 函数被模块化为退出执行。使用这两个模型，Infer 发现 `create` 总是发现一个分配后的指针，`my_function` 是安全的。
 
-At this point, it is important to note that missing source code and missing models do not make the analysis fail. Missing functions are treated as having no effect. However, even though skipping these missing functions is fine in most cases, there can be cases where it affects the quality of the analysis. For example, missing models can lead to incorrect bug reports.
+这时，我们必须要注意，缺失源码和模块都不会导致分析失败。源码缺失的函数被当做无效函数。虽然在大多数情况下，会直接跳过这些函数不会有问题，但这有可能影响到分析的质量。比如缺失的模块将有可能导致生成不正确的 bug 报告。
 
-Consider the case of a function `lib_exit` having the same semantic as `exit` but defined in an pre-compiled library not part of the project being analyzed:
+我们现在来考虑这样一种情况：有一个函数 `lib_exit` 和 `exit` 有相同的作用，不过这个函数被定义在一个不属于这个项目的预编译库中。
 
 ```C
 void lib_exit(int);
@@ -70,9 +73,9 @@ int* create() {
 }
 ```
 
-In this case, Infer will not be able to know that the return statement is only possible in the case where `p` is not null. When analyzing `my_function`, Infer will consider the null case and report a null dereference error in the call to `assign(42, p)`.
+这时，Infer 只有在 `p` 非空的时候，才有可能知道返回值。当分析 `my_function` 时，Infer 会考虑参数为空的情况，并在调用 `assign(42, p)` 处报一个空引用错误。
 
-Similarly, considering a function `lib_alloc` equivalent to `malloc`, and the function `create` now defined as:
+相同地， 我们有 `lib_alloc` 和 `malloc`，`create` 定义如下：
 
 ```C
 int* lib_alloc(int);
@@ -83,13 +86,13 @@ int* create() {
 }
 ```
 
-Then Infer will not report any null dereference in `my_function`.
+这时，在 `my_function` 却不会报任何空引用错误。因为 lib_alloc 源码缺失，返回总是 `NULL`。
 
-## Examples of models
+## 示例
 
-### Some models for C
+### C
 
-Adding new models is easy. The models for C can be found in [`infer/models/c/src/`](https://github.com/facebook/infer/tree/master/infer/models/c/src). The file [`libc_basic.c`](https://github.com/facebook/infer/blob/master/infer/models/c/src/libc_basic.c) contains models for some of the most commonly encountered functions from the C standard library. For example, the function `xmalloc`, which is essentially the same function as `create` defined above, is modeled by:
+添加新的模块很简单，C 的模块在 [`infer/models/c/src/`](https://github.com/facebook/infer/tree/master/infer/models/c/src). The file [`libc_basic.c`](https://github.com/facebook/infer/blob/master/infer/models/c/src/libc_basic.c)。这包含了为 C 标准库中最常用的函数定义的模块。 比如，`xmalloc` ，本质上和上述 `create` 是一样的。模块定义如下：
 
 ```C
 void *xmalloc(size_t size) {
